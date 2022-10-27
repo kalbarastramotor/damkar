@@ -24,6 +24,9 @@ class Office extends BaseController
 
     public function index()
     {
+        // echo "<pre>";
+        // print_r( $_SESSION);
+        // die();
         $data = array(
             "header" => $this->data_session,
             "title" => "Data Dealer",

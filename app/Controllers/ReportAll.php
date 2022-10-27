@@ -131,21 +131,21 @@ class ReportAll extends BaseController
         $_POST['role_code'] =  $sess['rolecode'];
 
 
-        if($_POST['status']==2){
-            $historyApproval = $this->eventHistoryModel->getApproval($_POST['eventid']);
-            if(count($historyApproval)>=2){
-                $data = array(
-                    'status'=> $_POST['status']
-                );
-                $hasil = $this->eventModel->where('eventid',$_POST['eventid'])->set($data)->update();
-            }
-        }else{
-            $data = array(
-                'status'=> $_POST['status']
-            );
-            $hasil = $this->eventModel->where('eventid',$_POST['eventid'])->set($data)->update();
+        // if($_POST['status']==2){
+        //     $historyApproval = $this->eventHistoryModel->getApproval($_POST['eventid']);
+        //     if(count($historyApproval)>=2){
+        $data = array(
+            'status'=> $_POST['status']
+        );
+        $hasil = $this->eventModel->where('eventid',$_POST['eventid'])->set($data)->update();
+            // }
+        // }else{
+        //     $data = array(
+        //         'status'=> $_POST['status']
+        //     );
+        //     $hasil = $this->eventModel->where('eventid',$_POST['eventid'])->set($data)->update();
             
-        }
+        // }
 
 
        

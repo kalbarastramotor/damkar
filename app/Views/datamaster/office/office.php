@@ -69,7 +69,7 @@
               <div class="col-md-12">
                 <div class="mb-3">
                   <label class="form-label" for="validationCustom04">Address</label>
-                  <input type="text" class="form-control" id="dealer-address-update" placeholder="Address" onkeyup="validateDealerAddressUpdate(this.id)" required>
+                  <textarea class="form-control" id="dealer-address-update" placeholder="Address" onkeyup="validateDealerAddressUpdate(this.id)"   rows="4" cols="50"></textarea>
                 </div>
               </div>
             </div>
@@ -104,7 +104,7 @@
   </div>
 </div>
 <div id="myModal_add" class="modal fade" aria-labelledby="myModalLabel" aria-hidden="true" data-bs-scroll="true" data-backdrop="false">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="myModalLabel">Add Data Dealer</h5>
@@ -149,7 +149,7 @@
             <div class="col-md-12">
               <div class="mb-3">
                 <label class="form-label" for="validationCustom04">Address</label>
-                <input type="text" class="form-control" id="dealer-address-add" onkeyup="validateDealerAddressAdd(this.id)" placeholder="Address" required>
+                <textarea class="form-control" id="dealer-address-add" placeholder="Address" onkeyup="validateDealerAddressAdd(this.id)"   rows="4" cols="50"></textarea>
               </div>
             </div>
             <div class="col-md-12">
