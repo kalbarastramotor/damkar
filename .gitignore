@@ -3,3 +3,8 @@ vendor
 writable/debugbar
 writable/logs
 writable/session
+
+dev.damkar.id
+dev
+staging
+staging.damkar.id
