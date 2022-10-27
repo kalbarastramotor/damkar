@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Google Maps API: Cara Menampilkan Lokasi dengan PHP dan MySQL</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAMjkDiBVQh9IpPrn0EVe5eUvLD44lYvds&callback=initialize" async defer></script>
+    <script type="text/javascript">
+        var marker;
+
+        function initialize() {
+            // Variabel untuk menyimpan informasi lokasi
+            var infoWindow = new google.maps.InfoWindow;
+            //  Variabel berisi properti tipe peta
+            // var latlng = new google.maps.LatLng(-0.278781, 111.475285);
+            var latlng = new google.maps.LatLng(-0.3235072, 110.2813883);
+            var mapOptions = {
+                zoom: 8,
+                center: latlng,
+                search: true,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                mapTypeControlOptions: {
+                    style: google.maps.MapTypeControlStyle.DEFAULT
+                }
+            };
+            // Pembuatan peta
+            var peta = new google.maps.Map(document.getElementById('googleMap'), mapOptions);
+            // Variabel untuk menyimpan batas kordinat
+            var bounds = new google.maps.LatLngBounds();
+
+            addMarker('0.851408', '112.932297', 'Cream HN Kalimantan Barat');
+            addMarker('-0.0352231', '109.1880193', 'Toko Karya agung');
+            addMarker('1.3523149', '109.2868825', 'Toko Karya agung 2');
+            // // Proses membuat marker 
+            function addMarker(lat, lng, info) {
+                var lokasi = new google.maps.LatLng(lat, lng);
+                bounds.extend(lokasi);
+                var marker = new google.maps.Marker({
+                    map: peta,
+                    position: lokasi
+                });
+                peta.fitBounds(bounds);
+                bindInfoWindow(marker, peta, infoWindow, info);
+            }
+            // Menampilkan informasi pada masing-masing marker yang diklik
+            function bindInfoWindow(marker, peta, infoWindow, html) {
+                google.maps.event.addListener(marker, 'click', function() {
+                    infoWindow.setContent(html);
+                    infoWindow.open(peta, marker);
+                });
+            }
+        }
+    </script>
+</head>
+
+<body>
+
+    <div id="googleMap" style="width:1100px;height:500px;"></div>
+
+</body>
+
+</html>
