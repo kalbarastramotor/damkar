@@ -628,9 +628,6 @@ function delete_image(id) {
     $("#" + id).html("")
     $("#" + idinput).val("");
 
-    // console.log('====================================');
-    // console.log(id);
-    // console.log('====================================');
 
     $.ajax({
         url: base_url + "/api/report/doc/event/deletefile",

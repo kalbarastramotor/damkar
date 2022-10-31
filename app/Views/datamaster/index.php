@@ -209,8 +209,8 @@
                   <thead class="table-light">
                     <tr>
                       <th colspan="2" class="text-center">Jumlah <br>Pengunjung </th>
-                      <th colspan="2" class="text-center">Penjualan</th>
                       <th colspan="2" class="text-center">Jumlah Peserta <br>Riding Test </th>
+                      <th colspan="2" class="text-center">Penjualan</th>
                       <th class="text-center">Jumlah <br>Hot Prospect </th>
                       <th class="text-center">Jumlah Closing <br>(Deal) dari Hot Prospect </th>
                       <th class="text-center">% Deal dari <br>Jumlah Prospek </th>
@@ -234,10 +234,10 @@
                     <tr>
                       <td class="text-center" id="id-target-visitor">0</td>
                       <td class="text-center" id="id-actual-visitor">0</td>
+                      <td class="text-center" id="id-target-riding">0</td>
+                      <td class="text-center" id="id-actual-riding">0</td>
                       <td class="text-center" id="id-target-sell">0</td>
                       <td class="text-center" id="id-actual-sell">0</td>
-                      <td class="text-center">0</td>
-                      <td class="text-center">0</td>
                       <td class="text-center" id="id-target-prospect-text">0</td>
                       <td class="text-center" id="id-target-actual-text">0</td>
                       <td class="text-center" id="id-target-actual-persen">0</td>
@@ -422,8 +422,8 @@
                                                 <thead>
                                                 <tr>
                                                   <th colspan="2" class="text-center">Jumlah <br>Pengunjung </th>
+                                                  <th colspan="2" class="text-center">Jumlah Peserta <br>Riding Test </th>
                                                   <th colspan="2" class="text-center">Penjualan</th>
-                                                  <!-- <th colspan="2" class="text-center">Jumlah Peserta <br>Riding Test </th> -->
                                                   <th class="text-center">Jumlah <br>Hot Prospect </th>
                                                   <th class="text-center">Jumlah Closing <br>(Deal) dari Hot Prospect </th>
                                                   <th class="text-center">% Deal dari <br>Jumlah Prospek </th>
@@ -433,8 +433,8 @@
                                                   <th class="text-center">Aktual*</th>
                                                   <th class="text-center">Estimasi</th>
                                                   <th class="text-center">Aktual*</th>
-                                                  <!-- <th class="text-center">Estimasi</th>
-                                                  <th class="text-center">Aktual*</th> -->
+                                                  <th class="text-center">Estimasi</th>
+                                                  <th class="text-center">Aktual*</th>
                                                   <th class="text-center">Aktual*</th>
                                                   <th class="text-center">Aktual*</th>
                                                   <th class="text-center">Aktual*</th>
@@ -447,10 +447,11 @@
                                                 <tr>
                                                   <td class="text-center" id="id-target-visitor-report">0</td>
                                                   <td class="text-center editable" id="id-actual-visitor-report">0</td>
-                                                  <td class="text-center" id="id-target-sell-report">0</td>
+                                                  <td class="text-center editable" id="id-target-riding-report">0</td>
+                                                  <td class="text-center editable" id="id-actual-riding-report">0</td>
+                                                   <td class="text-center" id="id-target-sell-report">0</td>
                                                   <td class="text-center editable" id="id-actual-sell-report">0</td>
-                                                  <!-- <td class="text-center">0</td>
-                                                  <td class="text-center">0</td> -->
+                                                 
                                                   <td class="text-center editable" id="target_prospect">0</td>
                                                   <td class="text-center editable" id="target_actual_prospect">0</td>
                                                   <td class="text-center" id="target_actual_prospect_persen">0</td>

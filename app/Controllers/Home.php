@@ -455,11 +455,11 @@ class Home extends BaseController
                     if($this->data_session['rolecode']=="kabag"){
                             $labelStatus ='<span><span class="badge badge-pill badge-soft-warning font-size-12">Waiting Approval</span></span>';
                             $action =' 
-                                <button type="button" class="btn btn-success waves-effect waves-light" onclick="approve('.$hasil['eventid'].')">Approve ini</button>
+                                <button type="button" class="btn btn-success waves-effect waves-light" onclick="approve('.$hasil['eventid'].')">Approve</button>
                                 <button type="button" class="btn btn-danger waves-effect waves-light" onclick="rejected('.$hasil['eventid'].')">Reject</button>
                             ';
                     }else{
-                            $labelStatus ='<span><span class="badge badge-pill badge-soft-warning font-size-12">Waiting Approval '.$this->data_session['rolecode'].'</span></span>';
+                            $labelStatus ='<span><span class="badge badge-pill badge-soft-warning font-size-12">Waiting Approval</span></span>';
                             $action =' 
                                 <button type="button" class="btn btn-warning waves-effect waves-light">Waiting Approval</button>
                             ';
@@ -468,7 +468,7 @@ class Home extends BaseController
                     //     if($this->data_session['rolecode']=='spvarea'){
                     //         $labelStatus ='<span><span class="badge badge-pill badge-soft-warning font-size-12">Waiting Approval</span></span>';
                     //         $action =' 
-                    //             <button type="button" class="btn btn-success waves-effect waves-light" onclick="approve('.$hasil['eventid'].')">Approve ini</button>
+                    //             <button type="button" class="btn btn-success waves-effect waves-light" onclick="approve('.$hasil['eventid'].')">Approve</button>
                     //             <button type="button" class="btn btn-danger waves-effect waves-light" onclick="rejected('.$hasil['eventid'].')">Reject</button>
                     //         ';
                     //     }else{
@@ -481,7 +481,7 @@ class Home extends BaseController
                     //     if($this->data_session['rolecode']=='spvpromosi'){
                     //         $labelStatus ='<span><span class="badge badge-pill badge-soft-warning font-size-12">Waiting Approval</span></span>';
                     //         $action =' 
-                    //             <button type="button" class="btn btn-success waves-effect waves-light" onclick="approve('.$hasil['eventid'].')">Approve ini</button>
+                    //             <button type="button" class="btn btn-success waves-effect waves-light" onclick="approve('.$hasil['eventid'].')">Approve</button>
                     //             <button type="button" class="btn btn-danger waves-effect waves-light" onclick="rejected('.$hasil['eventid'].')">Reject</button>
                     //         ';
                     //     }else{
@@ -494,7 +494,7 @@ class Home extends BaseController
                     //     if($this->data_session['rolecode']=='kabag'){
                     //         $labelStatus ='<span><span class="badge badge-pill badge-soft-warning font-size-12">Waiting Approval</span></span>';
                     //         $action =' 
-                    //             <button type="button" class="btn btn-success waves-effect waves-light" onclick="approve('.$hasil['eventid'].')">Approve ini</button>
+                    //             <button type="button" class="btn btn-success waves-effect waves-light" onclick="approve('.$hasil['eventid'].')">Approve</button>
                     //             <button type="button" class="btn btn-danger waves-effect waves-light" onclick="rejected('.$hasil['eventid'].')">Reject</button>
                     //         ';
                     //     }else{
@@ -533,8 +533,7 @@ class Home extends BaseController
         } else if ( $hasil['status'] == 5 ||  $hasil['status'] == "5") {
             $labelStatus ='<span><span class="badge badge-pill badge-soft-success font-size-12">Done</span></span>';
             $action =' 
-                <button type="button" class="btn btn-primary waves-effect waves-light">Report</button>
-                <button type="button" class="btn btn-primary waves-effect waves-light">Report</button>
+                <button type="button" class="btn btn-success waves-effect waves-light">Done</button>
             ';
         } else if ( $hasil['status'] == 0 ||  $hasil['status'] == "0") {
             $labelStatus ='<span><span class="badge badge-pill badge-soft-secondary font-size-12">Draft</span></span>';

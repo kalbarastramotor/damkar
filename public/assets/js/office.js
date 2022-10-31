@@ -700,7 +700,6 @@ $('#button-update-office').click(function() {
             }
         });
     }
-    console.log(dataSend)
 
 
 });

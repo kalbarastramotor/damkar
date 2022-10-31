@@ -210,7 +210,6 @@ function edit_eventcategory(id, id) {
 
     $('#eventcategory-name-edit').val(name);
     $('#eventcategory-code-edit').val(code);
-    //console.log(name);
     
     $("#button-edit-eventcategory").attr("id", id);
 }
