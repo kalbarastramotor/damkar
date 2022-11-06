@@ -248,7 +248,8 @@ class ExcelReport extends BaseController
 
             $start = strtotime(date_format(date_create($val['date_start']),"Y-m-d"));
             $end = strtotime(date_format(date_create($val['date_end']),"Y-m-d"));
-            $days_between = ceil(abs($end - $start) / 86700) + 1;
+            $datediff = $end - $start;
+            $days_between = round($datediff / (60 * 60 * 24)) + 1;
             
             $no++;
             $spreadsheet->setActiveSheetIndex(0)

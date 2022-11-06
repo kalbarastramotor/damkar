@@ -415,8 +415,6 @@ function detail_event(id) {
 
             $("#id-target-riding").text(e.data.target_riding);
             $("#id-actual-riding").text(e.data.actual_riding);
-            
-            target_riding,actual_riding
 
             $("#id-actual-sell").text(e.data.actual_sell);
             $("#id-actual-visitor").text(e.data.actual_visitor);

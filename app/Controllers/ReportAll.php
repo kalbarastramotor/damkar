@@ -352,7 +352,8 @@ class ReportAll extends BaseController
                 $start = strtotime(date_format(date_create($list->date_start),"Y-m-d"));
                 $end = strtotime(date_format(date_create($list->date_end),"Y-m-d"));
 
-                $days_between = ceil(abs($end - $start) / 86400) + 1;
+                $datediff = $end - $start;
+                $days_between = round($datediff / (60 * 60 * 24)) + 1;
 
                 $row[] =$no;
                 $row[] = date_format(date_create($list->date_start),"d.m.Y");
@@ -474,7 +475,8 @@ class ReportAll extends BaseController
                 $start = strtotime(date_format(date_create($list->date_start),"Y-m-d"));
                 $end = strtotime(date_format(date_create($list->date_end),"Y-m-d"));
 
-                $days_between = ceil(abs($end - $start) / 86400) + 1;
+                $datediff = $end - $start;
+                $days_between = round($datediff / (60 * 60 * 24)) + 1;
 
                 $row[] =$no;
                 $row[] = $list->name;

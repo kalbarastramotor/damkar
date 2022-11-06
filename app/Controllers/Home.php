@@ -128,8 +128,10 @@ class Home extends BaseController
             foreach ($lists as $list) {
                 $start = strtotime(date_format(date_create($list->date_start),"Y-m-d"));
                 $end = strtotime(date_format(date_create($list->date_end),"Y-m-d"));
+                $datediff = $end - $start;
 
-                $days_between = ceil(abs($end - $start) / 86400) + 1;
+                $days_between = round($datediff / (60 * 60 * 24)) + 1;
+
                 $no++;
                 $row = [];
                 $row[] = $no;
@@ -193,8 +195,11 @@ class Home extends BaseController
                     $labelStatus ='<span><span class="badge badge-pill badge-soft-danger font-size-12">Rejected</span></span>';
                     $buttonActionList =  $this->buttonEditEvent($list->eventid,$list->userid);
                 } else if ( $list->status== 4 ||  $list->status== "4") {
-                    $labelStatus ='<span><span class="badge badge-pill badge-soft-info font-size-12">Running</span></span>';
-                    $buttonActionList = '<a class="dropdown-item" type="button" onclick="getFormUpload('.$list->eventid.','.$days_between.',\''.date_format(date_create($list->date_start),"Y-m").'\',\''.date_format(date_create($list->date_start),"d").'\')" >Upload Images</a>';
+                    $labelStatus ='<span><span class="badge badge-pill badge-soft-info font-size-12">Running  aaa'.$this->data_session['id'].'</span></span>';
+                    if($this->data_session['id']==$list->userid){
+                        $buttonActionList = '<a class="dropdown-item" type="button" onclick="getFormUpload('.$list->eventid.','.$days_between.',\''.date_format(date_create($list->date_start),"Y-m").'\',\''.date_format(date_create($list->date_start),"d").'\')" >Upload Images</a>';
+                    }                
+                
                 } else if ( $list->status== 5 ||  $list->status== "5") {
                     $labelStatus ='<span><span class="badge badge-pill badge-soft-success font-size-12">Done</span></span>';
                 } else if ( $list->status== 0 ||  $list->status== "0") {
@@ -407,7 +412,9 @@ class Home extends BaseController
         $start = strtotime(date_format(date_create($hasil['date_start']),"Y-m-d"));
         $end = strtotime(date_format(date_create($hasil['date_end']),"Y-m-d"));
 
-        $days_between = ceil(abs($end - $start) / 86400) + 1;
+        $datediff = $end - $start;
+        $days_between = round($datediff / (60 * 60 * 24)) + 1;
+
         $hasil['days'] = $days_between;
         $hasil['durasi'] = date_format(date_create($hasil['date_start']),"Y-m-d")." sampai ".date_format(date_create($hasil['date_end']),"Y-m-d");
         $monthStart =date_format(date_create($hasil['date_start']),"Y-m");

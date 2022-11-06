@@ -9,6 +9,11 @@
 <div class="main-content">
   <div class="page-content">
     <div class="container-fluid">
+
+      <?php 
+          if($header['rolecode']=="kabag") {
+        
+      ?>
       <div class="row">
         <div class="col-md-6 col-xl-3">
           <div class="card">
@@ -155,6 +160,7 @@
           </div>
         </div>
       </div>
+      <?php } ?>
       <div class="row">
         <div class="col-xl-8">
           <div class="card">

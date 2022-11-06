@@ -3,6 +3,8 @@ vendor
 writable/debugbar
 writable/logs
 writable/session
+.env
+uploads
 
 dev.damkar.id
 dev
