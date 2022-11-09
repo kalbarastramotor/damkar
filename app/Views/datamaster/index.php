@@ -351,11 +351,11 @@
           <div class="row">
             <div class="col">
               <label class="form-label" for="validationCustom02">Map Latitute</label>
-              <input type="text" class="form-control" id="eventlist-location-lat-add" placeholder="Silahkan Pin Point dari maps" readonly="readonly" required>
+              <input type="text" class="form-control" id="eventlist-location-lat-add" placeholder="Silahkan Pin Point dari maps"  required>
             </div>
             <div class="col">
               <label class="form-label" for="validationCustom02">Map Longtitute</label>
-              <input type="text" class="form-control" id="eventlist-location-long-add" placeholder="Silahkan Pin Point dari maps" readonly="readonly" required>
+              <input type="text" class="form-control" id="eventlist-location-long-add" placeholder="Silahkan Pin Point dari maps"  required>
             </div>
           </div>
           <div class="row">
@@ -644,11 +644,11 @@
           <div class="row">
             <div class="col">
               <label class="form-label" for="validationCustom02">Map Latitute</label>
-              <input type="text" class="form-control" id="eventlist-location-lat-update" placeholder="Silahkan Pin Point dari maps" readonly="readonly" required>
+              <input type="text" class="form-control" id="eventlist-location-lat-update" placeholder="Silahkan Pin Point dari maps"   required>
             </div>
             <div class="col">
               <label class="form-label" for="validationCustom02">Map Longtitute</label>
-              <input type="text" class="form-control" id="eventlist-location-long-update" placeholder="Silahkan Pin Point dari maps" readonly="readonly" required>
+              <input type="text" class="form-control" id="eventlist-location-long-update" placeholder="Silahkan Pin Point dari maps" required>
             </div>
           </div>
           <div class="row">

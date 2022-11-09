@@ -195,7 +195,7 @@ class Home extends BaseController
                     $labelStatus ='<span><span class="badge badge-pill badge-soft-danger font-size-12">Rejected</span></span>';
                     $buttonActionList =  $this->buttonEditEvent($list->eventid,$list->userid);
                 } else if ( $list->status== 4 ||  $list->status== "4") {
-                    $labelStatus ='<span><span class="badge badge-pill badge-soft-info font-size-12">Running  aaa'.$this->data_session['id'].'</span></span>';
+                    $labelStatus ='<span><span class="badge badge-pill badge-soft-info font-size-12">Running</span></span>';
                     if($this->data_session['id']==$list->userid){
                         $buttonActionList = '<a class="dropdown-item" type="button" onclick="getFormUpload('.$list->eventid.','.$days_between.',\''.date_format(date_create($list->date_start),"Y-m").'\',\''.date_format(date_create($list->date_start),"d").'\')" >Upload Images</a>';
                     }                
