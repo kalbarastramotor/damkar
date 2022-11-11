@@ -44,6 +44,9 @@ function initMapAdd() {
         infoWindow.open(map_add);
 
     });
+
+    /// 
+    
 }
 
 $(document).ready(function() {
@@ -312,9 +315,47 @@ $('#update-map-lat').on("keyup", function(e) {
     }
 });
 
+
+function lookup(arg){
+var id = arg.getAttribute('id');
+var value = arg.value;
+console.log('====================================');
+console.log(value);
+console.log('====================================');
+
+// do your stuff
+}
+
 function showModalAdd() {
     $('#myModal_add').modal({ backdrop: 'static', keyboard: false });
     $('#myModal_add').modal('show');
+
+
+    // $(PostCodeid).autocomplete({
+    //     source: function (request, response) {
+    //         geocoder.geocode({
+    //             'address': request.term
+    //         }, function (results, status) {
+    //             response($.map(results, function (item) {
+    //                 return {
+    //                     label: item.formatted_address,
+    //                     value: item.formatted_address,
+    //                     lat: item.geometry.location.lat(),
+    //                     lon: item.geometry.location.lng()
+    //                 };
+    //             }));
+    //         });
+    //     },
+    //     select: function (event, ui) {
+    //         $('.search_addr').val(ui.item.value);
+    //         $('.search_latitude').val(ui.item.lat);
+    //         $('.search_longitude').val(ui.item.lon);
+    //         var latlng = new google.maps.LatLng(ui.item.lat, ui.item.lon);
+    //         marker.setPosition(latlng);
+    //         initialize();
+    //     }
+    // });
+
     initMapAdd();
     $('.show-pic').select2({
         placeholder: 'PIC / Penanggung Jawab',

@@ -344,8 +344,25 @@
           <div class="row">
             <div class="col text-center">
               <label class="form-label" for="validationCustom02">Pin Point Maps</label>
-              <!-- <input id="pac-input" class="controls" type="text" placeholder="Search Box"/> -->
+
+              <!-- <div class="pac-card" id="pac-card" onkeyup="lookup(this);">
+                  <div>
+                      <div id="label">Location search</div>
+                  </div>
+                  <div id="pac-container">
+                      <input id="pac-input" type="text" placeholder="Enter a location">
+                      <div id="location-error"></div>
+                  </div>
+              </div> -->
               <div id="map"></div>
+              <!-- <div id="infowindow-content">
+                  <img src="" width="16" height="16" id="place-icon"> <span
+                      id="place-name" class="title"></span><br> <span
+                      id="place-address"></span>
+              </div> -->
+
+              <!-- <input id="pac-input" class="controls" type="text" placeholder="Search Box"/> -->
+              <!-- <div id="map"></div> -->
             </div>
           </div>
           <div class="row">
@@ -638,6 +655,9 @@
           <div class="row">
             <div class="col text-center">
               <label class="form-label" for="validationCustom02">Pin Point Maps</label>
+
+              
+
               <div id="map_update"></div>
             </div>
           </div>

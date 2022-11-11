@@ -148,7 +148,7 @@
               </div>
               <div class="d-flex justify-content-between">
                 <div>
-                  <h4 class="mt-3 mb-0 font-size-22">0 <span class="text-danger fw-medium font-size-14 align-middle">
+                  <h4 class="mt-3 mb-0 font-size-22"  id="total_4">0 <span class="text-danger fw-medium font-size-14 align-middle">
                       <i class="mdi mdi-run-fast"></i>0 </span>
                   </h4>
                 </div>

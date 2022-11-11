@@ -277,7 +277,20 @@
                                         ?>
                                          <li>
                                             <a href="<?=base_url().'/'.$valueDetail['url']?>" >
-                                                <i class="bx bx-home-alt icon nav-icon"></i>
+                                                <?php 
+                                                    if($valueDetail['icon']==""){
+
+                                                        ?>
+                                                            <i class="bx bx-home-alt icon nav-icon"></i>
+                                                        <?php
+                                                    }else{
+                                                        ?>
+                                                            <i class="<?=$valueDetail['icon']?> icon nav-icon"></i>
+                                                        <?php
+                                                    }
+                                                ?>
+
+
                                                 <span class="menu-item" data-key="t-dashboard"><?=$valueDetail['name']?></span>
                                                 <!-- <span class="badge rounded-pill bg-primary">2</span> -->
                                             </a>

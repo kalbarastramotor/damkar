@@ -121,7 +121,7 @@ class ReportAllModel extends Model
     }
     public function queryDashboardTotalEvent(){
 
-        $query = $this->db->query("SELECT categoryid,status,COUNT(eventid) as total FROM tb_events WHERE status is NOT Null  AND status =4 AND categoryid!=0 GROUP BY categoryid,status");
+        $query = $this->db->query("SELECT categoryid,status,COUNT(eventid) as total FROM tb_events WHERE status is NOT Null   AND categoryid!=0 GROUP BY categoryid,status");
         return $query->getResult();
     }
     public function getEventRunning(){

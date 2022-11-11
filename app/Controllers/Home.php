@@ -50,7 +50,8 @@ class Home extends BaseController
         }
         $results = array();
         foreach ($temp as $key => $value) {
-            $value['total'] = $tempTotalEvent[$key];
+            $value['total'] =(int)$tempTotalEvent[$key];
+            $value['categoryid'] =(int)$key;
             $results[] = $value; 
         }
         return $this->response->setJSON($results);
@@ -85,6 +86,7 @@ class Home extends BaseController
     }
     public function index()
     {
+       
         
         $data = array(
             "header" => $this->data_session,
