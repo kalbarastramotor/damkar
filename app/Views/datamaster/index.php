@@ -216,11 +216,11 @@
                       <th class="text-center">% Deal dari <br>Jumlah Prospek </th>
                     </tr>
                     <tr>
-                      <th class="text-center">Estimasi</th>
+                      <th class="text-center">Target</th>
                       <th class="text-center">Aktual*</th>
-                      <th class="text-center">Estimasi</th>
+                      <th class="text-center">Target</th>
                       <th class="text-center">Aktual*</th>
-                      <th class="text-center">Estimasi</th>
+                      <th class="text-center">Target</th>
                       <th class="text-center">Aktual*</th>
                       <th class="text-center">Aktual*</th>
                       <th class="text-center">Aktual*</th>
@@ -446,11 +446,11 @@
                                                   <th class="text-center">% Deal dari <br>Jumlah Prospek </th>
                                                 </tr>
                                                 <tr>
-                                                  <th class="text-center">Estimasi</th>
+                                                  <th class="text-center">Target</th>
                                                   <th class="text-center">Aktual*</th>
-                                                  <th class="text-center">Estimasi</th>
+                                                  <th class="text-center">Target</th>
                                                   <th class="text-center">Aktual*</th>
-                                                  <th class="text-center">Estimasi</th>
+                                                  <th class="text-center">Target</th>
                                                   <th class="text-center">Aktual*</th>
                                                   <th class="text-center">Aktual*</th>
                                                   <th class="text-center">Aktual*</th>

@@ -273,8 +273,8 @@ $(document).ready(function() {
     });
     table = $('#table-event-data').DataTable({
         lengthMenu: [
-            [5, -1],
-            [5, 'All'],
+            [15, 25, 50, -1],
+            [15, 25, 50, 'All'],
         ],
 
         dom: "<'row'<'col-sm-11'l><'col-sm-1'B>>" +
@@ -1305,8 +1305,14 @@ $("#button-add-eventlist").click(function(e) {
                     }
 
                 },
-                error:function(e){
-                    alertify.error('Error Internal');
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    const myJSON = JSON.parse(XMLHttpRequest.responseText)
+        
+                    if (myJSON.error == "invalid_token") {
+                        alertify.error('Session anda selesai');
+                        localStorage.removeItem("token");
+                        location.href = base_url;
+                    }
                 }
             });
         }

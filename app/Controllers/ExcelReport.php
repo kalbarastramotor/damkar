@@ -272,21 +272,11 @@ class ExcelReport extends BaseController
                         ->setCellValue('Q' . $column, 'Rp.'.number_format($val['butget']));
 
                         foreach ($images as $key => $value) {
-                            // $imagesEvent[$val['eventid']] =$value->images;
-                            $spreadsheet->setActiveSheetIndex(0)->setCellValue('R' . $column,  'lihat gambar');
-                            $spreadsheet->getActiveSheet()->getCell('R' . $column)->getHyperlink()->setUrl( base_url().'/uploads/berkas/'.$value->images);
+                            $spreadsheet->setActiveSheetIndex(0)->setCellValue($value->abjad . $column, "IMAGE ".$key+1);
+                            $spreadsheet->getActiveSheet()->getCell($value->abjad . $column)->getHyperlink()->setUrl( base_url().'/uploads/berkas/'.$value->images);
+                            
                         }
-                        // if (array_key_exists($val['eventid'],$imagesEvent)){
-                        //     $spreadsheet->setActiveSheetIndex(0)->setCellValue('R' . $column,  'lihat gambar');
-                        //     $spreadsheet->getActiveSheet()->getCell('R' . $column)->getHyperlink()->setUrl( base_url().'/uploads/berkas/'.$val['images']);
-                             
-                        // }else{
-                        //      $val['images'] ="";
-                        // }
 
-                        // if( $val['images']!=""){
-                           
-                        // }
 
             $column++;
         }

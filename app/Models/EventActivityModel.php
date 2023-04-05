@@ -41,10 +41,23 @@ class EventActivityModel extends Model
         return $data;
     }
     public function getActivityEventByID($eventid){
+        $arrayChar = array();
+        $char = range('R', 'Z');
+        foreach ($char as $abjad) {
+            $arrayChar[] = $abjad;
+        }
+
         $where = ['eventid' => $eventid];
         $query = $this->db->table($this->table);
         $query->like($where);
         $data = $query->get()->getResult();
         return $data;
+        $results = array();
+        foreach ($data as $key => $value) {
+            $value->abjad = $arrayChar[$key];
+            $results[] = $value;
+        }
+        return $results;
+
     }
 }

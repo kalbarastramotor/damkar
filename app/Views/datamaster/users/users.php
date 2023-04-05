@@ -1,13 +1,37 @@
 <style>
-  #detail-menu-table {
-    width: 100% !important
+ .filter-jabatan-select2>span {
+    z-index: 0 !important
   }
+
 </style>
 <div class="main-content">
   <div class="page-content">
     <div class="container-fluid">
       <div class="row">
         <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-striped mb-0">
+                  <thead>
+                    <tr>
+                      <th scope="col" style="width:10%"></th>
+                      <th scope="col">Filter</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                      <th class="text-nowrap" scope="row">Jabatan</th>
+                      <td class="filter-jabatan-select2">
+                        <select class="filter-jabatan form-control" style="width:100%"></select>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
           <div class="card">
             <div class="card-header"> <?=$title?> </div>
             <div class="card-body">
