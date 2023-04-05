@@ -173,6 +173,8 @@ class ReportAll extends BaseController
              }
 
             foreach ($lists as $list) {
+
+                $dataActual = $this->reportAllModel->getActualEventReport($list->year,$list->month);
                 // <a class="dropdown-item" href="'.base_url("/report/btl").'/'.$list->year.'/'.$list->month.'"  >  BTL </a>
 
                 $button='
@@ -199,9 +201,11 @@ class ReportAll extends BaseController
              
                 // $row[] ="Rp.".number_format( $list->butget);
                 $row[] = '<span id="'.$list->documentid.'" name="budget" class="editable">Rp.'.number_format( $list->budget).'</span>';
-                $row[] = 'Rp.0'; // buat alokasi
+                $row[] = 'Rp.'.number_format( $dataActual['actual_butget']); // buat alokasi
 
                 $row[] = '<span id="'.$list->documentid.'" name="target" class="editable">'.$list->target.'</span>';
+                $row[] = $dataActual['actual_event']; // actual event
+
                 $row[] =  $button;
                 $data[$list->month] = $row;
 
@@ -238,6 +242,7 @@ class ReportAll extends BaseController
                     $row[] =date_format($date,"F");
                     $row[] = 'Rp.0';
                     $row[] = 'Rp.0';
+                    $row[] = '0';
                     $row[] = '0';
                 $row[] =  $button;
 
@@ -432,9 +437,7 @@ class ReportAll extends BaseController
                     <i class="bx bx-dots-horizontal-rounded"></i>
                   </a>
                   <div class="dropdown-menu dropdown-menu-end" style="">
-                    <a class="dropdown-item" onclick="getFormUpload('.$list->eventid.','.$days_between.',\''.date_format(date_create($list->date_start),"Y-m").'\',\''.date_format(date_create($list->date_start),"d").'\')" type="button"  >Edit</a>
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Remove</a>
+                    <a class="dropdown-item" href="#">Detail</a>
                   </div>
                 </div>
               </span>
@@ -446,7 +449,13 @@ class ReportAll extends BaseController
             }
            
 
+      
+            $total_results = $this->reportAllModel->totalEventByCategory();
+          
             $output = [
+                'draw' => $this->request->getPost('draw'),
+                'recordsTotal' => $total_results,
+                'recordsFiltered' => $total_results,
                 'data' => $data
             ];
 

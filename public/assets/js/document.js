@@ -24,6 +24,7 @@ $(document).ready(function() {
             { "title": 'Budget' },
             { "title": 'Alokasi' },
             { "title": 'Event Target' },
+            { "title": 'Actual Event' },
             { "title": 'Action' },
         ],
         "dom": "<'row'<'col-sm-12 button-export'B>>",

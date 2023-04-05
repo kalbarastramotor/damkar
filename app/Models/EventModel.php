@@ -269,7 +269,7 @@ class EventModel extends Model
         //     $query->where('tb_events.month',(int)date('m'));
         // }
 
-
+        // $query= $query->limit(4);
         $query = $query->get();
         $data = $query->getResult();
         

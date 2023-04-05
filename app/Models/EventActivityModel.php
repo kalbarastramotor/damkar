@@ -47,16 +47,18 @@ class EventActivityModel extends Model
             $arrayChar[] = $abjad;
         }
 
-        $where = ['eventid' => $eventid];
+        // $where = ['eventid' => $eventid];
+        $where = ['eventid' => 4];
         $query = $this->db->table($this->table);
-        $query->like($where);
+        $query->where($where);
         $data = $query->get()->getResult();
-        return $data;
+      
         $results = array();
         foreach ($data as $key => $value) {
             $value->abjad = $arrayChar[$key];
             $results[] = $value;
         }
+        
         return $results;
 
     }
