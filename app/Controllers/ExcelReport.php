@@ -10,6 +10,8 @@ use App\Models\EventHistoryModel;
 use App\Models\EventActivityModel;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing;
+
 use Config\Services;
 
 class ExcelReport extends BaseController
@@ -34,18 +36,12 @@ class ExcelReport extends BaseController
     }
     public function lpj_activity($officeid,$statusEvent,$category,$tahun,$bulan)
     {
-      
-
         $data = $this->eventModel->excelReport($officeid,$statusEvent,$category,$tahun,$bulan);
 
 
 
         $spreadsheet = new Spreadsheet();
-        
-        // echo "<pre>";
-        // print_r($data);
-        // die();
-        // /$1/$2/$3/$4
+
         /**
          * $1 : office id
          * $2 : status event
@@ -243,8 +239,6 @@ class ExcelReport extends BaseController
         foreach($data as $val) {
             $imagesEvent = array();
             $images = $this->eventActivityModel->getActivityEventByID($val['eventid']);
-            
-           
 
             $start = strtotime(date_format(date_create($val['date_start']),"Y-m-d"));
             $end = strtotime(date_format(date_create($val['date_end']),"Y-m-d"));
@@ -272,21 +266,34 @@ class ExcelReport extends BaseController
                         ->setCellValue('Q' . $column, 'Rp.'.number_format($val['butget']));
 
                         foreach ($images as $key => $value) {
-                            // $imagesEvent[$val['eventid']] =$value->images;
-                            $spreadsheet->setActiveSheetIndex(0)->setCellValue('R' . $column,  'lihat gambar');
-                            $spreadsheet->getActiveSheet()->getCell('R' . $column)->getHyperlink()->setUrl( base_url().'/uploads/berkas/'.$value->images);
-                        }
-                        // if (array_key_exists($val['eventid'],$imagesEvent)){
-                        //     $spreadsheet->setActiveSheetIndex(0)->setCellValue('R' . $column,  'lihat gambar');
-                        //     $spreadsheet->getActiveSheet()->getCell('R' . $column)->getHyperlink()->setUrl( base_url().'/uploads/berkas/'.$val['images']);
-                             
-                        // }else{
-                        //      $val['images'] ="";
-                        // }
-
-                        // if( $val['images']!=""){
                            
-                        // }
+                            $IMG =  base_url().'/uploads/berkas/'.$value->images;
+                            $imageType = "png";
+
+                            if (strpos($IMG, ".png") === false) {
+                                $imageType = "jpg";
+                            }
+
+                            $drawing = new MemoryDrawing();
+                            $sheet->getRowDimension($column)->setRowHeight(200);
+
+                            $gdImage = ($imageType == 'png') ? imagecreatefrompng($IMG) : imagecreatefromjpeg($IMG);
+                            $drawing->setName('Company Logo');
+                            $drawing->setDescription('Company Logo image');
+                            $drawing->setResizeProportional(true);
+                            $drawing->setImageResource($gdImage);
+                            $drawing->setRenderingFunction(\PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing::RENDERING_JPEG);
+                            $drawing->setMimeType(\PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing::MIMETYPE_DEFAULT);
+                            $drawing->setWidth(211);
+                            $drawing->setHeight(200);
+                            $drawing->setOffsetX(5);
+                            $drawing->setOffsetY(30);
+                            $drawing->setCoordinates($value->abjad.$column);
+                            $drawing->setWorksheet($spreadsheet->getActiveSheet());
+                            $spreadsheet->getActiveSheet()->getColumnDimension($value->abjad)->setWidth(25);
+                            
+                        }
+
 
             $column++;
         }

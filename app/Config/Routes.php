@@ -55,6 +55,9 @@ $routes->get('/marker', 'Home::markerEventMapsHome');
 $routes->get('/crontab', 'Crontab::index');
 
 
+$routes->add('email/compose', 'Email::compose');
+$routes->post('email/send-email', 'Email::send_email');
+
 
 
 // page report
