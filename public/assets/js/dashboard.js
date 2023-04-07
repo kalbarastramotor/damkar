@@ -35,15 +35,24 @@ $(document).ready(function() {
             "Authorization": "Bearer " + token,
         },
         success: function(e) {
+            var totalapprov =0
             e.forEach((element, index) => {
-                if (index == 0) {
-                    $("#total_1").html(element.total + '  <span class="text-success fw-medium font-size-14 align-middle"> <i class="mdi mdi-run-fast"></i>2.6 running </span>');
-                } else if (index == 1) {
-                    $("#total_2").html(element.total + '  <span class="text-success fw-medium font-size-14 align-middle"> <i class="mdi mdi-run-fast"></i>2.6 running </span>');
-                } else if (index == 2) {
-                    $("#total_3").html(element.total + '  <span class="text-success fw-medium font-size-14 align-middle"> <i class="mdi mdi-run-fast"></i>2.6 running </span>');
+              
+                if(element.categoryid==1){
+                    totalRun = getTotalEventRunning(element.data,4) ;
+                    $("#total_1").html(totalRun + '  <span class=" fw-medium font-size-14 align-middle"> <i class="bx bx-calendar-event"></i>Event running </span>');
+                }else if(element.categoryid==2){
+                    totalRun = getTotalEventRunning(element.data,4) ;
+                    $("#total_2").html(totalRun + '  <span class="fw-medium font-size-14 align-middle"> <i class="bx bx-calendar-event"></i>Event running </span>');
+                }else if(element.categoryid==3){
+                    totalRun = getTotalEventRunning(element.data,4) ;
+                    $("#total_3").html(totalRun+ '  <span class="fw-medium font-size-14 align-middle"> <i class="bx bx-calendar-event"></i>Event running </span>');
                 }
+
+                totalapprov += getTotalEventRunning(element.data,2) ;
+        
             });
+            $("#total_4").html(totalapprov+ '  <span class="fw-medium font-size-14 align-middle"> <i class="bx bx-calendar-event"></i>Event running </span>');
 
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -55,6 +64,16 @@ $(document).ready(function() {
         }
     });
 });
+
+function getTotalEventRunning(data,status){
+    var total =0
+    data.forEach((element, index) => {
+        if(status==element.status){
+           total = element.total
+        }
+    })
+    return total;
+}
 var marker;
 function initialize() {
    

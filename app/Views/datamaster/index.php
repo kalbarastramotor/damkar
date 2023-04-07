@@ -209,18 +209,18 @@
                   <thead class="table-light">
                     <tr>
                       <th colspan="2" class="text-center">Jumlah <br>Pengunjung </th>
-                      <th colspan="2" class="text-center">Penjualan</th>
                       <th colspan="2" class="text-center">Jumlah Peserta <br>Riding Test </th>
+                      <th colspan="2" class="text-center">Penjualan</th>
                       <th class="text-center">Jumlah <br>Hot Prospect </th>
                       <th class="text-center">Jumlah Closing <br>(Deal) dari Hot Prospect </th>
                       <th class="text-center">% Deal dari <br>Jumlah Prospek </th>
                     </tr>
                     <tr>
-                      <th class="text-center">Estimasi</th>
+                      <th class="text-center">Target</th>
                       <th class="text-center">Aktual*</th>
-                      <th class="text-center">Estimasi</th>
+                      <th class="text-center">Target</th>
                       <th class="text-center">Aktual*</th>
-                      <th class="text-center">Estimasi</th>
+                      <th class="text-center">Target</th>
                       <th class="text-center">Aktual*</th>
                       <th class="text-center">Aktual*</th>
                       <th class="text-center">Aktual*</th>
@@ -234,10 +234,10 @@
                     <tr>
                       <td class="text-center" id="id-target-visitor">0</td>
                       <td class="text-center" id="id-actual-visitor">0</td>
+                      <td class="text-center" id="id-target-riding">0</td>
+                      <td class="text-center" id="id-actual-riding">0</td>
                       <td class="text-center" id="id-target-sell">0</td>
                       <td class="text-center" id="id-actual-sell">0</td>
-                      <td class="text-center">0</td>
-                      <td class="text-center">0</td>
                       <td class="text-center" id="id-target-prospect-text">0</td>
                       <td class="text-center" id="id-target-actual-text">0</td>
                       <td class="text-center" id="id-target-actual-persen">0</td>
@@ -344,18 +344,35 @@
           <div class="row">
             <div class="col text-center">
               <label class="form-label" for="validationCustom02">Pin Point Maps</label>
-              <!-- <input id="pac-input" class="controls" type="text" placeholder="Search Box"/> -->
+
+              <!-- <div class="pac-card" id="pac-card" onkeyup="lookup(this);">
+                  <div>
+                      <div id="label">Location search</div>
+                  </div>
+                  <div id="pac-container">
+                      <input id="pac-input" type="text" placeholder="Enter a location">
+                      <div id="location-error"></div>
+                  </div>
+              </div> -->
               <div id="map"></div>
+              <!-- <div id="infowindow-content">
+                  <img src="" width="16" height="16" id="place-icon"> <span
+                      id="place-name" class="title"></span><br> <span
+                      id="place-address"></span>
+              </div> -->
+
+              <!-- <input id="pac-input" class="controls" type="text" placeholder="Search Box"/> -->
+              <!-- <div id="map"></div> -->
             </div>
           </div>
           <div class="row">
             <div class="col">
               <label class="form-label" for="validationCustom02">Map Latitute</label>
-              <input type="text" class="form-control" id="eventlist-location-lat-add" placeholder="Silahkan Pin Point dari maps" readonly="readonly" required>
+              <input type="text" class="form-control" id="eventlist-location-lat-add" placeholder="Silahkan Pin Point dari maps"  required>
             </div>
             <div class="col">
               <label class="form-label" for="validationCustom02">Map Longtitute</label>
-              <input type="text" class="form-control" id="eventlist-location-long-add" placeholder="Silahkan Pin Point dari maps" readonly="readonly" required>
+              <input type="text" class="form-control" id="eventlist-location-long-add" placeholder="Silahkan Pin Point dari maps"  required>
             </div>
           </div>
           <div class="row">
@@ -422,19 +439,19 @@
                                                 <thead>
                                                 <tr>
                                                   <th colspan="2" class="text-center">Jumlah <br>Pengunjung </th>
+                                                  <th colspan="2" class="text-center">Jumlah Peserta <br>Riding Test </th>
                                                   <th colspan="2" class="text-center">Penjualan</th>
-                                                  <!-- <th colspan="2" class="text-center">Jumlah Peserta <br>Riding Test </th> -->
                                                   <th class="text-center">Jumlah <br>Hot Prospect </th>
                                                   <th class="text-center">Jumlah Closing <br>(Deal) dari Hot Prospect </th>
                                                   <th class="text-center">% Deal dari <br>Jumlah Prospek </th>
                                                 </tr>
                                                 <tr>
-                                                  <th class="text-center">Estimasi</th>
+                                                  <th class="text-center">Target</th>
                                                   <th class="text-center">Aktual*</th>
-                                                  <th class="text-center">Estimasi</th>
+                                                  <th class="text-center">Target</th>
                                                   <th class="text-center">Aktual*</th>
-                                                  <!-- <th class="text-center">Estimasi</th>
-                                                  <th class="text-center">Aktual*</th> -->
+                                                  <th class="text-center">Target</th>
+                                                  <th class="text-center">Aktual*</th>
                                                   <th class="text-center">Aktual*</th>
                                                   <th class="text-center">Aktual*</th>
                                                   <th class="text-center">Aktual*</th>
@@ -447,10 +464,11 @@
                                                 <tr>
                                                   <td class="text-center" id="id-target-visitor-report">0</td>
                                                   <td class="text-center editable" id="id-actual-visitor-report">0</td>
-                                                  <td class="text-center" id="id-target-sell-report">0</td>
+                                                  <td class="text-center editable" id="id-target-riding-report">0</td>
+                                                  <td class="text-center editable" id="id-actual-riding-report">0</td>
+                                                   <td class="text-center" id="id-target-sell-report">0</td>
                                                   <td class="text-center editable" id="id-actual-sell-report">0</td>
-                                                  <!-- <td class="text-center">0</td>
-                                                  <td class="text-center">0</td> -->
+                                                 
                                                   <td class="text-center editable" id="target_prospect">0</td>
                                                   <td class="text-center editable" id="target_actual_prospect">0</td>
                                                   <td class="text-center" id="target_actual_prospect_persen">0</td>
@@ -637,17 +655,20 @@
           <div class="row">
             <div class="col text-center">
               <label class="form-label" for="validationCustom02">Pin Point Maps</label>
+
+              
+
               <div id="map_update"></div>
             </div>
           </div>
           <div class="row">
             <div class="col">
               <label class="form-label" for="validationCustom02">Map Latitute</label>
-              <input type="text" class="form-control" id="eventlist-location-lat-update" placeholder="Silahkan Pin Point dari maps" readonly="readonly" required>
+              <input type="text" class="form-control" id="eventlist-location-lat-update" placeholder="Silahkan Pin Point dari maps"   required>
             </div>
             <div class="col">
               <label class="form-label" for="validationCustom02">Map Longtitute</label>
-              <input type="text" class="form-control" id="eventlist-location-long-update" placeholder="Silahkan Pin Point dari maps" readonly="readonly" required>
+              <input type="text" class="form-control" id="eventlist-location-long-update" placeholder="Silahkan Pin Point dari maps" required>
             </div>
           </div>
           <div class="row">

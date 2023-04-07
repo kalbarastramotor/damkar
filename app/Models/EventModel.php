@@ -16,7 +16,7 @@ class EventModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['eventid', 'userid', 'event_plan_id', 'name', 'cover', 'date_start', 'date_end', 'status', 'location_lat', 'location_long', 'description', 'total_approval', 'documentid', 'officeid', 'categoryid', 'month', 'year', 'target', 'butget', 'target_visitor', 'actual_visitor', 'target_sell', 'actual_sell','target_prospect','target_actual_prospect'];
+    protected $allowedFields    = ['eventid', 'userid', 'event_plan_id', 'name', 'cover', 'date_start', 'date_end', 'status', 'location_lat', 'location_long', 'description', 'total_approval', 'documentid', 'officeid', 'categoryid', 'month', 'year', 'target', 'butget', 'target_visitor', 'actual_visitor', 'target_sell', 'actual_sell','target_prospect','target_actual_prospect','target_riding','actual_riding'];
 
     protected $column_order = [
       '','tb_events.name', 'tb_events.date_start', 'tb_events.date_end','', 'tb_events.status','tb_events_category.name', 'tb_office.office_code','tb_office.office_name','tb_office.office_group'
@@ -179,7 +179,7 @@ class EventModel extends Model
     public function getDataEventByID()
     {
         $query = $this->db->table($this->table);
-        $query->select('tb_events.userid,tb_events.eventid,tb_events.location, tb_events.name, tb_events.cover, tb_events.date_start, tb_events.date_end, tb_events.status, tb_events.location_lat, tb_events.location_long, tb_events.description, tb_events.documentid, tb_events.officeid, tb_events.categoryid, tb_events.month, tb_events.year, tb_events.target, tb_events.butget, tb_events.target_visitor, tb_events.actual_visitor, tb_events.target_sell, tb_events.actual_sell,tb_office.officeid,tb_office.office_code,tb_office.office_name,tb_events_category.name as category_name, tb_events.target_prospect, tb_events.target_actual_prospect');
+        $query->select('tb_events.userid,tb_events.eventid,tb_events.location, tb_events.name, tb_events.cover, tb_events.date_start, tb_events.date_end, tb_events.status, tb_events.location_lat, tb_events.location_long, tb_events.description, tb_events.documentid, tb_events.officeid, tb_events.categoryid, tb_events.month, tb_events.year, tb_events.target, tb_events.butget, tb_events.target_visitor, tb_events.actual_visitor, tb_events.target_sell, tb_events.actual_sell,tb_office.officeid,tb_office.office_code,tb_office.office_name,tb_events_category.name as category_name, tb_events.target_prospect, tb_events.target_actual_prospect,tb_events.target_riding,tb_events.actual_riding');
         $query->join('tb_office', 'tb_office.officeid = tb_events.officeid');
         $query->join('tb_events_category', 'tb_events_category.id = tb_events.categoryid');
         $query->where('tb_events.eventid',$this->request->getPost('id'));
@@ -269,7 +269,7 @@ class EventModel extends Model
         //     $query->where('tb_events.month',(int)date('m'));
         // }
 
-
+        // $query= $query->limit(4);
         $query = $query->get();
         $data = $query->getResult();
         

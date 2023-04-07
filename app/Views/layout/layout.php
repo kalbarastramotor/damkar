@@ -118,7 +118,7 @@
                     <div class="d-flex">
           
 
-                        <div class="dropdown d-inline-block">
+                        <!-- <div `class="dropdown d-inline-block">
                             <button type="button" class="btn header-item noti-icon" id="page-header-notifications-dropdown-v"
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="bx bx-bell icon-sm align-middle"></i>
@@ -206,7 +206,7 @@
                                     </a>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->`
             
                         <div class="dropdown d-inline-block">
                             <button type="button" class="btn header-item user text-start d-flex align-items-center" id="page-header-user-dropdown-v"
@@ -220,8 +220,8 @@
                             </button>
                             <div class="dropdown-menu dropdown-menu-end pt-0">
                                 <div class="p-3 border-bottom">
-                                    <h6 class="mb-0">Martin Gurley</h6>
-                                    <p class="mb-0 font-size-11 text-muted">martin.gurley@email.com</p>
+                                    <h6 class="mb-0"> <?=$header['name'];?></h6>
+                                    <p class="mb-0 font-size-11 text-muted"> <?=$_SESSION['email'];?></p>
                                 </div>
                                 <a class="dropdown-item" href="contacts-profile.html"><i class="mdi mdi-account-circle text-muted font-size-16 align-middle me-2"></i> <span class="align-middle">Profile</span></a>
                                 <div class="dropdown-divider"></div>
@@ -277,7 +277,20 @@
                                         ?>
                                          <li>
                                             <a href="<?=base_url().'/'.$valueDetail['url']?>" >
-                                                <i class="bx bx-home-alt icon nav-icon"></i>
+                                                <?php 
+                                                    if($valueDetail['icon']==""){
+
+                                                        ?>
+                                                            <i class="bx bx-home-alt icon nav-icon"></i>
+                                                        <?php
+                                                    }else{
+                                                        ?>
+                                                            <i class="<?=$valueDetail['icon']?> icon nav-icon"></i>
+                                                        <?php
+                                                    }
+                                                ?>
+
+
                                                 <span class="menu-item" data-key="t-dashboard"><?=$valueDetail['name']?></span>
                                                 <!-- <span class="badge rounded-pill bg-primary">2</span> -->
                                             </a>

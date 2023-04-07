@@ -273,8 +273,8 @@ $(document).ready(function() {
     });
     table = $('#table-event-data').DataTable({
         lengthMenu: [
-            [5, -1],
-            [5, 'All'],
+            [15, 25, 50, -1],
+            [15, 25, 50, 'All'],
         ],
 
         dom: "<'row'<'col-sm-11'l><'col-sm-1'B>>" +
@@ -412,6 +412,11 @@ function detail_event(id) {
             $("#id-event-name").text(e.data.name);
             $("#id-target-visitor").text(e.data.target_visitor);
             $("#id-target-sell").text(e.data.target_sell);
+
+            $("#id-target-riding").text(e.data.target_riding);
+            $("#id-actual-riding").text(e.data.actual_riding);
+            
+
             $("#id-actual-sell").text(e.data.actual_sell);
             $("#id-actual-visitor").text(e.data.actual_visitor);
 
@@ -496,6 +501,16 @@ function getFormUpload(eventid, days, dateStart, tanggal) {
             $("#id-actual-sell-report").attr("eventid",eventid);
             $("#id-actual-sell-report").attr("name","actual_sell");
 
+
+            $("#id-target-riding-report").text(e.data.target_riding);
+            $("#id-target-riding-report").text(e.data.target_riding);
+            $("#id-target-riding-report").attr("eventid",eventid);
+            $("#id-target-riding-report").attr("name","target_riding");
+
+            $("#id-actual-riding-report").text(e.data.actual_riding);
+            $("#id-actual-riding-report").text(e.data.actual_riding);
+            $("#id-actual-riding-report").attr("eventid",eventid);
+            $("#id-actual-riding-report").attr("name","actual_riding");
 
             $("#target_prospect").text(e.data.target_prospect);
             $("#target_prospect").attr("eventid",eventid);
@@ -704,6 +719,8 @@ $(document).on('blur', '.update', function() {
     var empId = $(this).parent().attr('id');
     var eventid = $(this).parent().attr('eventid');
     var colName = $(this).parent().attr('name');
+
+    
     // var targetActualProspect = $("#target_actual_prospect").parent().attr('target_actual_prospect');
     var targetActualProspect = $("#target_actual_prospect").text();
     var targetProspect = $("#target_prospect").text();
@@ -749,11 +766,7 @@ $(document).on('blur', '.update', function() {
                                 }else{
                                     $("#target_actual_prospect_persen").html(pre+"%");
                                 }
-                                console.log('====================================');
-                                console.log("targetProspect",targetProspect);
-                                console.log("newValue",newValue);
-                                console.log("pre",newValue);
-                                console.log('====================================');
+                            
                             } else {
                                 var pre = Math.round((parseInt(newValue) * 100) / parseInt(targetProspect));
                                 if(pre >= 100){
@@ -761,11 +774,6 @@ $(document).on('blur', '.update', function() {
                                 }else{
                                     $("#target_actual_prospect_persen").html(pre+"%");
                                 }
-                                console.log('====================================');
-                                console.log("targetProspect",targetProspect);
-                                console.log("newValue",newValue);
-                                console.log("pre",newValue);
-                                console.log('====================================');
                             }
 
                         }
@@ -1297,8 +1305,14 @@ $("#button-add-eventlist").click(function(e) {
                     }
 
                 },
-                error:function(e){
-                    alertify.error('Error Internal');
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    const myJSON = JSON.parse(XMLHttpRequest.responseText)
+        
+                    if (myJSON.error == "invalid_token") {
+                        alertify.error('Session anda selesai');
+                        localStorage.removeItem("token");
+                        location.href = base_url;
+                    }
                 }
             });
         }

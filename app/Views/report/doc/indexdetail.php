@@ -211,7 +211,6 @@
                             <th class="fw-bold">% Deal <br>dari <br>Jumlah Prospek </th>
                             <th rowspan="3" class="fw-bold">Biaya Pameran</th>
                             <th rowspan="3" class="fw-bold">Status </th>
-                            <th rowspan="3" class="fw-bold">Action</th>
                           </tr>
                           <tr>
                             <th rowspan="2" class="fw-bold">Mulai</th>
@@ -249,7 +248,7 @@
                           <th class="fw-bold">% Deal <br>dari <br>Jumlah Prospek </th>
                           <th rowspan="3" class="fw-bold">Biaya Pameran</th>
                             <th rowspan="3" class="fw-bold">Status </th>
-                            <th rowspan="3" class="fw-bold">Action</th>
+                            <!-- <th rowspan="3" class="fw-bold">Action</th> -->
                         </tr>
                         <tr>
                           <th rowspan="2" class="fw-bold">Mulai</th>
@@ -287,7 +286,7 @@
                           <th class="fw-bold">% Deal <br>dari <br>Jumlah Prospek </th>
                           <th rowspan="3" class="fw-bold">Biaya Pameran</th>
                             <th rowspan="3" class="fw-bold">Status </th>
-                            <th rowspan="3" class="fw-bold">Action</th>
+                            <!-- <th rowspan="3" class="fw-bold">Action</th> -->
                         </tr>
                         <tr>
                           <th rowspan="2" class="fw-bold">Mulai</th>

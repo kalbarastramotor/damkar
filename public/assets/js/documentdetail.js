@@ -30,11 +30,12 @@ $(document).ready(function() {
     var totaldataDraft = 0
     var table0 = $('#table-category-data-0').DataTable({
         lengthMenu: [
-            [50, -1],
-            [50, 'All'],
+            [15, 25, 50, -1],
+            [15, 25, 50, 'All'],
         ],
-
-        dom: "<'row'<'col-sm-4'><'col-sm-8 button-export'>>",
+        dom: "<'row'<'col-sm-11'l><'col-sm-1'>>" +
+            "<'row'<'col-sm-12'tr>>" +
+            "<'row'<'col-sm-8'i><'col-sm-4'p>>",
         buttons: [{
                 extend: 'excel',
                 text: '<i class="fas fa-file-excel"></i>',
@@ -65,7 +66,6 @@ $(document).ready(function() {
                     e.bulan = bulan,
                     e.documentid = documentid,
                     e.categoryid = 1,
-
                     e.officeid = $(".filter-office").val()
             },
             type: "POST",
@@ -117,7 +117,7 @@ $(document).ready(function() {
 
         },
         columnDefs: [{
-                targets: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
+                targets: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
                 orderable: false,
                 className: "text-center",
             }
@@ -126,11 +126,12 @@ $(document).ready(function() {
     });
     var table1 = $('#table-category-data-1').DataTable({
         lengthMenu: [
-            [50, -1],
-            [50, 'All'],
+            [15, 25, 50, -1],
+            [15, 25, 50, 'All'],
         ],
-
-        dom: "<'row'<'col-sm-4'><'col-sm-8 button-export'>>",
+        dom: "<'row'<'col-sm-11'l><'col-sm-1'>>" +
+            "<'row'<'col-sm-12'tr>>" +
+            "<'row'<'col-sm-8'i><'col-sm-4'p>>",
         buttons: [{
                 extend: 'excel',
                 text: '<i class="fas fa-file-excel"></i>',
@@ -212,7 +213,7 @@ $(document).ready(function() {
 
         },
         columnDefs: [{
-                targets: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
+                targets: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
                 orderable: false,
                 className: "text-center",
             }
@@ -221,11 +222,12 @@ $(document).ready(function() {
     });
     var table2 = $('#table-category-data-2').DataTable({
         lengthMenu: [
-            [50, -1],
-            [50, 'All'],
+            [15, 25, 50, -1],
+            [15, 25, 50, 'All'],
         ],
-
-        dom: "<'row'<'col-sm-4'><'col-sm-8 button-export'>>",
+        dom: "<'row'<'col-sm-11'l><'col-sm-1'>>" +
+            "<'row'<'col-sm-12'tr>>" +
+            "<'row'<'col-sm-8'i><'col-sm-4'p>>",
         buttons: [{
                 extend: 'excel',
                 text: '<i class="fas fa-file-excel"></i>',
@@ -308,7 +310,7 @@ $(document).ready(function() {
 
         },
         columnDefs: [{
-                targets: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
+                targets: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
                 orderable: false,
                 className: "text-center",
             }
@@ -628,9 +630,6 @@ function delete_image(id) {
     $("#" + id).html("")
     $("#" + idinput).val("");
 
-    // console.log('====================================');
-    // console.log(id);
-    // console.log('====================================');
 
     $.ajax({
         url: base_url + "/api/report/doc/event/deletefile",

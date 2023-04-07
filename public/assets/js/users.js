@@ -1,6 +1,41 @@
 var table
 
 $(document).ready(function() {
+    $('.filter-jabatan').select2({
+        placeholder: 'Jabatan',
+        allowClear: true,
+        ajax: {
+            url: base_url + "/api/role/optionrole",
+            headers: {
+                "Authorization": "Bearer " + token,
+            },
+            data: function(params) {
+                var query = {
+                    search: params.term,
+                    type: 'select2',
+                    page: params.page || 1,
+                    auth: true,
+                }
+                return query;
+            },
+
+            dataType: 'json',
+            delay: 250,
+            selectOnClose: false,
+            minimumResultsForSearch: 2,
+            processResults: function(data, params) {
+                params.page = params.page || 1;
+                return {
+                    results: data,
+                    pagination: {
+                        more: false
+                    }
+                };
+            },
+            cache: true
+        }
+    });
+
     table = $('#user-table').DataTable({
         "processing": true,
         "serverSide": true,
@@ -39,6 +74,9 @@ $(document).ready(function() {
             "headers": {
                 "Authorization": "Bearer " + token,
             },
+            "data": function(e) {
+                e.jabatan = $(".filter-jabatan").val()
+            },
             "error": function(XMLHttpRequest, textStatus, errorThrown) {
                 const myJSON = JSON.parse(XMLHttpRequest.responseText)
                 if (myJSON.error == "invalid_token") {
@@ -64,6 +102,9 @@ $(document).ready(function() {
             }
         },
     });
+});
+$('.filter-jabatan').on("change", function(e) {
+    table.ajax.reload();
 });
 
 function showModalAdd() {

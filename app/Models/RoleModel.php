@@ -186,6 +186,7 @@ class RoleModel extends Model
             tb1.menuid,
             UPPER(tb1.name) as name,
             UPPER(tb_menu.name) AS parent_name,
+            COALESCE( tb1.icon,'') as icon,
             tb1.url
         FROM
             tb_menu AS tb1

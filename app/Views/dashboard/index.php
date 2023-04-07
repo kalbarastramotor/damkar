@@ -9,6 +9,11 @@
 <div class="main-content">
   <div class="page-content">
     <div class="container-fluid">
+
+      <?php 
+          if($header['rolecode']=="kabag") {
+        
+      ?>
       <div class="row">
         <div class="col-md-6 col-xl-3">
           <div class="card">
@@ -143,7 +148,7 @@
               </div>
               <div class="d-flex justify-content-between">
                 <div>
-                  <h4 class="mt-3 mb-0 font-size-22">0 <span class="text-danger fw-medium font-size-14 align-middle">
+                  <h4 class="mt-3 mb-0 font-size-22"  id="total_4">0 <span class="text-danger fw-medium font-size-14 align-middle">
                       <i class="mdi mdi-run-fast"></i>0 </span>
                   </h4>
                 </div>
@@ -155,6 +160,7 @@
           </div>
         </div>
       </div>
+      <?php } ?>
       <div class="row">
         <div class="col-xl-8">
           <div class="card">

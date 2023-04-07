@@ -108,20 +108,49 @@ class ReportAllModel extends Model
 
     public function getEventByCategory(){
 
+       
         $query = $this->db->table("tb_events");
         $query = $query->join("tb_office", 'tb_office.officeid = tb_events.officeid');
         $query = $query->where('year',$_POST['tahun']);
         $query = $query->where('month',$_POST['bulan']);
         $query = $query->where('categoryid',$_POST['categoryid']);
-        $query = $query->where('tb_office.officeid',$_POST['officeid']);
-        
+        if($this->request->getPost('officeid')!=''){
+            $query = $query->where('tb_office.officeid',$_POST['officeid']);
+        }
+        if ($this->request->getPost('length') != -1)
+        $query = $query->limit($this->request->getPost('length'), $this->request->getPost('start'));
+  
         $query = $query->get();
         return $query->getResult();
 
     }
+    public function totalEventByCategory(){
+
+        // $query = $this->db->->selectCount('eventid');
+        $query = $this->db->table("tb_events");
+        $query = $query->join("tb_office", 'tb_office.officeid = tb_events.officeid');
+        $query = $query->where('year',$_POST['tahun']);
+        $query = $query->where('month',$_POST['bulan']);
+        $query = $query->where('categoryid',$_POST['categoryid']);
+        if($this->request->getPost('officeid')!=''){
+            $query = $query->where('tb_office.officeid',$_POST['officeid']);
+        }
+        
+        // if ($this->request->getPost('length') != -1)
+        // $query = $query->limit($this->request->getPost('length'), $this->request->getPost('start'));
+  
+
+        // print_r($this->request->getPost());
+        // die();
+        // // $query = $query->get();
+        return $query->countAllResults();
+        
+        // return $query->getResult();
+
+    }
     public function queryDashboardTotalEvent(){
 
-        $query = $this->db->query("SELECT categoryid,status,COUNT(eventid) as total FROM tb_events WHERE status is NOT Null AND categoryid!=0 GROUP BY categoryid,status");
+        $query = $this->db->query("SELECT categoryid,status,COUNT(eventid) as total FROM tb_events WHERE status is NOT Null   AND categoryid!=0 GROUP BY categoryid,status");
         return $query->getResult();
     }
     public function getEventRunning(){
@@ -193,6 +222,24 @@ class ReportAllModel extends Model
  
          return $data;
     }
+    function getActualEventReport($year,$month){
+        $sql="
+        SELECT
+		    SUM(butget) as actual_butget,
+            COUNT(eventid) as actual_event
+        FROM
+            tb_events 
+            WHERE month = ".$month."
+            and year = ".$year;
+    
+        $query = $this->db->query($sql);
+        $results =  $query->getRowArray();
+        $data = [];
+        $data['actual_butget'] = $results['actual_butget'];
+        $data['actual_event'] = $results['actual_event'];
+        return $data;
+    
+    }
     function getDataActualMaps($eventid){
         $sql ="
         SELECT
@@ -214,5 +261,6 @@ class ReportAllModel extends Model
         return $data;
 
     }
+
    
 }

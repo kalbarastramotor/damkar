@@ -87,6 +87,10 @@ class UserModel extends Model
 
     private function getDatatablesQuery()
     {
+        if($this->request->getPost('jabatan')) {
+            $this->dt->where('tb_users_role.roleid',$this->request->getPost('jabatan'));
+        }
+
         $i = 0;
         foreach ($this->column_search as $item) {
             if ($this->request->getPost('search')['value']) {
@@ -121,8 +125,31 @@ class UserModel extends Model
 
     public function countFiltered()
     {
-        $this->getDatatablesQuery();
-        return $this->dt->countAllResults();
+  
+        if($this->request->getPost('jabatan')) {
+            $sql = "
+            SELECT
+                COUNT(*) AS total
+            FROM
+                tb_users
+            LEFT JOIN tb_users_office ON tb_users.userid = tb_users_office.userid
+            LEFT JOIN tb_office ON tb_office.officeid = tb_users_office.officeid
+            LEFT JOIN tb_users_role ON tb_users_role.userid = tb_users.userid
+            LEFT JOIN tb_role ON tb_role.roleid = tb_users_role.roleid 
+            WHERE tb_users_role.roleid = ".$this->request->getPost('jabatan')."
+            ";
+
+            // echo $sql;
+            // die();
+            $query= $this->db->query($sql);
+                $data = $query->getRow();
+               
+            return $data->total;
+        }else{
+            $this->getDatatablesQuery();
+            return $this->dt->countAllResults();
+        }
+
     }
 
     public function countAll()
