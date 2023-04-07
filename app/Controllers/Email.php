@@ -26,10 +26,7 @@ class Email extends BaseController {
         $mail = new PHPMailer(true);  
      
 		try {
-            // echo "<pre/>";
-            // print_r($mail);
 		    $mail->isSMTP();  
-            // $mail->Mailer = "smtp";
 		    $mail->Host         ="smtp.gmail.com";
 		    $mail->SMTPAuth     = true;     
 		    $mail->Username     = 'azharoce@gmail.com';
