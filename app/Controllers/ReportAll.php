@@ -125,32 +125,30 @@ class ReportAll extends BaseController
   
     public function status()
     {
-        
-    
         $sess = $this->data_session;
         $_POST['userid'] =  $sess['id'];
         $_POST['role_code'] =  $sess['rolecode'];
-      
-        $data = array(
-            'status'=> $_POST['status']
-        );
-        $hasil = $this->eventModel->where('eventid',$_POST['eventid'])->set($data)->update();
-        $insert = $this->eventHistoryModel->insert($_POST);
+
+
+        if($_POST['status']==2){
+            $historyApproval = $this->eventHistoryModel->getApproval($_POST['eventid']);
+            if(count($historyApproval)>=1){
+                $data = array(
+                    'status'=> $_POST['status']
+                );
+                $hasil = $this->eventModel->where('eventid',$_POST['eventid'])->set($data)->update();
+            }
+        }else{
+            $data = array(
+                'status'=> $_POST['status']
+            );
+            $hasil = $this->eventModel->where('eventid',$_POST['eventid'])->set($data)->update();
+        }
 
 
        
-        if($_POST['status']==1 &&  $_POST['role_code'] =="kabag"){
-            $_POST['notes']  ="Appoved By System";
-            $_POST['userid'] =  0;
-            $_POST['role_code'] = "System";
-            $data = array(
-                'status'=> 2
-            );
-            
-            $hasil = $this->eventModel->where('eventid',$_POST['eventid'])->set($data)->update();
-            $insert = $this->eventHistoryModel->insert($_POST);
-    
-        }
+        $insert = $this->eventHistoryModel->insert($_POST);
+
         if($insert!=0){
             successJsonResponse($insert); 
         }else{

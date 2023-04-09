@@ -23,7 +23,7 @@ $(document).ready(function() {
             { "title": 'Month' },
             { "title": 'Budget' },
             { "title": 'Alokasi' },
-            { "title": 'Event Target' },
+            { "title": 'Target Event' },
             { "title": 'Actual Event' },
             { "title": 'Action' },
         ],
