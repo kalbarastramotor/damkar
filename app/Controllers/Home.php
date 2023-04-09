@@ -158,15 +158,6 @@ class Home extends BaseController
                         if(in_array($this->data_session['rolecode'],$historyApproval)){
                             $labelStatus ='<span><span class="badge badge-pill badge-soft-primary font-size-12">Approved</span></span>';
                         }else{
-                                // if(count($historyApproval)==0){
-                                //     if($this->data_session['rolecode']=='kabag'){
-                                //         $labelStatus ='<span><span class="badge badge-pill badge-soft-warning font-size-12">Waiting Approval</span></span>';
-                                //     }else{
-                                //         $labelStatus ='<span><span class="badge badge-pill badge-soft-warning font-size-12">Waiting Approval</span></span>';
-                                //     }
-                                // }else{
-                                //     $labelStatus ='<span><span class="badge badge-pill badge-soft-warning font-size-12">Waiting Approval</span></span>';
-                                // }
                             if(count($historyApproval)==0){
                                 if($this->data_session['rolecode']=='spvarea'){
                                     $labelStatus ='<span><span class="badge badge-pill badge-soft-warning font-size-12">Waiting Approval</span></span>';
