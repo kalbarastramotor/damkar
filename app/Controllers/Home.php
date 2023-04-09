@@ -567,7 +567,7 @@ class Home extends BaseController
         // ';
 
         $actionHistory ='
-            <button type="button" class="btn btn-soft-secondary" onclick="show_history_status('.$hasil['eventid'].')">Show</button>
+            <button type="button" class="btn btn-primary-secondary" onclick="show_history_status('.$hasil['eventid'].')">Show</button>
         ';
        
        
