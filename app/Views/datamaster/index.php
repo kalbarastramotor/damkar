@@ -189,6 +189,12 @@
                       <td id="id-event-action"></td>
                     </tr>
                     <tr>
+                      <th scope="row">History Status</th>
+                      <td id="id-event-action-history">
+                        <button type="button" class="btn btn-soft-secondary">Show</button>
+                      </td>
+                    </tr>
+                    <tr>
                       <th scope="row">Created By :</th>
                       <td id="id-created-by"></td>
                     </tr>
@@ -196,12 +202,7 @@
                       <th scope="row">Cover</th>
                       <td id="id-event-cover"></td>
                     </tr>
-                    <tr>
-                      <th scope="row">History Status</th>
-                      <td id="id-event-action-history">
-                        <button type="button" class="btn btn-soft-secondary">Show</button>
-                      </td>
-                    </tr>
+                   
                   </tbody>
                 </table>
                 <br>

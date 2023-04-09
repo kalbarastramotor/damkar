@@ -47,8 +47,7 @@ class EventActivityModel extends Model
             $arrayChar[] = $abjad;
         }
 
-        // $where = ['eventid' => $eventid];
-        $where = ['eventid' => 4];
+        $where = ['eventid' => $eventid];
         $query = $this->db->table($this->table);
         $query->where($where);
         $data = $query->get()->getResult();
