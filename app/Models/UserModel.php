@@ -91,6 +91,8 @@ class UserModel extends Model
             $this->dt->where('tb_users_role.roleid',$this->request->getPost('jabatan'));
         }
 
+        $this->dt->where('tb_users.userid !=',0);
+
         $i = 0;
         foreach ($this->column_search as $item) {
             if ($this->request->getPost('search')['value']) {
@@ -136,7 +138,7 @@ class UserModel extends Model
             LEFT JOIN tb_office ON tb_office.officeid = tb_users_office.officeid
             LEFT JOIN tb_users_role ON tb_users_role.userid = tb_users.userid
             LEFT JOIN tb_role ON tb_role.roleid = tb_users_role.roleid 
-            WHERE tb_users_role.roleid = ".$this->request->getPost('jabatan')."
+            WHERE tb_users_role.roleid = ".$this->request->getPost('jabatan')." AND tb_users.userid !=0
             ";
 
             // echo $sql;
@@ -154,7 +156,8 @@ class UserModel extends Model
 
     public function countAll()
     {
-        $tbl_storage = $this->db->table($this->table);
+
+        $tbl_storage = $this->db->table($this->table)->where('userid !=',0);
         return $tbl_storage->countAllResults();
     }
 
