@@ -418,18 +418,34 @@ $("#button-add-users").click(function(e) {
             success: function(e) {
                 if (e.status.message == "OK") {
                     alertify.success('Data berhasil di simpan');
-                    $('#myModal_Add').modal('hide');
                     table.ajax.reload();
 
                     $('#password-users-add').removeClass('is-invalid');
+                    $('#password-users-add').removeClass('is-valid');
+
                     $('#re-password-users-add').removeClass('is-invalid');
+                    $('#re-password-users-add').removeClass('is-valid');
+                    
                     $('#gender-users-add').removeClass('is-invalid');
+                    $('#gender-users-add').removeClass('is-valid');
+
                     $('#name-users-add').removeClass('is-invalid');
+                    $('#name-users-add').removeClass('is-valid');
+
                     $('#phone-users-add').removeClass('is-invalid');
+                    $('#phone-users-add').removeClass('is-valid');
+
                     $('#email-users-add').removeClass('is-invalid');
+                    $('#email-users-add').removeClass('is-valid');
+                 
+                    document.getElementById("message-email").innerHTML = ""
+                    document.getElementById("message-phone-add").innerHTML = ""
+                    document.getElementById("message-password").innerHTML = ""
+                    document.getElementById("message-repassword").innerHTML = ""
 
                     $(".needs-validation").closest('form').find("input[type=text], textarea").val("");
 
+                    $('#myModal_Add').modal('hide');
 
                 } else {
                     alertify.error('Error Internal');
