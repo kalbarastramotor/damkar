@@ -42,7 +42,7 @@ class EventActivityModel extends Model
     }
     public function getActivityEventByID($eventid){
         $arrayChar = array();
-        $char = range('R', 'Z');
+        $char = range('S', 'Z');
         foreach ($char as $abjad) {
             $arrayChar[] = $abjad;
         }

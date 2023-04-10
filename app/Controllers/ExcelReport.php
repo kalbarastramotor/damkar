@@ -142,56 +142,51 @@ class ExcelReport extends BaseController
         $sheetDuration->getStyle('I5:I7')->getAlignment()->setVertical('center');
         $sheetDuration->getStyle('I5:I7')->getFont()->setBold( true );
 
-        $sheetDuration =  $spreadsheet->setActiveSheetIndex(0)->setCellValue('J5', 'Jumlah Pengunjung');
-        $sheetDuration->mergeCells('J5:K5');
-        $sheetDuration->getStyle('J5:K5')->getAlignment()->setHorizontal('center');
-        $sheetDuration->getStyle('J5:K5')->getAlignment()->setVertical('center');
-        $sheetDuration->getStyle('J5:K5')->getFont()->setBold( true );
+        $sheetDuration =  $spreadsheet->setActiveSheetIndex(0)->setCellValue('J5', 'Status Event');
+        $sheetDuration->mergeCells('J5:J7');
+        $sheetDuration->getStyle('J5:J7')->getAlignment()->setHorizontal('center');
+        $sheetDuration->getStyle('J5:J7')->getAlignment()->setVertical('center');
+        $sheetDuration->getStyle('J5:J7')->getFont()->setBold( true );
 
-        $sheetDuration =  $spreadsheet->setActiveSheetIndex(0)->setCellValue('J6', 'Target');
-        $sheetDuration->mergeCells('J6');
-        $sheetDuration->getStyle('J6')->getAlignment()->setHorizontal('center');
-        $sheetDuration->getStyle('J6')->getAlignment()->setVertical('center');
-        $sheetDuration->getStyle('J6')->getFont()->setBold( true );
 
-        $sheetDuration =  $spreadsheet->setActiveSheetIndex(0)->setCellValue('K6', 'Aktual*');
+        $sheetDuration =  $spreadsheet->setActiveSheetIndex(0)->setCellValue('K5', 'Jumlah Pengunjung');
+        $sheetDuration->mergeCells('K5:L5');
+        $sheetDuration->getStyle('K5:L5')->getAlignment()->setHorizontal('center');
+        $sheetDuration->getStyle('K5:L5')->getAlignment()->setVertical('center');
+        $sheetDuration->getStyle('K5:L5')->getFont()->setBold( true );
+
+        $sheetDuration =  $spreadsheet->setActiveSheetIndex(0)->setCellValue('K6', 'Target');
         $sheetDuration->mergeCells('K6');
         $sheetDuration->getStyle('K6')->getAlignment()->setHorizontal('center');
         $sheetDuration->getStyle('K6')->getAlignment()->setVertical('center');
         $sheetDuration->getStyle('K6')->getFont()->setBold( true );
 
-        $sheetDuration =  $spreadsheet->setActiveSheetIndex(0)->setCellValue('L5', 'Penjualan');
-        $sheetDuration->mergeCells('L5:M5');
-        $sheetDuration->getStyle('L5:M5')->getAlignment()->setHorizontal('center');
-        $sheetDuration->getStyle('L5:M5')->getAlignment()->setVertical('center');
-        $sheetDuration->getStyle('L5:M5')->getFont()->setBold( true );
-
-        $sheetDuration =  $spreadsheet->setActiveSheetIndex(0)->setCellValue('L6', 'Target');
+        $sheetDuration =  $spreadsheet->setActiveSheetIndex(0)->setCellValue('L6', 'Aktual*');
         $sheetDuration->mergeCells('L6');
         $sheetDuration->getStyle('L6')->getAlignment()->setHorizontal('center');
         $sheetDuration->getStyle('L6')->getAlignment()->setVertical('center');
         $sheetDuration->getStyle('L6')->getFont()->setBold( true );
 
-        $sheetDuration =  $spreadsheet->setActiveSheetIndex(0)->setCellValue('M6', 'Aktual*');
+        $sheetDuration =  $spreadsheet->setActiveSheetIndex(0)->setCellValue('M5', 'Penjualan');
+        $sheetDuration->mergeCells('M5:N5');
+        $sheetDuration->getStyle('M5:N5')->getAlignment()->setHorizontal('center');
+        $sheetDuration->getStyle('M5:N5')->getAlignment()->setVertical('center');
+        $sheetDuration->getStyle('M5:N5')->getFont()->setBold( true );
+
+        $sheetDuration =  $spreadsheet->setActiveSheetIndex(0)->setCellValue('M6', 'Target');
         $sheetDuration->mergeCells('M6');
         $sheetDuration->getStyle('M6')->getAlignment()->setHorizontal('center');
         $sheetDuration->getStyle('M6')->getAlignment()->setVertical('center');
         $sheetDuration->getStyle('M6')->getFont()->setBold( true );
 
-
-        $sheetDuration =  $spreadsheet->setActiveSheetIndex(0)->setCellValue('N5', 'Jumlah Hot Prospect');
-        $sheetDuration->mergeCells('N5');
-        $sheetDuration->getStyle('N5')->getAlignment()->setHorizontal('center');
-        $sheetDuration->getStyle('N5')->getAlignment()->setVertical('center');
-        $sheetDuration->getStyle('N5')->getFont()->setBold( true );
-
-        $sheetDuration =  $spreadsheet->setActiveSheetIndex(0)->setCellValue('N6', 'Aktual');
+        $sheetDuration =  $spreadsheet->setActiveSheetIndex(0)->setCellValue('N6', 'Aktual*');
         $sheetDuration->mergeCells('N6');
         $sheetDuration->getStyle('N6')->getAlignment()->setHorizontal('center');
         $sheetDuration->getStyle('N6')->getAlignment()->setVertical('center');
         $sheetDuration->getStyle('N6')->getFont()->setBold( true );
 
-        $sheetDuration =  $spreadsheet->setActiveSheetIndex(0)->setCellValue('O5', 'Jumlah Closing (Deal) dari Hot Prospect');
+
+        $sheetDuration =  $spreadsheet->setActiveSheetIndex(0)->setCellValue('O5', 'Jumlah Hot Prospect');
         $sheetDuration->mergeCells('O5');
         $sheetDuration->getStyle('O5')->getAlignment()->setHorizontal('center');
         $sheetDuration->getStyle('O5')->getAlignment()->setVertical('center');
@@ -203,7 +198,7 @@ class ExcelReport extends BaseController
         $sheetDuration->getStyle('O6')->getAlignment()->setVertical('center');
         $sheetDuration->getStyle('O6')->getFont()->setBold( true );
 
-        $sheetDuration =  $spreadsheet->setActiveSheetIndex(0)->setCellValue('P5', '% Deal dari Jumlah Prospek');
+        $sheetDuration =  $spreadsheet->setActiveSheetIndex(0)->setCellValue('P5', 'Jumlah Closing (Deal) dari Hot Prospect');
         $sheetDuration->mergeCells('P5');
         $sheetDuration->getStyle('P5')->getAlignment()->setHorizontal('center');
         $sheetDuration->getStyle('P5')->getAlignment()->setVertical('center');
@@ -215,28 +210,41 @@ class ExcelReport extends BaseController
         $sheetDuration->getStyle('P6')->getAlignment()->setVertical('center');
         $sheetDuration->getStyle('P6')->getFont()->setBold( true );
 
-        $sheetDuration =  $spreadsheet->setActiveSheetIndex(0)->setCellValue('Q5', 'Biaya Pameran');
-        $sheetDuration->mergeCells('Q5:Q7');
-        $sheetDuration->getStyle('Q5:Q7')->getAlignment()->setHorizontal('center');
-        $sheetDuration->getStyle('Q5:Q7')->getAlignment()->setVertical('center');
-        $sheetDuration->getStyle('Q5:Q7')->getFont()->setBold( true );
+        $sheetDuration =  $spreadsheet->setActiveSheetIndex(0)->setCellValue('Q5', '% Deal dari Jumlah Prospek');
+        $sheetDuration->mergeCells('Q5');
+        $sheetDuration->getStyle('Q5')->getAlignment()->setHorizontal('center');
+        $sheetDuration->getStyle('Q5')->getAlignment()->setVertical('center');
+        $sheetDuration->getStyle('Q5')->getFont()->setBold( true );
 
-        $sheetDuration =  $spreadsheet->setActiveSheetIndex(0)->setCellValue('J7', 'Selama Pameran');
-        $sheetDuration->mergeCells('J7:P7');
-        $sheetDuration->getStyle('J7:P7')->getAlignment()->setHorizontal('center');
-        $sheetDuration->getStyle('J7:P7')->getAlignment()->setVertical('center');
-        $sheetDuration->getStyle('J7:P7')->getFont()->setBold( true );
+        $sheetDuration =  $spreadsheet->setActiveSheetIndex(0)->setCellValue('Q6', 'Aktual');
+        $sheetDuration->mergeCells('Q6');
+        $sheetDuration->getStyle('Q6')->getAlignment()->setHorizontal('center');
+        $sheetDuration->getStyle('Q6')->getAlignment()->setVertical('center');
+        $sheetDuration->getStyle('Q6')->getFont()->setBold( true );
+
+        $sheetDuration =  $spreadsheet->setActiveSheetIndex(0)->setCellValue('R5', 'Biaya Pameran');
+        $sheetDuration->mergeCells('R5:R7');
+        $sheetDuration->getStyle('R5:R7')->getAlignment()->setHorizontal('center');
+        $sheetDuration->getStyle('R5:R7')->getAlignment()->setVertical('center');
+        $sheetDuration->getStyle('R5:R7')->getFont()->setBold( true );
+
+        $sheetDuration =  $spreadsheet->setActiveSheetIndex(0)->setCellValue('K7', 'Selama Pameran');
+        $sheetDuration->mergeCells('K7:Q7');
+        $sheetDuration->getStyle('K7:Q7')->getAlignment()->setHorizontal('center');
+        $sheetDuration->getStyle('K7:Q7')->getAlignment()->setVertical('center');
+        $sheetDuration->getStyle('K7:Q7')->getFont()->setBold( true );
 
 
-        $sheetDuration =  $spreadsheet->setActiveSheetIndex(0)->setCellValue('R5', 'Images');
-        $sheetDuration->mergeCells('R5:V7');
-        $sheetDuration->getStyle('R5:V7')->getAlignment()->setHorizontal('center');
-        $sheetDuration->getStyle('R5:V7')->getAlignment()->setVertical('center');
-        $sheetDuration->getStyle('R5:V7')->getFont()->setBold( true );
+        $sheetDuration =  $spreadsheet->setActiveSheetIndex(0)->setCellValue('S5', 'Images');
+        $sheetDuration->mergeCells('S5:W7');
+        $sheetDuration->getStyle('S5:W7')->getAlignment()->setHorizontal('center');
+        $sheetDuration->getStyle('S5:W7')->getAlignment()->setVertical('center');
+        $sheetDuration->getStyle('S5:W7')->getFont()->setBold( true );
 
         $column = 8;
         $no=0;
         foreach($data as $val) {
+        
             $imagesEvent = array();
             $images = $this->eventActivityModel->getActivityEventByID($val['eventid']);
 
@@ -256,18 +264,21 @@ class ExcelReport extends BaseController
                         ->setCellValue('G' . $column, $val['office_code'])
                         ->setCellValue('H' . $column, $val['office_name'])
                         ->setCellValue('I' . $column, $val['location'])
-                        ->setCellValue('J' . $column, $val['target_visitor'])
-                        ->setCellValue('K' . $column, $val['actual_visitor'])
-                        ->setCellValue('L' . $column, $val['target_sell'])
-                        ->setCellValue('M' . $column, $val['actual_sell'])
-                        ->setCellValue('N' . $column, $val['target_prospect'])
-                        ->setCellValue('O' . $column, $val['target_actual_prospect'])
-                        ->setCellValue('P' . $column, get_percentage((int)$val['target_prospect'],(int)$val['target_actual_prospect'])."%")
-                        ->setCellValue('Q' . $column, 'Rp.'.number_format($val['butget']));
+                        ->setCellValue('J' . $column, dataEventStatus($val['status']))
+                        ->setCellValue('K' . $column, $val['target_visitor'])
+                        ->setCellValue('L' . $column, $val['actual_visitor'])
+                        ->setCellValue('M' . $column, $val['target_sell'])
+                        ->setCellValue('N' . $column, $val['actual_sell'])
+                        ->setCellValue('O' . $column, $val['target_prospect'])
+                        ->setCellValue('P' . $column, $val['target_actual_prospect'])
+                        ->setCellValue('Q' . $column, get_percentage((int)$val['target_prospect'],(int)$val['target_actual_prospect'])."%")
+                        ->setCellValue('R' . $column, 'Rp.'.number_format($val['butget']));
 
                         foreach ($images as $key => $value) {
                            
-                            $IMG =  base_url().'/uploads/berkas/'.$value->images;
+                           
+                            // $IMG =  base_url().'/uploads/berkas/'.$value->images;
+                            $IMG =  "https://damkar.id/public/assets/images/logo.png";
                             $imageType = "png";
 
                             if (strpos($IMG, ".png") === false) {

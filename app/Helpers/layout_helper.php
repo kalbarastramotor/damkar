@@ -14,6 +14,17 @@ function get_percentage($total, $number)
   }
 }
 
+function dataEventStatus($status){
+    $data = array();
+    $data['1'] =  'Pending';
+    $data['2'] =  'Approved';
+    $data['3'] =  'Rejected';
+    $data['4'] =  'Running';
+    $data['5'] =  'Done';
+    $data['0'] =  'Draft';
+    return $data[$status];
+}
+
 function global_css(){
     return array(
         array(

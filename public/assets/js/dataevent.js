@@ -277,7 +277,7 @@ $(document).ready(function() {
             [15, 25, 50, 'All'],
         ],
 
-        dom: "<'row'<'col-sm-11'l><'col-sm-1'B>>" +
+        dom: "<'row'<'col-sm-6'l><'col-sm-5'f><'col-sm-1'B>>" +
             "<'row'<'col-sm-12'tr>>" +
             "<'row'<'col-sm-8'i><'col-sm-4'p>>",
         buttons: [{

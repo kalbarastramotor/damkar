@@ -39,24 +39,31 @@ class EventModel extends Model
 
     private function getDatatablesQuery()
     {
+
+       
       
-        if ($this->request->getPost('officeid')) {
+        if ($this->request->getPost('officeid')!="") {
             $this->dt->where('tb_events.officeid',$this->request->getPost('officeid'));
         }
       
         if ($this->request->getPost('status')!="") {
             $this->dt->where('status',$this->request->getPost('status'));
         }
-        if ($this->request->getPost('year')) {
+        if ($this->request->getPost('year')!="") {
             $this->dt->where('year',$this->request->getPost('year'));
         }
-        if ($this->request->getPost('month')) {
-            $this->dt->where('month',$this->request->getPost('month'));
+        if ($this->request->getPost('month')!="") {
+           
+            if((int)date("m")!=$this->request->getPost('month')){
+                $this->dt->where('month',$this->request->getPost('month'));
+            }
+
         }
-        if ($this->request->getPost('categoryid')) {
+        if ($this->request->getPost('categoryid')!="") {
             $this->dt->where('tb_events.categoryid',$this->request->getPost('categoryid'));
         }
         
+     
 
         $i = 0;
         foreach ($this->column_search as $item) {
@@ -249,7 +256,9 @@ class EventModel extends Model
         if($statusEvent!=0){
             $query->where('tb_events.status',$statusEvent);
         }else{
-            $query->where('tb_events.status!=',$statusEvent);
+            $EventStatus = [4,5];
+            $query->whereIn('tb_events.status', $EventStatus);
+            // $query->where('tb_events.status!=',$statusEvent);
         }
 
         if($category!=0){
@@ -258,18 +267,15 @@ class EventModel extends Model
 
         if($tahun!=0){
             $query->where('tb_events.year',$tahun);
+        }else{
+            $query->where('tb_events.year',date('Y'));
         }
-        // else{
-        //     $query->where('tb_events.year',date('Y'));
-        // }
         if($bulan!=0){
             $query->where('tb_events.month',$bulan);
+        }else{
+            $query->where('tb_events.month',(int)date('m'));
         }
-        // }else{
-        //     $query->where('tb_events.month',(int)date('m'));
-        // }
 
-        // $query= $query->limit(4);
         $query = $query->get();
         $data = $query->getResult();
         

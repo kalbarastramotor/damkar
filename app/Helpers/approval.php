@@ -7,6 +7,7 @@ function urutanApproval($approvalcode)
   $arrayApprovalCode["staff"] = true;
   $arrayApprovalCode["spvpromosi"] = true;
 }
+
 ?>
 
 	
