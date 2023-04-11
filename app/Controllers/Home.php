@@ -188,6 +188,9 @@ class Home extends BaseController
                 
                 } else if ( $list->status== 5 ||  $list->status== "5") {
                     $labelStatus ='<span><span class="badge badge-pill badge-soft-success font-size-12">Done</span></span>';
+                    if($this->data_session['id']==$list->userid){
+                        $buttonActionList = '<a class="dropdown-item" type="button" onclick="getFormUpload('.$list->eventid.','.$days_between.',\''.date_format(date_create($list->date_start),"Y-m").'\',\''.date_format(date_create($list->date_start),"d").'\')" >Upload Images</a>';
+                    }   
                 } else if ( $list->status== 0 ||  $list->status== "0") {
                     $labelStatus ='<span><span class="badge badge-pill badge-soft-secondary font-size-12">Draft</span></span>';
                     $buttonActionList = $this->buttonEditEvent($list->eventid,$list->userid);

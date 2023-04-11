@@ -27,14 +27,12 @@ class Email extends BaseController {
      
 		try {
 		    $mail->isSMTP();  
-		    $mail->Host         ="smtp.gmail.com";
+		    $mail->Host         = 'smtp.gmail.com';
 		    $mail->SMTPAuth     = true;     
-		    $mail->Username     = 'azharoce@gmail.com';
-		    $mail->Password     = '#Azhar02021995';
+		    $mail->Username     = 'kalbarastramotor@gmail.com';
+		    $mail->Password     = 'Astramotorkalbar';
 			$mail->SMTPSecure   = 'ssl';  
-			$mail->Port         = 587;  
-
-
+			$mail->Port         = 465;  
 			$mail->Subject      = $subject;
 			$mail->Body         = $message;
 			$mail->setFrom('azharoce@gmail.com', 'dasaads');
@@ -42,6 +40,9 @@ class Email extends BaseController {
 			$mail->addAddress($email);  
 			$mail->isHTML(true);      
             $send = $mail->send();
+
+			print_r($send);
+			die();
 			if(!$send ) {
                 echo $send;
                 echo "<br/>";
