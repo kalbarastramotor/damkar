@@ -32,6 +32,13 @@ class EventActivityModel extends Model
         $data = $query->get()->getResult();
         return $data;
     }
+    public function getActivityEventImage($eventid){
+        $where = ['eventid' =>$eventid];
+        $query = $this->db->table($this->table);
+        $query->like($where);
+        $data = $query->get()->getResult();
+        return $data;
+    }
     public function getImageFile($eventid,$date)
     {
         $query = $this->db->table($this->table);
