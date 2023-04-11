@@ -63,16 +63,12 @@
                       <th scope="col">Filter</th>
                     </tr>
                   </thead>
-                  <tbody> <?php 
-                    if($_SESSION['roleid']=="1"){
-                        ?> <tr>
+                  <tbody>  <tr>
                       <th class="text-nowrap" scope="row">Dealer</th>
                       <td class="filter-office-select2">
                         <select class="filter-office form-control" style="width:100%"></select>
                       </td>
-                    </tr> <?php 
-                      }
-                    ?> <tr>
+                    </tr>  <tr>
                       <th class="text-nowrap" scope="row">Status Event</th>
                       <td class="filter-event-select2">
                         <select class="filter-event form-control" style="width:100%"></select>
