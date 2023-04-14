@@ -192,6 +192,17 @@ class EventModel extends Model
         $query->where('tb_events.eventid',$this->request->getPost('id'));
         return $query->get()->getRowArray();
     }
+    
+    public function DataEventByID($eventid)
+    {
+        $query = $this->db->table($this->table);
+        $query->select('tb_events.userid,tb_users.fullname,tb_users.email,tb_events.eventid,tb_events.location, tb_events.name, tb_events.cover, tb_events.date_start, tb_events.date_end, tb_events.status, tb_events.location_lat, tb_events.location_long, tb_events.description, tb_events.documentid, tb_events.officeid, tb_events.categoryid, tb_events.month, tb_events.year, tb_events.target, tb_events.butget, tb_events.target_visitor, tb_events.actual_visitor, tb_events.target_sell, tb_events.actual_sell,tb_office.officeid,tb_office.office_code,tb_office.office_name,tb_events_category.name as category_name, tb_events.target_prospect, tb_events.target_actual_prospect,tb_events.target_riding,tb_events.actual_riding');
+        $query->join('tb_office', 'tb_office.officeid = tb_events.officeid');
+        $query->join('tb_events_category', 'tb_events_category.id = tb_events.categoryid');
+        $query->join('tb_users', 'tb_users.userid = tb_events.userid');
+        $query->where('tb_events.eventid',$eventid);
+        return $query->get()->getRowArray();
+    }
 
     public function getMarkerModel()
     {
@@ -280,5 +291,15 @@ class EventModel extends Model
         $data = $query->getResult();
         
         return json_decode(json_encode($query->getResult()), true);
+    }
+    public function getAtasan($officeid){
+        $query = $this->db->table("tb_office as to2");
+        $query->select('to2.officeid,to2.office_name,tu.userid,tu.fullname,tu.email,tu.phone,tr.roleid,tr.name,tur.area,tr.routes');
+        $query->join('tb_users_office tuo', 'tuo.officeid = to2.officeid');
+        $query->join('tb_users tu', 'tu.userid=tuo.userid');
+        $query->join('tb_users_role tur', 'tur.userid=tu.userid');
+        $query->join('tb_role tr', 'tr.roleid=tur.roleid');
+        $query->where('to2.officeid',$officeid);
+        return json_decode(json_encode($query->get()->getResult()), true);
     }
 }
