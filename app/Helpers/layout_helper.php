@@ -58,7 +58,7 @@ function gridjscss(){
     );
 }
 function mapsjs(){
-    return array("https://maps.googleapis.com/maps/api/js?key=AIzaSyAMjkDiBVQh9IpPrn0EVe5eUvLD44lYvds");
+    return array("https://maps.googleapis.com/maps/api/js?key=AIzaSyAMjkDiBVQh9IpPrn0EVe5eUvLD44lYvds&libraries=places");
 }
 
 function datatablescss(){
@@ -151,6 +151,18 @@ function successJsonResponse($id){
                 "last_id"=>$id
             ),
         
+        )
+    );
+}
+function successJsonResponseAll($data){
+    header('Content-Type: application/json; charset=utf-8');
+    echo json_encode(
+        array(
+            "status"=> array(
+                "error_code"=>  0,
+                "message"=>  "OK"
+            ),
+            "data"=> $data
         )
     );
 }
