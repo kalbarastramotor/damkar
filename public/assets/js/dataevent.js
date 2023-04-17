@@ -508,7 +508,7 @@ $(document).ready(function() {
                     e.categoryid = $(".filter-category").val(),
                     e.year = $(".filter-year").val(),
                     e.month = $(".filter-bulan").val()
-            },
+            }  ,
             "error": function(XMLHttpRequest, textStatus, errorThrown) {
 
                 const myJSON = JSON.parse(XMLHttpRequest.responseText)
@@ -879,7 +879,7 @@ $("#button-reject").click(function(e) {
         eventid: $("#button-reject").attr("eventid"),
         status: $("#button-reject").attr("status")
     }
-   
+    $('#spinner-div').show();
     $.ajax({
         url: base_url + "/api/report/doc/event/status",
         dataType: 'json',
@@ -890,7 +890,7 @@ $("#button-reject").click(function(e) {
         type: 'post',
         success: function(e) {
             if (e.status.message == "OK") {
-                alertify.success('Upload File Success');
+                alertify.success('Rejected');
             } else {
                 alertify.error('Error Internal');
             }
@@ -1070,7 +1070,7 @@ $("#button-request").click(function(e) {
         eventid: $("#button-request").attr("eventid"),
         status: $("#button-request").attr("status")
     }
-   
+    $('#spinner-div').show();
     $.ajax({
         url: base_url + "/api/report/doc/event/status",
         dataType: 'json',
@@ -1081,7 +1081,9 @@ $("#button-request").click(function(e) {
         type: 'post',
         success: function(e) {
             if (e.status.message == "OK") {
-                alertify.success('Upload File Success');
+                $('#spinner-div').hide();
+                alertify.success('Requested');
+
             } else {
                 alertify.error('Error Internal');
             }
@@ -1121,7 +1123,7 @@ $("#button-approve").click(function(e) {
         eventid: $("#button-approve").attr("eventid"),
         status: $("#button-approve").attr("status")
     }
-   
+    $('#spinner-div').show();
     $.ajax({
         url: base_url + "/api/report/doc/event/status",
         dataType: 'json',
@@ -1132,7 +1134,8 @@ $("#button-approve").click(function(e) {
         type: 'post',
         success: function(e) {
             if (e.status.message == "OK") {
-                alertify.success('Upload File Success');
+                $('#spinner-div').hide();
+                alertify.success('Approved');
             } else {
                 alertify.error('Error Internal');
             }

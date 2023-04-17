@@ -57,12 +57,30 @@
     /* border:1px solid ; */
     zoom: 150% !important;
 }
+#spinner-div {
+  position: fixed;
+  display: none;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.8);
+  z-index: 1000000000 !important;
+  padding-top:40rem!important
+}
+
    
 </style>
     </head>
 
     
     <body style="zoom:67%">
+    <div id="spinner-div">
+        <div class="spinner-border text-primary" role="status">
+        </div>
+    </div>
+
     <!-- <body style="zoom:67%"> -->
 
 

@@ -181,4 +181,20 @@ function failedJsonResponse($err){
             )
     );
 }
+
+function errorJsonResponse($err,$message){
+    header('Content-Type: application/json; charset=utf-8');
+    echo json_encode(
+        array(
+                "status"=> array(
+                    "error_code"=>  0,
+                    "message"=>  $message
+                ),
+           
+                "data"=>  array(
+                    "error"=>$err
+                ),
+            )
+    );
+}
 ?>

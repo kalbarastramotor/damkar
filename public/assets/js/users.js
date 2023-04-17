@@ -232,8 +232,18 @@ $("#button-set-role-users").click(function(e) {
                 alertify.success('Data berhasil di simpan');
                 $('#myModal_change_access').modal('hide');
                 table.ajax.reload();
-            } else {
+            } else if(e.data.error == "role_ready_set"){
+                alertify.warning(e.status.message);
+            }else {
                 alertify.error('Error Internal');
+            }
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+            const myJSON = JSON.parse(XMLHttpRequest.responseText)
+            if (myJSON.error == "invalid_token") {
+                alertify.error('Session anda selesai');
+                localStorage.removeItem("token");
+                location.href = base_url;
             }
         }
     });
@@ -485,10 +495,20 @@ $("#button-set-office").click(function(e) {
                 table.ajax.reload();
                 $(".needs-validation").closest('form').find("input[type=text], textarea").val("");
 
-            } else {
+              } else if(e.data.error == "role_ready_set"){
+                alertify.warning(e.status.message);
+            }else {
                 alertify.error('Error Internal');
             }
 
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+            const myJSON = JSON.parse(XMLHttpRequest.responseText)
+            if (myJSON.error == "invalid_token") {
+                alertify.error('Session anda selesai');
+                localStorage.removeItem("token");
+                location.href = base_url;
+            }
         }
     });
 });

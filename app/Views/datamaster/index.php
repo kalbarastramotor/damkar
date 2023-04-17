@@ -101,22 +101,9 @@
 
 }
 
-#pac-container {
-  /* padding-bottom: 12px;
-  margin-right: 12px; */
-    /* z-index: 0 !important; */
-  /* .pac-container { z-index: 100000 !important; } */
-
-}
 .pac-container {
     z-index: 1100 !important;
     zoom: 150% !important;
-}
-
-.pac-controls {
-  /* display: inline-block; */
-  /* padding: 5px 11px; */
-
 }
 
 .pac-controls label {
@@ -171,7 +158,16 @@
   width: 345px;
 }
 
-
+.overlay{
+    display: none;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    background: rgba(255,255,255,0.8) url("/examples/images/loader.gif") center no-repeat;
+}
 
 </style>
 <div class="main-content">
@@ -267,6 +263,11 @@
 <div id="myModal_detail" class="modal fade bs-example-modal-xl" aria-labelledby="myModalLabel" aria-hidden="true" data-bs-scroll="true">
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
+      <div id="spinner-div" class="pt-5">
+          <div class="spinner-border text-primary" role="status">
+          </div>
+      </div>
+      
       <div class="modal-header text-center">
         <h5 class="modal-title" id="myModalLabel">Detail Event</h5>
         <button type="button" class="btn-close close-detail-data" data-bs-dismiss="modal" aria-label="Close"></button>
