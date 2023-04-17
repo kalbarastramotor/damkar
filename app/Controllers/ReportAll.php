@@ -9,6 +9,7 @@ use App\Models\EventcategoryModel;
 use App\Models\EventModel;
 use App\Models\EventActivityModel;
 use App\Models\EventHistoryModel;
+use \App\Libraries\SendEmail;
 use Config\Services;
 
 class ReportAll extends BaseController
@@ -22,6 +23,7 @@ class ReportAll extends BaseController
         $this->eventModel = new EventModel($this->request);
         $this->eventHistoryModel = new EventHistoryModel($this->request);
         $this->eventActivityModel = new EventActivityModel($this->request);
+        $this->mail = new SendEmail();  
 
         $this->session = session(); 
         $this->data_session = array(
@@ -122,6 +124,54 @@ class ReportAll extends BaseController
             failedJsonResponse($hasil);
         }
     }
+
+    /// email 
+
+    function checkRequestApprove($officeid,$eventid){
+		$dataAtasan = $this->eventModel->getAtasan($officeid);
+
+		// $historyApproval = $this->eventHistoryModel->getApproval($eventid);
+
+		// print_r("history ");
+		// print_r($historyApproval);
+
+		return $dataAtasan;
+	}
+	function sendEmailCron(){
+        $sendemail =  $this->send_email($_POST['eventid']);
+        $response = array();
+        $response['email'] = $sendemail;
+        successJsonResponseAll($response); 
+
+    }
+    public function send_email($eventid) {
+		$eventData = $this->eventModel->DataEventByID($eventid);
+		$data['nama'] = $eventData['fullname'];
+		$data['email'] = "azharoce@gmail.com";
+		$data['nama'] = $eventData['fullname'];
+		$data['event_name'] = $eventData['name'];
+		$data['office_name'] = $eventData['office_name'];
+		$emailRecipient ="";
+		$nameRecipient ="";
+		if($eventData['status']==1){
+            $data['subject'] = "DAMKAR | Request Event ".$eventData['name'];
+			$data['title'] = "Request Approve";
+			$dataApproval = $this->checkRequestApprove($eventData['officeid'],$eventData['eventid']);
+			$layout = view('email/request',$data);
+		}elseif($eventData['status']==2){
+            $data['subject'] = "DAMKAR | Approved ".$eventData['name'];
+			$data['title'] = "Approved ";
+			$layout = view('email/approved',$data);
+		}elseif($eventData['status']==3){
+            $data['subject'] = "DAMKAR | Rejected ".$eventData['name'];
+			$data['title'] = "Rejected ";
+			$layout = view('email/rejected',$data);
+		}
+		$kirim = $this->mail->sendEmail($layout,$data);
+		return $kirim;
+    }
+        /// email
+
   
     public function status()
     {
@@ -148,12 +198,14 @@ class ReportAll extends BaseController
 
        
         $insert = $this->eventHistoryModel->insert($_POST);
+        $sendemail =$this->send_email($_POST['eventid']);
 
-        if($insert!=0){
-            successJsonResponse($insert); 
-        }else{
-            failedJsonResponse($insert);
-        }
+        $response = array();
+        $response['email'] = $sendemail;
+        $response['insert_log'] = $insert;
+        
+        successJsonResponseAll($response); 
+        
 
     }
     public function data()

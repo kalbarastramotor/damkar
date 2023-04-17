@@ -11,8 +11,7 @@ class SendEmail{
   public function sendEmail($layout,$data){
     
     $mail = new PHPMailer(true);  
-    // print_r($data);
-	// die();
+    
     try {
 
       	$mail->isSMTP();                                            //Send using SMTP
@@ -31,20 +30,21 @@ class SendEmail{
 	
 		//Attachments
 		// $mail->addAttachment('/var/tmp/file.tar.gz');         //Add attachments
-		// $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    //Optional name
+		$mail->addAttachment('uploads/berkas/1658327878_616aa5040073aae88c56.png'); 
+        // $dataBerkas->move('uploads/berkas/', $fileName);
+		   //Optional name
 	
 		//Content
 		$mail->isHTML(true);                                  //Set email format to HTML
-		$mail->Subject = 'Pegajuan event '.$data['event_name'];
+		$mail->Subject = $data["subject"];
 		$mail->Body    = $layout;
 		$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 	
 		$send = $mail->send();
-		print_r($send);
-		die();
-		echo 'Message has been sent';
+		
+		return 'Message has been sent';
 	} catch (Exception $e) {
-		echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+		return "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
 	}
   }
 }

@@ -41,33 +41,25 @@ class Email extends BaseController {
 	function checkRequestApprove($officeid,$eventid){
 		$dataAtasan = $this->eventModel->getAtasan($officeid);
 
-		$historyApproval = $this->eventHistoryModel->getApproval($eventid);
+		// $historyApproval = $this->eventHistoryModel->getApproval($eventid);
 
-		print_r("history ");
-		print_r($historyApproval);
+		// print_r("history ");
+		// print_r($historyApproval);
 
 		return $dataAtasan;
 	}
 	
-    public function send_email() {
-		$eventData = $this->eventModel->DataEventByID(72);
-		// echo "<pre>";
-		// print_r($eventData);
-		// $data = array();
+    public function send_email($eventid) {
+		$eventData = $this->eventModel->DataEventByID($eventid);
 		$data['nama'] = $eventData['fullname'];
-		
 		$data['email'] = "azharoce@gmail.com";
-		// $data['email'] = $eventData['email'];
 		$data['nama'] = $eventData['fullname'];
 		$data['event_name'] = $eventData['name'];
 		$data['office_name'] = $eventData['office_name'];
-
-	
-		// echo "aa";
 		$emailRecipient ="";
 		$nameRecipient ="";
 		if($eventData['status']==1){
-			$data['title'] = "Request Approve ";
+			$data['title'] = "Request Approve";
 			$dataApproval = $this->checkRequestApprove($eventData['officeid'],$eventData['eventid']);
 			$layout = view('email/request',$data);
 		}elseif($eventData['status']==2){
@@ -78,7 +70,6 @@ class Email extends BaseController {
 			$layout = view('email/rejected',$data);
 		}
 		$kirim = $this->mail->sendEmail($layout,$data);
-
 		echo $kirim;
 		// echo $layout;
 		// echo "atasan";
