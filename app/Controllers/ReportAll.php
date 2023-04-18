@@ -126,18 +126,40 @@ class ReportAll extends BaseController
     }
 
     /// email 
-
     function checkRequestApprove($officeid,$eventid){
 		$dataAtasan = $this->eventModel->getAtasan($officeid);
+		
+        $historyApproval = $this->eventHistoryModel->getApproval($eventid);
+        
+        $dataAtasan['urutan'] = 2;
+        if(count($historyApproval)==1){
+            $dataAtasan['urutan'] = 2;
+        }
+        $dataApproval = array();
+        if($dataAtasan['urutan'] ==1){
+            if (array_key_exists('spvarea', $dataAtasan)) {
+                $dataApproval = $dataAtasan['spvarea'];
+            }
+        }
+        if($dataAtasan['urutan'] ==2){
+            if (array_key_exists('kabag', $dataAtasan)) {
+                $dataApproval = $dataAtasan['kabag'];
+            }
+        }
+        // print_r($dataAtasan);
 
-		// $historyApproval = $this->eventHistoryModel->getApproval($eventid);
-
-		// print_r("history ");
 		// print_r($historyApproval);
 
-		return $dataAtasan;
+       
+        // die();
+
+
+
+		return $dataApproval;
 	}
 	function sendEmailCron(){
+        // print_r($_POST);
+        // die();
         $sendemail =  $this->send_email($_POST['eventid']);
         $response = array();
         $response['email'] = $sendemail;
@@ -146,31 +168,35 @@ class ReportAll extends BaseController
     }
     public function send_email($eventid) {
 		$eventData = $this->eventModel->DataEventByID($eventid);
+        // print_r($eventData);
+        // die();
 		$data['nama'] = $eventData['fullname'];
-		$data['email'] = "azharoce@gmail.com";
 		$data['nama'] = $eventData['fullname'];
 		$data['event_name'] = $eventData['name'];
 		$data['office_name'] = $eventData['office_name'];
-		$emailRecipient ="";
-		$nameRecipient ="";
 		if($eventData['status']==1){
             $data['subject'] = "DAMKAR | Request Event ".$eventData['name'];
 			$data['title'] = "Request Approve";
-			$dataApproval = $this->checkRequestApprove($eventData['officeid'],$eventData['eventid']);
+            $dataApproval = $this->checkRequestApprove($eventData['officeid'],$eventData['eventid']);
+            $data['email'] = $dataApproval['email'];
+
+            // print_r($dataApproval);
+            // die();
 			$layout = view('email/request',$data);
 		}elseif($eventData['status']==2){
             $data['subject'] = "DAMKAR | Approved ".$eventData['name'];
 			$data['title'] = "Approved ";
+    		$data['email'] =$eventData['email'];
 			$layout = view('email/approved',$data);
 		}elseif($eventData['status']==3){
             $data['subject'] = "DAMKAR | Rejected ".$eventData['name'];
 			$data['title'] = "Rejected ";
+    		$data['email'] =$eventData['email'];
 			$layout = view('email/rejected',$data);
 		}
 		$kirim = $this->mail->sendEmail($layout,$data);
 		return $kirim;
     }
-        /// email
 
   
     public function status()

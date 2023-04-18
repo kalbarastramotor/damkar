@@ -300,6 +300,10 @@ class EventModel extends Model
         $query->join('tb_users_role tur', 'tur.userid=tu.userid');
         $query->join('tb_role tr', 'tr.roleid=tur.roleid');
         $query->where('to2.officeid',$officeid);
-        return json_decode(json_encode($query->get()->getResult()), true);
+        $arrayData = array();
+        foreach ( json_decode(json_encode($query->get()->getResult()), true) as $key => $value) {
+            $arrayData[$value['routes']]= $value;
+        }
+        return $arrayData;
     }
 }

@@ -30,7 +30,7 @@ class SendEmail{
 	
 		//Attachments
 		// $mail->addAttachment('/var/tmp/file.tar.gz');         //Add attachments
-		$mail->addAttachment('uploads/berkas/1658327878_616aa5040073aae88c56.png'); 
+		// $mail->addAttachment('uploads/berkas/1658327878_616aa5040073aae88c56.png'); 
         // $dataBerkas->move('uploads/berkas/', $fileName);
 		   //Optional name
 	
@@ -38,11 +38,11 @@ class SendEmail{
 		$mail->isHTML(true);                                  //Set email format to HTML
 		$mail->Subject = $data["subject"];
 		$mail->Body    = $layout;
-		$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+		// $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 	
 		$send = $mail->send();
 		
-		return 'Message has been sent';
+		return 'Message has been sent to '.$data['email'];
 	} catch (Exception $e) {
 		return "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
 	}
