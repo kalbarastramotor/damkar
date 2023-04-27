@@ -411,7 +411,8 @@ class Home extends BaseController
         $detailImages = array();
         foreach ($detail as $key => $value) {
             $value->images =base_url().'/uploads/berkas/'.$value->images;
-            $detailImages[$value->date] = json_decode(json_encode($value), true); 
+            $arrayKey = $value->date."-".$hasil['eventid'];
+            $detailImages[$arrayKey] = json_decode(json_encode($value), true); 
         }
 
         $start = strtotime(date_format(date_create($hasil['date_start']),"Y-m-d"));
@@ -427,9 +428,9 @@ class Home extends BaseController
         $array = array();
         for ($i=0; $i <$days_between ; $i++) { 
             if(strlen($dateStart)==1){
-               $dateData = $monthStart."-0".$dateStart;
+               $dateData = $monthStart."-0".$dateStart."-".$hasil['eventid'];
             }else{
-               $dateData = $monthStart."-".$dateStart;
+               $dateData = $monthStart."-".$dateStart."-".$hasil['eventid'];
             }
             $detailImages[$dateData]['images'] = ($detailImages[$dateData]['images']=="") ? base_url()."/public/assets/images/dafault-image-notfound.jpeg" : $detailImages[$dateData]['images'] ;
             $detailImages[$dateData]['date'] = ($detailImages[$dateData]['date']=="") ? $dateData : $detailImages[$dateData]['date'] ;

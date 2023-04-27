@@ -36,9 +36,10 @@ class ExcelReport extends BaseController
     }
     public function lpj_activity($officeid,$statusEvent,$category,$tahun,$bulan)
     {
+
+        ini_set('max_execution_time', 0);
+        ini_set('memory_limit', '100000M');
         $data = $this->eventModel->excelReport($officeid,$statusEvent,$category,$tahun,$bulan);
-
-
 
         $spreadsheet = new Spreadsheet();
 
@@ -118,7 +119,7 @@ class ExcelReport extends BaseController
         $sheetDuration->getStyle('E5:E7')->getAlignment()->setVertical('center');
         $sheetDuration->getStyle('E5:E7')->getFont()->setBold( true );
 
-        $sheetDuration =  $spreadsheet->setActiveSheetIndex(0)->setCellValue('F5', 'Note');
+        $sheetDuration =  $spreadsheet->setActiveSheetIndex(0)->setCellValue('F5', 'Event Name');
         $sheetDuration->mergeCells('F5:F7');
         $sheetDuration->getStyle('F5:F7')->getAlignment()->setHorizontal('center');
         $sheetDuration->getStyle('F5:F7')->getAlignment()->setVertical('center');
@@ -260,7 +261,7 @@ class ExcelReport extends BaseController
                         ->setCellValue('C' . $column, date_format(date_create($val['date_end']),"d.m.Y"))
                         ->setCellValue('D' . $column, $days_between." Hari")
                         ->setCellValue('E' . $column, $val['category_name'])
-                        ->setCellValue('F' . $column, $val['description'])
+                        ->setCellValue('F' . $column, $val['name'])
                         ->setCellValue('G' . $column, $val['office_code'])
                         ->setCellValue('H' . $column, $val['office_name'])
                         ->setCellValue('I' . $column, $val['location'])
@@ -273,7 +274,10 @@ class ExcelReport extends BaseController
                         ->setCellValue('P' . $column, $val['target_actual_prospect'])
                         ->setCellValue('Q' . $column, get_percentage((int)$val['target_prospect'],(int)$val['target_actual_prospect'])."%")
                         ->setCellValue('R' . $column, 'Rp.'.number_format($val['butget']));
-
+                        if(count($images) <=0 ){
+                            $spreadsheet->getActiveSheet()->getStyle('A'. $column.':U'. $column)->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_WHITE);
+                            $spreadsheet->getActiveSheet()->getStyle('A'. $column.':U'. $column)->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_RED);
+                        }
                         foreach ($images as $key => $value) {
                            
                            

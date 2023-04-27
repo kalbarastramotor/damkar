@@ -28,14 +28,14 @@ class EventActivityModel extends Model
     public function getActivityEvent(){
         $where = ['eventid' => $this->request->getPost('eventid')];
         $query = $this->db->table($this->table);
-        $query->like($where);
+        $query->where($where);
         $data = $query->get()->getResult();
         return $data;
     }
     public function getActivityEventImage($eventid){
         $where = ['eventid' =>$eventid];
         $query = $this->db->table($this->table);
-        $query->like($where);
+        $query->where($where);
         $data = $query->get()->getResult();
         return $data;
     }
