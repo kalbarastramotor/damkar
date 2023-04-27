@@ -273,7 +273,7 @@ function detail_role(roleid, title) {
     tableDetail = $('#detail-role-table').DataTable({
         lengthMenu: [
             [50, -1],
-            [50, 'All'],
+            [50,100],
         ],
         rowGroup: {
             dataSrc: [0]

@@ -277,8 +277,7 @@ class ExcelReport extends BaseController
                         foreach ($images as $key => $value) {
                            
                            
-                            // $IMG =  base_url().'/uploads/berkas/'.$value->images;
-                            $IMG =  "https://damkar.id/public/assets/images/logo.png";
+                            $IMG =  base_url().'/uploads/berkas/'.$value->images;
                             $imageType = "png";
 
                             if (strpos($IMG, ".png") === false) {

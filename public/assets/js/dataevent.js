@@ -274,7 +274,7 @@ $(document).ready(function() {
     table = $('#table-event-data').DataTable({
         lengthMenu: [
             [15, 25, 50, -1],
-            [15, 25, 50, 'All'],
+            [15, 25, 50,100],
         ],
 
         dom: "<'row'<'col-sm-6'l><'col-sm-5'f><'col-sm-1'B>>" +
