@@ -156,7 +156,11 @@ class Home extends BaseController
                     }else{
                         
                         if(in_array($this->data_session['rolecode'],$historyApproval)){
-                            $labelStatus ='<span><span class="badge badge-pill badge-soft-primary font-size-12">Approved</span></span>';
+                            if($this->data_session['id']==$list->userid & $this->data_session['rolecode']=='spvarea'){
+                                $labelStatus ='<span><span class="badge badge-pill badge-soft-warning font-size-12">Waiting Approval</span></span>';
+                            }else{
+                                $labelStatus ='<span><span class="badge badge-pill badge-soft-primary font-size-12">Approved</span></span>';
+                            }
                         }else{
                             if(count($historyApproval)==0){
                                 if($this->data_session['rolecode']=='spvarea'){
@@ -443,10 +447,17 @@ class Home extends BaseController
             }else{
                 
                 if(in_array($this->data_session['rolecode'],$historyApproval)){
-                    $labelStatus ='<span><span class="badge badge-pill badge-soft-primary font-size-12">Approved</span></span>';
-                    $action =' 
-                        <button type="button" class="btn btn-primary waves-effect waves-light">Approved</button>
-                    ';
+                    if($this->data_session['id']==$hasil['userid'] && $this->data_session['rolecode']=='spvarea'){
+                        $labelStatus ='<span><span class="badge badge-pill badge-soft-warning font-size-12">Waiting Approval</span></span>';
+                        $action =' 
+                            <button type="button" class="btn btn-warning waves-effect waves-light">Waiting Approval</button>
+                        ';
+                    }else{
+                        $labelStatus ='<span><span class="badge badge-pill badge-soft-primary font-size-12">Approved</span></span>';
+                        $action =' 
+                            <button type="button" class="btn btn-primary waves-effect waves-light">Approved</button>
+                        ';
+                    }
                 }else{
                     if(count($historyApproval)==0){
                         if($this->data_session['rolecode']=='spvarea'){
@@ -471,9 +482,13 @@ class Home extends BaseController
                         }else{
                             $labelStatus ='<span><span class="badge badge-pill badge-soft-warning font-size-12">Waiting Approval</span></span>';
                             $action =' 
-                                <button type="button" class="btn btn-warning waves-effect waves-light">  Waiting Approval</button>
+                                <button type="button" class="btn btn-warning waves-effect waves-light"> Waiting Approval</button>
                             ';
                         }
+                    }else{
+                        $action =' 
+                                <button type="button" class="btn btn-warning waves-effect waves-light"> '.count($historyApproval).'----'.$this->data_session['rolecode'].' Waiting Approval</button>
+                            ';
                     }
                    
                 }
@@ -505,9 +520,15 @@ class Home extends BaseController
             ';
         } else if ( $hasil['status'] == 0 ||  $hasil['status'] == "0") {
             $labelStatus ='<span><span class="badge badge-pill badge-soft-secondary font-size-12">Draft</span></span>';
-            $action =' 
-                <button type="button" class="btn btn-primary waves-effect waves-light"  onclick="request_approve('.$hasil['eventid'].')">Request</button>
-            ';
+            if($_SESSION['id']==$hasil['userid']){
+                $action =' 
+                    <button type="button" class="btn btn-primary waves-effect waves-light"  onclick="request_approve('.$hasil['eventid'].')">Request</button>
+                ';
+            }else{
+                $action =' 
+                    <button type="button" class="btn btn-default waves-effect waves-light">Draft</button>
+                ';  
+            }
         }else{
             $labelStatus ='<span><span class="badge badge-pill badge-soft-danger font-size-12">Paid</span></span>';
             $action =' 

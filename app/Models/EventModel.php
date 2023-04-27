@@ -112,6 +112,8 @@ class EventModel extends Model
                 $this->dt->orWhere('( tb_events.officeid='.$_SESSION['officeid'].' )');
             }else{
                 $this->dt->where('tb_events.officeid',$_SESSION['officeid']);
+                // $this->dt->where('( status !=0 or userid='.$_SESSION['id'] .')');
+
             }
         }elseif($_SESSION['rolecode']=='spvpromosi'){
             $this->dt->where('( userid ='.$_SESSION['id'].' or tb_events.officeid='.$_SESSION['officeid'].' )');

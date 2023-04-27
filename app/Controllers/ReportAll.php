@@ -131,7 +131,7 @@ class ReportAll extends BaseController
 		
         $historyApproval = $this->eventHistoryModel->getApproval($eventid);
         
-        $dataAtasan['urutan'] = 2;
+        $dataAtasan['urutan'] = 1;
         if(count($historyApproval)==1){
             $dataAtasan['urutan'] = 2;
         }
@@ -205,7 +205,6 @@ class ReportAll extends BaseController
         $_POST['userid'] =  $sess['id'];
         $_POST['role_code'] =  $sess['rolecode'];
 
-
         if($_POST['status']==2){
             $historyApproval = $this->eventHistoryModel->getApproval($_POST['eventid']);
             if(count($historyApproval)>=1){
@@ -220,10 +219,20 @@ class ReportAll extends BaseController
             );
             $hasil = $this->eventModel->where('eventid',$_POST['eventid'])->set($data)->update();
         }
-
-
-       
+      
         $insert = $this->eventHistoryModel->insert($_POST);
+		$eventData = $this->eventModel->DataEventByID($_POST['eventid']);
+         
+        if($_SESSION['rolecode']=='spvarea' && $_SESSION['id']==$eventData['userid']){
+            $dataLog=array();
+            $dataLog['notes'] = 'Approved by '.$_SESSION['name'].' - '.$_SESSION['office_name'];
+            $dataLog['eventid'] = $_POST['eventid'];
+            $dataLog['status'] = 2;
+            $dataLog['userid'] =  $sess['id'];
+            $dataLog['role_code'] =  $sess['rolecode'];
+            $insertAreaAutoApprove = $this->eventHistoryModel->insert($dataLog);
+        }
+
         $sendemail =$this->send_email($_POST['eventid']);
 
         $response = array();
