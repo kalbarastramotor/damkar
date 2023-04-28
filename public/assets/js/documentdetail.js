@@ -30,8 +30,8 @@ $(document).ready(function() {
     var totaldataDraft = 0
     var table0 = $('#table-category-data-0').DataTable({
         lengthMenu: [
-            [15, 25, 50, -1],
-            [15, 25, 50, 'All'],
+            [15, 25, 50,100],
+            [15, 25, 50,100],
         ],
         dom: "<'row'<'col-sm-11'l><'col-sm-1'>>" +
             "<'row'<'col-sm-12'tr>>" +
@@ -126,8 +126,8 @@ $(document).ready(function() {
     });
     var table1 = $('#table-category-data-1').DataTable({
         lengthMenu: [
-            [15, 25, 50, -1],
-            [15, 25, 50, 'All'],
+            [15, 25, 50,100],
+            [15, 25, 50,100],
         ],
         dom: "<'row'<'col-sm-11'l><'col-sm-1'>>" +
             "<'row'<'col-sm-12'tr>>" +
@@ -222,8 +222,8 @@ $(document).ready(function() {
     });
     var table2 = $('#table-category-data-2').DataTable({
         lengthMenu: [
-            [15, 25, 50, -1],
-            [15, 25, 50, 'All'],
+            [15, 25, 50,100],
+            [15, 25, 50,100],
         ],
         dom: "<'row'<'col-sm-11'l><'col-sm-1'>>" +
             "<'row'<'col-sm-12'tr>>" +

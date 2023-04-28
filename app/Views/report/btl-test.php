@@ -35,8 +35,8 @@
         $(document).ready(function() {
             $('#example').DataTable({
                 lengthMenu: [
-            [ 50, -1],
-            [ 50, 'All'],
+            [  50,100],
+            [ 50,100],
         ],
         rowGroup: {
                     dataSrc: [0]

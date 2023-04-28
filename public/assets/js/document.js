@@ -10,8 +10,8 @@ $(document).ready(function() {
 
     table = $('#doc-table').DataTable({
         "lengthMenu": [
-            [25, 50, -1],
-            [25, 50, 'All'],
+            [25, 50,100],
+            [25, 50,100],
         ],
         "processing": true,
         "serverSide": true,
