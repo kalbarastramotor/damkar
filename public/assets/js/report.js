@@ -1,8 +1,8 @@
 $(document).ready(function() {
     $('#btl-table').DataTable({
         lengthMenu: [
-            [50, -1],
-            [50, 'All'],
+            [ 50,100],
+            [50,100],
         ],
         rowGroup: {
             dataSrc: [0]
@@ -181,8 +181,8 @@ $(document).ready(function() {
         }
     });
     // "lengthMenu": [
-    //     [50, -1],
-    //     [50, 'All'],
+    //     [ 50,100],
+    //     [50,100],
     // ],
     // "processing": true,
     // "serverSide": true,

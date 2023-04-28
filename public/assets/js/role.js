@@ -272,8 +272,8 @@ function detail_role(roleid, title) {
     $("#myModalLabel_detail").text('DETAIL MENU ' + title);
     tableDetail = $('#detail-role-table').DataTable({
         lengthMenu: [
-            [50, -1],
-            [50, 'All'],
+            [ 50,100],
+            [50,100],
         ],
         rowGroup: {
             dataSrc: [0]

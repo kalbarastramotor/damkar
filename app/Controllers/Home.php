@@ -163,12 +163,6 @@ class Home extends BaseController
                             }
                         }else{
                             if(count($historyApproval)==0){
-                                if($this->data_session['rolecode']=='spvarea'){
-                                    $labelStatus ='<span><span class="badge badge-pill badge-soft-warning font-size-12">Waiting Approval</span></span>';
-                                }else{
-                                    $labelStatus ='<span><span class="badge badge-pill badge-soft-warning font-size-12">Waiting Approval</span></span>';
-                                }
-                            }elseif(count($historyApproval)==1 && in_array('spvarea',$historyApproval) ){
                                 if($this->data_session['rolecode']=='kabag'){
                                     $labelStatus ='<span><span class="badge badge-pill badge-soft-warning font-size-12">Waiting Approval</span></span>';
                                 }else{
@@ -177,7 +171,7 @@ class Home extends BaseController
                             }else{
                                 $labelStatus ='<span><span class="badge badge-pill badge-soft-warning font-size-12">Waiting Approval</span></span>';
                             }
-                        }
+                        // }
                     }  
                 } else if ( $list->status==  2 ||  $list->status== "2") {
                     $labelStatus ='<span><span class="badge badge-pill badge-soft-primary font-size-12">Approved</span></span>';
@@ -393,13 +387,17 @@ class Home extends BaseController
         $hasil = $this->eventModel->getDataEventByID();
 
         $hasil['users'] = $this->userModel->GetUserIDByID($hasil['userid']);
-        $detail = $this->eventActivityModel->get()->getResult();
+
+      
+        $detail = $this->eventActivityModel->getActivityEventImage($hasil['eventid']);
+       
         $results = array();
         
         $detailImages = array();
         foreach ($detail as $key => $value) {
             $value->images =base_url().'/uploads/berkas/'.$value->images;
-            $detailImages[$value->date] = json_decode(json_encode($value), true); 
+            $arrayKey = $value->date."-".$hasil['eventid'];
+            $detailImages[$arrayKey] = json_decode(json_encode($value), true); 
         }
 
         $start = strtotime(date_format(date_create($hasil['date_start']),"Y-m-d"));
@@ -415,9 +413,9 @@ class Home extends BaseController
         $array = array();
         for ($i=0; $i <$days_between ; $i++) { 
             if(strlen($dateStart)==1){
-               $dateData = $monthStart."-0".$dateStart;
+               $dateData = $monthStart."-0".$dateStart."-".$hasil['eventid'];
             }else{
-               $dateData = $monthStart."-".$dateStart;
+               $dateData = $monthStart."-".$dateStart."-".$hasil['eventid'];
             }
             $detailImages[$dateData]['images'] = ($detailImages[$dateData]['images']=="") ? base_url()."/public/assets/images/dafault-image-notfound.jpeg" : $detailImages[$dateData]['images'] ;
             $detailImages[$dateData]['date'] = ($detailImages[$dateData]['date']=="") ? $dateData : $detailImages[$dateData]['date'] ;
@@ -492,6 +490,41 @@ class Home extends BaseController
                     }
                    
                 }
+                // if(in_array($this->data_session['rolecode'],$historyApproval)){
+                //     $labelStatus ='<span><span class="badge badge-pill badge-soft-primary font-size-12">Approved</span></span>';
+                //     $action =' 
+                //         <button type="button" class="btn btn-primary waves-effect waves-light">Approved</button>
+                //     ';
+                // }else{
+                //     if(count($historyApproval)==0){
+                //         if($this->data_session['rolecode']=='spvarea'){
+                //             $labelStatus ='<span><span class="badge badge-pill badge-soft-warning font-size-12">Waiting Approval</span></span>';
+                //             $action =' 
+                //                 <button type="button" class="btn btn-success waves-effect waves-light" onclick="approve('.$hasil['eventid'].')">Approve</button>
+                //                 <button type="button" class="btn btn-danger waves-effect waves-light" onclick="rejected('.$hasil['eventid'].')">Reject</button>
+                //             ';
+                //         }else{
+                //             $labelStatus ='<span><span class="badge badge-pill badge-soft-warning font-size-12">Waiting Approval</span></span>';
+                //             $action =' 
+                //                 <button type="button" class="btn btn-warning waves-effect waves-light">Waiting Approval</button>
+                //             ';
+                //         }
+                //     }elseif(count($historyApproval)==1 && in_array('spvarea',$historyApproval) ){
+                //         if($this->data_session['rolecode']=='kabag'){
+                //             $labelStatus ='<span><span class="badge badge-pill badge-soft-warning font-size-12">Waiting Approval</span></span>';
+                //             $action =' 
+                //                 <button type="button" class="btn btn-success waves-effect waves-light" onclick="approve('.$hasil['eventid'].')">Approve</button>
+                //                 <button type="button" class="btn btn-danger waves-effect waves-light" onclick="rejected('.$hasil['eventid'].')">Reject</button>
+                //             ';
+                //         }else{
+                //             $labelStatus ='<span><span class="badge badge-pill badge-soft-warning font-size-12">Waiting Approval</span></span>';
+                //             $action =' 
+                //                 <button type="button" class="btn btn-warning waves-effect waves-light">  Waiting Approval</button>
+                //             ';
+                //         }
+                //     }
+                   
+                // }
 
                 
                
