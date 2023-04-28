@@ -53,7 +53,7 @@ $(document).ready(function() {
 
     table = $('#office-table').DataTable({
         "lengthMenu": [
-            [25, 50, -1],
+            [25, 50,100],
             [25, 50,100],
         ],
         "processing": true,
