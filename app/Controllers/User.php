@@ -158,7 +158,6 @@ class User extends BaseController
                 "area" => json_decode(json_encode($listarea), true),
                 "menu"=> $this->roleModel->getMenuRole($dataRole['roleid'])
             );
-
             $this->session->set($dataSession);
         }
 		return $this->respond($body, $code);
