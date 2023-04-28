@@ -130,6 +130,8 @@ class Eventlist extends BaseController
     }
     function save()
     {
+        // print_r($_SESSION['rolecode']);
+        // die();
         
         $dataBerkas = $this->request->getFile('cover');
 		$fileName = $dataBerkas->getRandomName();
@@ -145,10 +147,14 @@ class Eventlist extends BaseController
         $_POST['cover'] = $fileName;
      
         $_POST['userid'] = $_SESSION['id'];
-
+        if($_SESSION['rolecode']=='kabag'){
+            $_POST['status'] =2;
+        }
         $_POST['month'] = date_format($dateStart,"m");
         $_POST['year'] = date_format($dateStart,"Y");
         
+        // print_r($_POST);
+        // die();
     
         $hasil = $this->EventlistModel->insert($_POST);
 
@@ -159,7 +165,26 @@ class Eventlist extends BaseController
         $insertDataHistory['status']=0;
         $insertDataHistory['userid']= $_SESSION['id'];
 
+       
         $insert = $this->eventHistoryModel->insert($insertDataHistory);
+        // print_r($insert);
+        // die();
+        if($_SESSION['rolecode']=='kabag'){
+            $insertDataHistoryRequest = array();
+            $insertDataHistoryRequest['notes']= 'Request by '.$_SESSION['name'].' - '.$_SESSION['office_name'];
+            $insertDataHistoryRequest['eventid']=$hasil;
+            $insertDataHistoryRequest['status']=1;
+            $insertDataHistoryRequest['userid']= $_SESSION['id'];
+            $insert = $this->eventHistoryModel->insert($insertDataHistoryRequest);
+
+            $insertDataHistoryApproved = array();
+            $insertDataHistoryApproved['notes']= 'Approved by '.$_SESSION['name'].' - '.$_SESSION['office_name'];
+            $insertDataHistoryApproved['eventid']=$hasil;
+            $insertDataHistoryApproved['status']=2;
+            $insertDataHistoryApproved['userid']= $_SESSION['id'];
+            $insert = $this->eventHistoryModel->insert($insertDataHistoryApproved);
+
+        }
 
         if ($hasil != 0) {
             successJsonResponse($hasil);

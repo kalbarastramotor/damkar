@@ -58,7 +58,7 @@ function gridjscss(){
     );
 }
 function mapsjs(){
-    return array("https://maps.googleapis.com/maps/api/js?key=AIzaSyAMjkDiBVQh9IpPrn0EVe5eUvLD44lYvds");
+    return array("https://maps.googleapis.com/maps/api/js?key=AIzaSyAMjkDiBVQh9IpPrn0EVe5eUvLD44lYvds&libraries=places");
 }
 
 function datatablescss(){
@@ -154,6 +154,18 @@ function successJsonResponse($id){
         )
     );
 }
+function successJsonResponseAll($data){
+    header('Content-Type: application/json; charset=utf-8');
+    echo json_encode(
+        array(
+            "status"=> array(
+                "error_code"=>  0,
+                "message"=>  "OK"
+            ),
+            "data"=> $data
+        )
+    );
+}
 function failedJsonResponse($err){
     header('Content-Type: application/json; charset=utf-8');
     echo json_encode(
@@ -161,6 +173,22 @@ function failedJsonResponse($err){
                 "status"=> array(
                     "error_code"=>  0,
                     "message"=>  "ERROR"
+                ),
+           
+                "data"=>  array(
+                    "error"=>$err
+                ),
+            )
+    );
+}
+
+function errorJsonResponse($err,$message){
+    header('Content-Type: application/json; charset=utf-8');
+    echo json_encode(
+        array(
+                "status"=> array(
+                    "error_code"=>  0,
+                    "message"=>  $message
                 ),
            
                 "data"=>  array(

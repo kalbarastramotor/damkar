@@ -27,6 +27,8 @@ function login() {
             success: function(result) {
                 if (result.error == "invalid_role") {
                     alertify.error('You don`t have role');
+                } else if (result.error == "invalid_office") {
+                    alertify.error('You don`t have dealer');
                 } else {
                     alertify.success('Login berhasil');
                     localStorage.setItem("token", result["access_token"]);
@@ -43,6 +45,8 @@ function login() {
                     alertify.error('Please check username & password ');
                 } else if (result.responseJSON.error == "invalid_role") {
                     alertify.error('You don`t have role');
+                } else if (result.responseJSON.error == "invalid_office") {
+                    alertify.error('You don`t have dealer');
                 }
 
             }

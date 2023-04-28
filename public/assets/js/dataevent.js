@@ -1,5 +1,109 @@
 var table;
+function initMapsSearch(){
+    const myLatlng = { lat: -0.3235072, lng: 110.2813883 };
+    const map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 8,
+        center: myLatlng,
+        search: true,
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        mapTypeControlOptions: {
+            style: google.maps.MapTypeControlStyle.DEFAULT
+        }
+    });
+    const input = document.getElementById("pac-input");
+    const searchBox = new google.maps.places.SearchBox(input);
 
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+    // Bias the SearchBox results towards current map's viewport.
+    map.addListener("bounds_changed", () => {
+        searchBox.setBounds(map.getBounds());
+    });
+
+    let markers = [];
+
+  // Listen for the event fired when the user selects a prediction and retrieve
+  // more details for that place.
+    searchBox.addListener("places_changed", () => {
+        const places = searchBox.getPlaces();
+        if (places.length == 0) {
+         return;
+        }
+
+        // Clear out the old markers.
+        markers.forEach((marker) => {
+        marker.setMap(null);
+        });
+        markers = [];
+
+        // For each place, get the icon, name and location.
+        const bounds = new google.maps.LatLngBounds();
+
+        places.forEach((place) => {
+            if (!place.geometry || !place.geometry.location) {
+                console.log("Returned place contains no geometry");
+                return;
+            }
+
+            const icon = {
+                url: place.icon,
+                size: new google.maps.Size(71, 71),
+                origin: new google.maps.Point(0, 0),
+                anchor: new google.maps.Point(17, 34),
+                scaledSize: new google.maps.Size(25, 25),
+            };
+
+            // Create a marker for each place.
+            markers.push(
+                new google.maps.Marker({
+                map,
+                icon,
+                title: place.name,
+                position: place.geometry.location,
+                })
+            );
+            if (place.geometry.viewport) {
+                // Only geocodes have viewport.
+                bounds.union(place.geometry.viewport);
+            } else {
+                bounds.extend(place.geometry.location);
+            }
+        });
+        map.fitBounds(bounds);
+       
+        
+    });
+
+    let infoWindow = new google.maps.InfoWindow({
+        content: "Click the map to get Lat/Lng!",
+        position: myLatlng,
+    });
+    infoWindow.open(map);
+
+    map.addListener("click", (mapsMouseEvent) => {
+        getLatLong = mapsMouseEvent.latLng.toJSON();
+
+        $("#eventlist-location-lat-add").val(getLatLong.lat);
+        if(getLatLong.lat!=""){
+            $('#eventlist-location-lat-add').removeClass('is-invalid');
+            $('#eventlist-location-lat-add').addClass('is-valid');
+        }
+        $("#eventlist-location-long-add").val(getLatLong.lng);
+        if(getLatLong.lng!=""){
+            $('#eventlist-location-long-add').removeClass('is-invalid');
+            $('#eventlist-location-long-add').addClass('is-valid');
+        }
+        infoWindow.close();
+         // Create a new InfoWindow.
+        infoWindow = new google.maps.InfoWindow({
+            position: mapsMouseEvent.latLng,
+        });
+        infoWindow.setContent(
+            JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2)
+        );
+        infoWindow.open(map);
+
+    })
+}
 function initMap() {
     const myLatlng = { lat: -0.3235072, lng: 110.2813883 };
     const map = new google.maps.Map(document.getElementById("map"), {
@@ -49,7 +153,7 @@ function initMap() {
 
 function initMapEdit(la,lo) {
     const myLatlng = { lat: la, lng: lo };
-    const map_update = new google.maps.Map(document.getElementById("map_update"), {
+    const map = new google.maps.Map(document.getElementById("map_update"), {
         zoom: 8,
         center: myLatlng,
         search: true,
@@ -58,16 +162,76 @@ function initMapEdit(la,lo) {
             style: google.maps.MapTypeControlStyle.DEFAULT
         }
     });
-    // Create the initial InfoWindow.
-    let infoWindow = new google.maps.InfoWindow({
-        content: JSON.stringify(myLatlng, null, 2),
-        position: myLatlng,
+    const input = document.getElementById("pac-input-edit");
+    const searchBox = new google.maps.places.SearchBox(input);
+
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+    // Bias the SearchBox results towards current map's viewport.
+    map.addListener("bounds_changed", () => {
+        searchBox.setBounds(map.getBounds());
     });
 
-    infoWindow.open(map_update);
-    // Configure the click listener.
-    map_update.addListener("click", (mapsMouseEvent) => {
-        // Close the current InfoWindow.
+    let markers = [];
+
+  // Listen for the event fired when the user selects a prediction and retrieve
+  // more details for that place.
+    searchBox.addListener("places_changed", () => {
+        const places = searchBox.getPlaces();
+        if (places.length == 0) {
+         return;
+        }
+
+        // Clear out the old markers.
+        markers.forEach((marker) => {
+        marker.setMap(null);
+        });
+        markers = [];
+
+        // For each place, get the icon, name and location.
+        const bounds = new google.maps.LatLngBounds();
+
+        places.forEach((place) => {
+            if (!place.geometry || !place.geometry.location) {
+                console.log("Returned place contains no geometry");
+                return;
+            }
+
+            const icon = {
+                url: place.icon,
+                size: new google.maps.Size(71, 71),
+                origin: new google.maps.Point(0, 0),
+                anchor: new google.maps.Point(17, 34),
+                scaledSize: new google.maps.Size(25, 25),
+            };
+
+            // Create a marker for each place.
+            markers.push(
+                new google.maps.Marker({
+                map,
+                icon,
+                title: place.name,
+                position: place.geometry.location,
+                })
+            );
+            if (place.geometry.viewport) {
+                // Only geocodes have viewport.
+                bounds.union(place.geometry.viewport);
+            } else {
+                bounds.extend(place.geometry.location);
+            }
+        });
+        map.fitBounds(bounds);
+       
+        
+    });
+
+    let infoWindow = new google.maps.InfoWindow({
+        content: "Click the map to get Lat/Lng!",
+        position: myLatlng,
+    });
+    infoWindow.open(map);
+
+    map.addListener("click", (mapsMouseEvent) => {
         getLatLong = mapsMouseEvent.latLng.toJSON();
 
         $("#eventlist-location-lat-update").val(getLatLong.lat);
@@ -81,17 +245,61 @@ function initMapEdit(la,lo) {
             $('#eventlist-location-long-update').addClass('is-valid');
         }
         infoWindow.close();
-        // Create a new InfoWindow.
+         // Create a new InfoWindow.
         infoWindow = new google.maps.InfoWindow({
             position: mapsMouseEvent.latLng,
         });
         infoWindow.setContent(
             JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2)
         );
-        infoWindow.open(map_update);
+        infoWindow.open(map);
+
+    })
+
+    // const myLatlng = { lat: la, lng: lo };
+    // const map_update = new google.maps.Map(document.getElementById("map_update"), {
+    //     zoom: 8,
+    //     center: myLatlng,
+    //     search: true,
+    //     mapTypeId: google.maps.MapTypeId.ROADMAP,
+    //     mapTypeControlOptions: {
+    //         style: google.maps.MapTypeControlStyle.DEFAULT
+    //     }
+    // });
+    // // Create the initial InfoWindow.
+    // let infoWindow = new google.maps.InfoWindow({
+    //     content: JSON.stringify(myLatlng, null, 2),
+    //     position: myLatlng,
+    // });
+
+    // infoWindow.open(map_update);
+    // // Configure the click listener.
+    // map_update.addListener("click", (mapsMouseEvent) => {
+    //     // Close the current InfoWindow.
+    //     getLatLong = mapsMouseEvent.latLng.toJSON();
+
+    //     $("#eventlist-location-lat-update").val(getLatLong.lat);
+    //     if(getLatLong.lat!=""){
+    //         $('#eventlist-location-lat-update').removeClass('is-invalid');
+    //         $('#eventlist-location-lat-update').addClass('is-valid');
+    //     }
+    //     $("#eventlist-location-long-update").val(getLatLong.lng);
+    //     if(getLatLong.lng!=""){
+    //         $('#eventlist-location-long-update').removeClass('is-invalid');
+    //         $('#eventlist-location-long-update').addClass('is-valid');
+    //     }
+    //     infoWindow.close();
+    //     // Create a new InfoWindow.
+    //     infoWindow = new google.maps.InfoWindow({
+    //         position: mapsMouseEvent.latLng,
+    //     });
+    //     infoWindow.setContent(
+    //         JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2)
+    //     );
+    //     infoWindow.open(map_update);
 
 
-    });
+    // });
 }
 
 
@@ -300,7 +508,7 @@ $(document).ready(function() {
                     e.categoryid = $(".filter-category").val(),
                     e.year = $(".filter-year").val(),
                     e.month = $(".filter-bulan").val()
-            },
+            }  ,
             "error": function(XMLHttpRequest, textStatus, errorThrown) {
 
                 const myJSON = JSON.parse(XMLHttpRequest.responseText)
@@ -671,7 +879,7 @@ $("#button-reject").click(function(e) {
         eventid: $("#button-reject").attr("eventid"),
         status: $("#button-reject").attr("status")
     }
-   
+    $('#spinner-div').show();
     $.ajax({
         url: base_url + "/api/report/doc/event/status",
         dataType: 'json',
@@ -682,7 +890,7 @@ $("#button-reject").click(function(e) {
         type: 'post',
         success: function(e) {
             if (e.status.message == "OK") {
-                alertify.success('Upload File Success');
+                alertify.success('Rejected');
             } else {
                 alertify.error('Error Internal');
             }
@@ -862,7 +1070,7 @@ $("#button-request").click(function(e) {
         eventid: $("#button-request").attr("eventid"),
         status: $("#button-request").attr("status")
     }
-   
+    $('#spinner-div').show();
     $.ajax({
         url: base_url + "/api/report/doc/event/status",
         dataType: 'json',
@@ -873,7 +1081,9 @@ $("#button-request").click(function(e) {
         type: 'post',
         success: function(e) {
             if (e.status.message == "OK") {
-                alertify.success('Upload File Success');
+                $('#spinner-div').hide();
+                alertify.success('Requested');
+
             } else {
                 alertify.error('Error Internal');
             }
@@ -913,7 +1123,7 @@ $("#button-approve").click(function(e) {
         eventid: $("#button-approve").attr("eventid"),
         status: $("#button-approve").attr("status")
     }
-   
+    $('#spinner-div').show();
     $.ajax({
         url: base_url + "/api/report/doc/event/status",
         dataType: 'json',
@@ -924,7 +1134,8 @@ $("#button-approve").click(function(e) {
         type: 'post',
         success: function(e) {
             if (e.status.message == "OK") {
-                alertify.success('Upload File Success');
+                $('#spinner-div').hide();
+                alertify.success('Approved');
             } else {
                 alertify.error('Error Internal');
             }
@@ -949,11 +1160,16 @@ $("#button-approve").click(function(e) {
 
 // stop button approve event
 
+
 function showModalAdd() {
     $('#myModal_add').modal({ backdrop: 'static', keyboard: false });
     $('#myModal_add').modal('show');
+    $("#buat-search-box-maps").append('<input id="pac-input" class="controls form-control" type="text" placeholder="Search Box"/>');
 
-    initMap();
+    // initMap();
+    initMapsSearch();
+   
+
     // window.initMap = initMap;
     // window.addEventListener('load', initMap);
     $('.filter-office-add').select2({
@@ -1598,6 +1814,8 @@ function edit_event(id) {
             $("#eventlist-description-update").val(e.data.description);
             $("#eventlist-location-update").html(e.data.location);
             $("#eventlist-location-update").val(e.data.location);
+
+            $("#buat-search-box-maps-edit").append('<input id="pac-input-edit" class="controls form-control" type="text" placeholder="Search Box"/>');
 
             initMapEdit(parseFloat(e.data.location_lat),parseFloat(e.data.location_long));
 

@@ -30,7 +30,7 @@ class EventHistoryModel extends Model
         $query = $this->db->table($this->table);
         $query->join('tb_users', 'tb_users.userid = tb_events_history.userid');
         $query->select('tb_events_history.notes, tb_events_history.status, tb_events_history.create_time, tb_events_history.eventid, tb_users.fullname as userid,tb_events_history.role_code');
-        $query->orderBy("tb_events_history.create_time", "desc");
+        $query->orderBy("tb_events_history.idhistory", "desc");
         $query->where($where);
         $data = $query->get()->getResult();
         return $data;

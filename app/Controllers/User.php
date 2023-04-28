@@ -136,6 +136,10 @@ class User extends BaseController
                 $listarea = $this->userRoleModel->getOfficeGroup($dataRole['area']);
             }
 
+            if($dataOffice==""){
+                $body->error ="invalid_office";
+            }
+        
             $officeid = 0;
             if($dataOffice!=""){
                 $officeid = $dataOffice['officeid'];
@@ -228,6 +232,17 @@ class User extends BaseController
     public function setofficeuser()
     {
         $dataoffice = $this->userOfficeModel->checkUserHaveOffice();
+        $datarole = $this->userRoleModel->checkUserHaveRole();
+        if($datarole['roleid']==4 ){
+            $checkRoleinOffice = $this->userRoleModel->checkRoleInOffice($_POST['officeid'],$datarole['roleid'],$_POST['userid']);
+            $officeData = $this->userOfficeModel->getOfficeByID($_POST['officeid']);
+            if( count($checkRoleinOffice) > 0){
+                errorJsonResponse("role_ready_set", $officeData['office_name']." tersebut telah memiliki ".$datarole['name']);
+                exit();
+            }
+        }
+
+      
         if($dataoffice==""){
             $data = array(
                 "officeid"=>$_POST['officeid'],
@@ -256,8 +271,18 @@ class User extends BaseController
     }
     public function setRoleUsers()
     {
-        $dataoffice = $this->userRoleModel->checkUserHaveRole();
-        if($dataoffice==""){
+        $dataRole = $this->userRoleModel->checkUserHaveRole();
+
+        if($_POST['roleid']==4){
+            $dataoffice = $this->userOfficeModel->checkUserHaveOffice();
+            $datacheckrole = $this->userRoleModel->checkRoleID($_POST['roleid']);
+            $checkRoleinOffice = $this->userRoleModel->checkRoleInOffice($dataoffice['officeid'],$_POST['roleid'],$_POST['userid']);
+            if( count($checkRoleinOffice) > 0){
+                errorJsonResponse("role_ready_set",$dataoffice['office_name']." tersebut telah memiliki ".$datacheckrole['name']);
+                exit();
+            }
+        }
+        if($dataRole==""){
             $data = array(
                 "roleid"=>$_POST['roleid'],
                 "userid"=>$_POST['userid'],
@@ -277,7 +302,7 @@ class User extends BaseController
                 "area"=>$_POST['area'],
             );
             
-            $hasil = $this->userRoleModel->where('user_role_id', $dataoffice['user_role_id'])->set($data)->update();
+            $hasil = $this->userRoleModel->where('user_role_id', $dataRole['user_role_id'])->set($data)->update();
             if($hasil!=0){
                 successJsonResponse($hasil); 
             }else{

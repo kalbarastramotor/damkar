@@ -36,7 +36,8 @@
     zoom: 150% !important
     
   }
-  #pac-input {
+
+  /* #pac-input {
     background-color: #fff;
     font-family: Roboto;
     font-size: 15px;
@@ -46,6 +47,127 @@
     text-overflow: ellipsis;
     width: 400px;
   }
+
+#map #infowindow-content {
+  display: inline;
+}
+
+#pac-input:focus {
+  border-color: #4d90fe;
+}
+ */
+
+ /**
+ * @license
+ * Copyright 2019 Google LLC. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0
+ */
+/* 
+ * Always set the map height explicitly to define the size of the div element
+ * that contains the map. 
+ */
+#description {
+  font-family: Roboto;
+  font-size: 15px;
+  font-weight: 300;
+}
+
+#infowindow-content .title {
+  font-weight: bold;
+
+}
+
+#infowindow-content {
+  display: none;
+
+}
+
+#map #infowindow-content {
+  display: inline;
+
+}
+
+.pac-card {
+  background-color: #fff;
+  border: 0;
+  border-radius: 2px;
+  box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
+  margin: 10px;
+  padding: 0 0.5em;
+  font: 400 18px Roboto, Arial, sans-serif;
+  overflow: hidden;
+  font-family: Roboto;
+  padding: 0;
+
+}
+
+.pac-container {
+    z-index: 1100 !important;
+    zoom: 150% !important;
+}
+
+.pac-controls label {
+  font-family: Roboto;
+  font-size: 13px;
+  font-weight: 300;
+
+}
+
+#pac-input {
+  background-color: #fff;
+  font-family: Roboto;
+  font-size: 15px;
+  font-weight: 300;
+  margin-left: 12px;
+  padding: 0 11px 0 13px;
+  text-overflow: ellipsis;
+  width: 400px;
+
+}
+
+#pac-input-edit {
+  background-color: #fff;
+  font-family: Roboto;
+  font-size: 15px;
+  font-weight: 300;
+  margin-left: 12px;
+  padding: 0 11px 0 13px;
+  text-overflow: ellipsis;
+  width: 400px;
+
+}
+
+#pac-input:focus {
+  border-color: #4d90fe;
+}
+
+#pac-input-edit:focus {
+  border-color: #4d90fe;
+}
+
+#title {
+  color: #fff;
+  background-color: #4d90fe;
+  font-size: 25px;
+  font-weight: 500;
+  padding: 6px 12px;
+
+}
+
+#target {
+  width: 345px;
+}
+
+.overlay{
+    display: none;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    background: rgba(255,255,255,0.8) url("/examples/images/loader.gif") center no-repeat;
+}
 
 </style>
 <div class="main-content">
@@ -137,6 +259,11 @@
 <div id="myModal_detail" class="modal fade bs-example-modal-xl" aria-labelledby="myModalLabel" aria-hidden="true" data-bs-scroll="true">
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
+      <div id="spinner-div" class="pt-5">
+          <div class="spinner-border text-primary" role="status">
+          </div>
+      </div>
+      
       <div class="modal-header text-center">
         <h5 class="modal-title" id="myModalLabel">Detail Event</h5>
         <button type="button" class="btn-close close-detail-data" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -339,27 +466,14 @@
             </div>
           </div>
           <div class="row">
-            <div class="col text-center">
+                <div class="col">
+               
+                </div>
+          </div>
+          <div class="row">
+            <div class="col text-center" id="buat-search-box-maps">
               <label class="form-label" for="validationCustom02">Pin Point Maps</label>
-
-              <!-- <div class="pac-card" id="pac-card" onkeyup="lookup(this);">
-                  <div>
-                      <div id="label">Location search</div>
-                  </div>
-                  <div id="pac-container">
-                      <input id="pac-input" type="text" placeholder="Enter a location">
-                      <div id="location-error"></div>
-                  </div>
-              </div> -->
               <div id="map"></div>
-              <!-- <div id="infowindow-content">
-                  <img src="" width="16" height="16" id="place-icon"> <span
-                      id="place-name" class="title"></span><br> <span
-                      id="place-address"></span>
-              </div> -->
-
-              <!-- <input id="pac-input" class="controls" type="text" placeholder="Search Box"/> -->
-              <!-- <div id="map"></div> -->
             </div>
           </div>
           <div class="row">
@@ -650,11 +764,8 @@
             </div>
           </div>
           <div class="row">
-            <div class="col text-center">
+            <div class="col text-center" id="buat-search-box-maps-edit">
               <label class="form-label" for="validationCustom02">Pin Point Maps</label>
-
-              
-
               <div id="map_update"></div>
             </div>
           </div>
