@@ -174,9 +174,9 @@ class Home extends BaseController
                         //         $labelStatus ='<span><span class="badge badge-pill badge-soft-warning font-size-12">Waiting Approval</span></span>';
                         //     }
                         // }
-                        if(in_array($this->data_session['rolecode'],$historyApproval)){
-                            $labelStatus ='<span><span class="badge badge-pill badge-soft-primary font-size-12">Approved</span></span>';
-                        }else{
+                        // if(in_array($this->data_session['rolecode'],$historyApproval)){
+                        //     $labelStatus ='<span><span class="badge badge-pill badge-soft-primary font-size-12">Approved '.$this->data_session['rolecode'].'--'.$list->eventid.'</span></span>';
+                        // }else{
                             if(count($historyApproval)==0){
                                 if($this->data_session['rolecode']=='kabag'){
                                     $labelStatus ='<span><span class="badge badge-pill badge-soft-warning font-size-12">Waiting Approval</span></span>';
@@ -186,7 +186,7 @@ class Home extends BaseController
                             }else{
                                 $labelStatus ='<span><span class="badge badge-pill badge-soft-warning font-size-12">Waiting Approval</span></span>';
                             }
-                        }
+                        // }
                     }  
                 } else if ( $list->status==  2 ||  $list->status== "2") {
                     $labelStatus ='<span><span class="badge badge-pill badge-soft-primary font-size-12">Approved</span></span>';
