@@ -693,5 +693,7 @@ function clickMaps(){
         return $this->response->setJSON($results);
 
     }
+
+    
    
 }

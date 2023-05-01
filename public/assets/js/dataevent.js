@@ -310,7 +310,7 @@ $(document).ready(function() {
     flatpickr("#eventlist-end-date-add", { enableTime: !0, dateFormat: "Y-m-d H:i" });
     // $.fn.dataTable.ext.errMode = 'none';
     $('.filter-event').select2({
-        placeholder: 'Dealear',
+        placeholder: 'Status Event',
         allowClear: true,
         ajax: {
             url: base_url + "/eventstatus",
@@ -378,7 +378,7 @@ $(document).ready(function() {
         }
     });
     $('.filter-office').select2({
-        placeholder: 'Dealear',
+        placeholder: 'Dealer',
         allowClear: true,
         ajax: {
             url: base_url + "/off",
@@ -549,9 +549,14 @@ $('#button-download-report').click(function(e) {
     category =  ($('.filter-category').val() == undefined ) ? '0': $('.filter-category').val();
     year =  ($('.filter-year').val() == undefined ) ? '0': $('.filter-year').val();
     bulan =  ($('.filter-bulan').val() == undefined ) ? '0': $('.filter-bulan').val();
+    
+    userid =  ($('.userid_session').val() == undefined ) ? '0': $('.userid_session').val();
+    rolecode =  ($('.rolecode_session').val() == undefined ) ? '': $('.rolecode_session').val();
+    area =  ($('.area_session').val() == undefined ) ? '': $('.area_session').val();
 
-    urldownload = base_url + "/lpj_activity/"+officeid+'/'+statusEvent+'/'+category+'/'+year+'/'+bulan;
-    window.location.href = urldownload
+    urldownload = base_url + "/lpj_activity/"+officeid+'/'+statusEvent+'/'+category+'/'+year+'/'+bulan+'/'+userid+'/'+rolecode+'/'+area;
+    // window.location.href = urldownload
+    alert(urldownload);
 });
 
 $('.filter-event').on("change", function(e) {

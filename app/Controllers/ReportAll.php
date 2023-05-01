@@ -201,6 +201,8 @@ class ReportAll extends BaseController
   
     public function status()
     {
+        curlEmail();
+        die();
         // $sess = $this->data_session;
         // $_POST['userid'] =  $sess['id'];
         // $_POST['role_code'] =  $sess['rolecode'];

@@ -105,8 +105,12 @@ $routes->post('/reportbtl', 'Report::data_btl');
 $routes->post('/getdatamenu', 'Menu::getMenuNameByID');
 
 
-$routes->get('lpj_activity/(:any)/(:any)/(:any)/(:any)/(:any)', 'ExcelReport::lpj_activity/$1/$2/$3/$4/$5');
+$routes->get('lpj_activity/(:any)/(:any)/(:any)/(:any)/(:any)/(:any)/(:any)/(:any)', 'ExcelReport::lpj_activity/$1/$2/$3/$4/$5/$6/$7/$8');
+$routes->get('export-excel-event/(:any)/(:any)/(:any)/(:any)/(:any)/(:any)/(:any)/(:any)', 'ExcelReport::exportExcelFile/$1/$2/$3/$4/$5/$6/$7/$8');
+// $routes->get('re','Home::run_background_process');
 
+
+// run_background_process($statusEvent,$category,$tahun,$bulan);
 // /$1/$2/$3/$4
 /**
  * $1 : office id
