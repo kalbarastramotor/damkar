@@ -276,7 +276,12 @@ class EventModel extends Model
             $query->where('tb_events.year',date('Y'));
         }
         if($bulan!=0){
-            $query->where('tb_events.month',$bulan);
+            $month = $bulan;
+            if(strlen($bulan)==1){
+                $month = "0".  $bulan;
+            }
+            $query->where('( tb_events.month ='.$month.' or tb_events.month='.$bulan.')');
+
         }else{
             $query->where('tb_events.month',(int)date('m'));
         }
