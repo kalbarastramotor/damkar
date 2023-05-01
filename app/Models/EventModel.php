@@ -39,8 +39,7 @@ class EventModel extends Model
 
     private function getDatatablesQuery()
     {
-
-       
+        
       
         if ($this->request->getPost('officeid')!="") {
             $this->dt->where('tb_events.officeid',$this->request->getPost('officeid'));
@@ -53,9 +52,15 @@ class EventModel extends Model
             $this->dt->where('year',$this->request->getPost('year'));
         }
         if ($this->request->getPost('month')!="") {
-           
+            
+            $bulan = $this->request->getPost('month');
+            if(strlen($this->request->getPost('month'))==1){
+                $bulan = "0". $this->request->getPost('month');
+            }
+          
             if((int)date("m")!=$this->request->getPost('month')){
-                $this->dt->where('month',$this->request->getPost('month'));
+                // $this->dt->where('month',$this->request->getPost('month'));
+                $this->dt->where('( month ='.$this->request->getPost('month').' or month='.$bulan.')');
             }
 
         }
