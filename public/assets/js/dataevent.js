@@ -555,8 +555,8 @@ $('#button-download-report').click(function(e) {
     area =  ($('.area_session').val() == undefined ) ? '': $('.area_session').val();
 
     urldownload = base_url + "/lpj_activity/"+officeid+'/'+statusEvent+'/'+category+'/'+year+'/'+bulan+'/'+userid+'/'+rolecode+'/'+area;
-    // window.location.href = urldownload
-    alert(urldownload);
+    window.location.href = urldownload
+    // alert(urldownload);
 });
 
 $('.filter-event').on("change", function(e) {

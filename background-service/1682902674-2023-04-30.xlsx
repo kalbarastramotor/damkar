@@ -4,4 +4,4 @@ array(1) {
   [0]=>
   string(71) "/Applications/MAMP/htdocs/damkar/background-service/generate-report.php"
 }
-http://localhost:8888/damkar/export-excel-event/
+http://localhost:8888/damkar/export-excel-event/sh: php: command not found

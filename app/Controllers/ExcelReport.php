@@ -50,7 +50,7 @@ class ExcelReport extends BaseController
         print_r($output);
     }
     public function lpj_activity($officeid,$statusEvent,$category,$tahun,$bulan,$rolecode,$userid,$area){
-        $this->run_background_process($officeid,$statusEvent,$category,$tahun,$bulan,$rolecode,$userid,$area);
+        $this->exportExcelFile($officeid,$statusEvent,$category,$tahun,$bulan,$rolecode,$userid,$area);
     }
     public function exportExcelFile($officeid,$statusEvent,$category,$tahun,$bulan,$rolecode,$userid,$area)
     {
@@ -297,7 +297,8 @@ class ExcelReport extends BaseController
                         foreach ($images as $key => $value) {
                            
                            
-                            $IMG =  base_url().'/uploads/berkas/'.$value->images;
+                            // $IMG =  base_url().'/uploads/berkas/'.$value->images;
+                            $IMG ="https://damkar.id/public/assets/images/logo.png";
                             $imageType = "png";
 
                             if (strpos($IMG, ".png") === false) {
