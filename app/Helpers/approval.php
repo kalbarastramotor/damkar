@@ -8,7 +8,6 @@ function urutanApproval($approvalcode)
   $arrayApprovalCode["spvpromosi"] = true;
 }
 
-
 ?>
 
 	
