@@ -201,8 +201,6 @@ class ReportAll extends BaseController
   
     public function status()
     {
-        curlEmail();
-        die();
         // $sess = $this->data_session;
         // $_POST['userid'] =  $sess['id'];
         // $_POST['role_code'] =  $sess['rolecode'];
@@ -254,13 +252,6 @@ class ReportAll extends BaseController
             $hasil = $this->eventModel->where('eventid',$_POST['eventid'])->set($data)->update();
         }
       
-
-        if($_POST['status']==3){
-            $dataFlag = array(
-                'flag'=> 0
-            );
-            $updateFlagApproved = $this->eventHistoryModel->where(['eventid'=>$_POST['eventid'],'status'=>2])->set($dataFlag)->update();
-        }
         $insert = $this->eventHistoryModel->insert($_POST);
 		$eventData = $this->eventModel->DataEventByID($_POST['eventid']);
          
@@ -274,10 +265,10 @@ class ReportAll extends BaseController
             $insertAreaAutoApprove = $this->eventHistoryModel->insert($dataLog);
         }
 
-        // $sendemail =$this->send_email($_POST['eventid']);
+        $sendemail =$this->send_email($_POST['eventid']);
 
         $response = array();
-        // $response['email'] = $sendemail;
+        $response['email'] = $sendemail;
         $response['insert_log'] = $insert;
         
         successJsonResponseAll($response); 

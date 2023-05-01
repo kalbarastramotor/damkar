@@ -87,6 +87,7 @@ class Home extends BaseController
     public function index()
     {
        
+        
         $data = array(
             "header" => $this->data_session,
             "title" => "Dashboard",
@@ -150,12 +151,7 @@ class Home extends BaseController
                 if ( $list->status== 1 ||  $list->status== "1") {
 
                     $historyApproval = $this->eventHistoryModel->getApproval($list->eventid);
-                    $historyRejectApproval = $this->eventHistoryModel->getRejectApproval($list->eventid);
-
-                    // print_r($historyApproval);
-                    // print_r($historyApproval);
-                    // die();
-                    if($this->data_session['rolecode']=='staff' ||  $this->data_session['rolecode']=='kepalacabang' ){
+                    if($this->data_session['rolecode']=='staff'){
                         $labelStatus ='<span><span class="badge badge-pill badge-soft-warning font-size-12">Waiting Approval</span></span>';
                     }else{
                         
@@ -175,7 +171,7 @@ class Home extends BaseController
                             }else{
                                 $labelStatus ='<span><span class="badge badge-pill badge-soft-warning font-size-12">Waiting Approval</span></span>';
                             }
-                        }
+                        // }
                     }  
                 } else if ( $list->status==  2 ||  $list->status== "2") {
                     $labelStatus ='<span><span class="badge badge-pill badge-soft-primary font-size-12">Approved</span></span>';
@@ -441,7 +437,7 @@ class Home extends BaseController
             $historyApproval = $this->eventHistoryModel->getApproval($hasil['eventid']);
            
             // cek akses button 
-            if($this->data_session['rolecode']=='staff' ||  $this->data_session['rolecode']=='kepalacabang') {
+            if($this->data_session['rolecode']=='staff'){
                 $labelStatus ='<span><span class="badge badge-pill badge-soft-warning font-size-12">Waiting Approval</span></span>';
                 $action =' 
                     <button type="button" class="btn btn-warning waves-effect waves-light">Waiting Approval</button>
@@ -542,16 +538,9 @@ class Home extends BaseController
             ';
         } else if ( $hasil['status'] == 3 ||  $hasil['status'] == "3") {
             $labelStatus ='<span><span class="badge badge-pill badge-soft-danger font-size-12">Rejected</span></span>';
-            if($_SESSION['id']==$hasil['userid']){
-                $action =' 
-                    <button type="button" class="btn btn-primary waves-effect waves-light"  onclick="request_approve('.$hasil['eventid'].')">Request</button>
-                ';
-            }else{
-                $action =' 
-                <button type="button" class="btn btn-danger waves-effect waves-light" >Rejected</button>
+            $action =' 
+                <button type="button" class="btn btn-primary waves-effect waves-light"  onclick="request_approve('.$hasil['eventid'].')">Request</button>
             ';
-
-            }
         } else if ( $hasil['status'] == 4 ||  $hasil['status'] == "4") {
             $labelStatus ='<span><span class="badge badge-pill badge-soft-info font-size-12">Running</span></span>';
             $action =' 
@@ -693,7 +682,5 @@ function clickMaps(){
         return $this->response->setJSON($results);
 
     }
-
-    
    
 }
