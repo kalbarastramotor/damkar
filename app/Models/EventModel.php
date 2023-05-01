@@ -104,7 +104,7 @@ class EventModel extends Model
       
         $this->getDatatablesQuery();
 
-        if($_SESSION['rolecode']=='staff'){
+        if($_SESSION['rolecode']=='staff' ||  $_SESSION['rolecode']=='kepalacabang'){
             $this->dt->where('( userid ='.$_SESSION['id'].' or tb_events.officeid='.$_SESSION['officeid'].' )');
         }elseif($_SESSION['rolecode']=='spvarea'){
             if(count($_SESSION['area']) > 0){
@@ -135,7 +135,7 @@ class EventModel extends Model
     {
         $this->getDatatablesQuery();
 
-        if($_SESSION['rolecode']=='staff'){
+        if($_SESSION['rolecode']=='staff' ||  $_SESSION['rolecode']=='kepalacabang'){
             $this->dt->where('( userid ='.$_SESSION['id'].' or tb_events.officeid='.$_SESSION['officeid'].' )');
         }elseif($_SESSION['rolecode']=='spvarea'){
             if(count($_SESSION['area']) > 0){
@@ -164,7 +164,7 @@ class EventModel extends Model
         $tbl_storage->join('tb_office', 'tb_office.officeid = tb_events.officeid');
         $tbl_storage->join('tb_events_category', 'tb_events_category.id = tb_events.categoryid');
         
-        if($_SESSION['rolecode']=='staff'){
+        if($_SESSION['rolecode']=='staff' ||  $_SESSION['rolecode']=='kepalacabang'){
             $tbl_storage->where('( userid ='.$_SESSION['id'].' or tb_events.officeid='.$_SESSION['officeid'].' )');
         }elseif($_SESSION['rolecode']=='spvarea'){
             if(count($_SESSION['area']) > 0){
@@ -213,7 +213,7 @@ class EventModel extends Model
         return $query->get()->getResult();
     }
 
-    public function excelReport($officeid,$statusEvent,$category,$tahun,$bulan){
+    public function excelReport($officeid,$statusEvent,$category,$tahun,$bulan,$rolecode,$userid,$area){
         $query = $this->db->table("tb_events");
         $query->select('tb_events.eventid, 
                 tb_events.name, 
@@ -248,22 +248,22 @@ class EventModel extends Model
         if($officeid!=0){
             $query->where('tb_office.officeid',$officeid);
         }else{
-            if($_SESSION['rolecode']=='staff'){
-                $query->where('( userid ='.$_SESSION['id'].' or tb_events.officeid='.$_SESSION['officeid'].' )');
-            }elseif($_SESSION['rolecode']=='spvarea'){
-                if(count($_SESSION['area']) > 0){
-                    $query->whereIn('tb_office.office_group',$_SESSION['area']);
-                    $query->orWhere('( tb_events.officeid='.$_SESSION['officeid'].' )');
-                }else{
-                    $query->where('tb_events.officeid',$_SESSION['officeid']);
-                }
-            }elseif($_SESSION['rolecode']=='spvpromosi'){
-                $query->where('( userid ='.$_SESSION['id'].' or tb_events.officeid='.$_SESSION['officeid'].' )');
-            }elseif($_SESSION['rolecode']=='kabag'){
-                $query->where('( status !=0 or userid='.$_SESSION['id'] .')');
-            }else{
-                $query->where('tb_events.officeid',$_SESSION['officeid']);
-            }
+            // if($rolecode=='staff' || $rolecode=='kepalacabang'){
+            //     $query->where('( userid ='.$userid.' or tb_events.officeid='.$officeid.' )');
+            // }elseif($rolecode=='spvarea'){
+            //     if(count($area) > 0){
+            //         $query->whereIn('tb_office.office_group',$area);
+            //         $query->orWhere('( tb_events.officeid='.$officeid.' )');
+            //     }else{
+            //         $query->where('tb_events.officeid',$officeid);
+            //     }
+            // }elseif($rolecode=='spvpromosi'){
+            //     $query->where('( userid ='.$userid.' or tb_events.officeid='.$officeid.' )');
+            // }elseif($rolecode=='kabag'){
+            //     $query->where('( status !=0 or userid='.$userid .')');
+            // }else{
+            //     $query->where('tb_events.officeid',$officeid);
+            // }
         }
 
         if($statusEvent!=0){
