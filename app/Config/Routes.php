@@ -102,8 +102,7 @@ $routes->post('/reportbtl', 'Report::data_btl');
 
 
 $routes->post('/getdatamenu', 'Menu::getMenuNameByID');
-
-
+$routes->get('/compress', 'ExcelReport::CompressImg');
 $routes->get('lpj_activity/(:any)/(:any)/(:any)/(:any)/(:any)', 'ExcelReport::lpj_activity/$1/$2/$3/$4/$5');
 
 // /$1/$2/$3/$4

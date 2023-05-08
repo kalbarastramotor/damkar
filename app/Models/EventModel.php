@@ -286,7 +286,6 @@ class EventModel extends Model
             $query->where('tb_events.month',(int)date('m'));
         }
         $query->orderBy('tb_events.eventid','DESC');
-
         $query = $query->get();
 
         $data = $query->getResult();

@@ -169,4 +169,8 @@ function failedJsonResponse($err){
             )
     );
 }
+function Pwd(){
+    $output = shell_exec('pwd');
+    return $output;
+}
 ?>
