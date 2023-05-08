@@ -706,6 +706,14 @@ class ReportAll extends BaseController
 		
         $dataBerkas->move('uploads/berkas/', $fileName);
 
+        $old = preg_replace('/\s/', '',  Pwd()."/uploads/berkas/".$fileName);
+        $new = preg_replace('/\s/', '',  Pwd()."/uploads/new/".$fileName);
+        $image = \Config\Services::image()
+            ->withFile($old)
+            ->resize(400, 200, true, 'height')
+            ->save($new);
+
+            
         if($hasil!=0){
             successJsonResponse($hasil); 
         }else{
