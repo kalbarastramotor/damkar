@@ -319,5 +319,19 @@ class ExcelReport extends BaseController
         header('Cache-Control: max-age=0');
         $writer->save('php://output');
     }
-   
+    function CompressImg(){
+
+        $data = $this->eventActivityModel->getActivityAllImages();
+        foreach ($data as $key => $value) {
+            $old = preg_replace('/\s/', '',  Pwd()."/uploads/berkas/".$value->images);
+            $new = preg_replace('/\s/', '',  Pwd()."/uploads/new/".$value->images);
+            $image = \Config\Services::image()
+            ->withFile($old)
+            ->resize(400, 200, true, 'height')
+            ->save($new);
+            print_r($image);
+            echo "<br/>";
+
+        }
+    }
 }
