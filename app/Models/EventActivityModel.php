@@ -71,7 +71,9 @@ class EventActivityModel extends Model
 
     public function getActivityAllImages(){
         $query = $this->db->table($this->table);
+        $query->limit(100,0);
         $data = $query->get()->getResult();
+        
         return $data;
     }
     

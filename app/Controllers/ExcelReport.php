@@ -331,6 +331,8 @@ class ExcelReport extends BaseController
             ->save($new);
             print_r($image);
             echo "<br/>";
+            // print_r($old);
+            // echo "<br/>";
 
         }
     }
