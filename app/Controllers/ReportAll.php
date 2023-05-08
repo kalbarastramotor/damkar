@@ -279,11 +279,12 @@ class ReportAll extends BaseController
         $logEmail = preg_replace('/\s/', '', $pwd."/background-service/log-email.json");
         $params  =  $_POST['eventid'];
        
-        exec( "php -q ".$exec." ".$params." > ".$logEmail." 2>&1 & echo $!");
+       $respon = exec( "php -q ".$exec." ".$params." > ".$logEmail." 2>&1 & echo $!");
         
 
         $response = array();
         $response['insert_log'] = $insert;
+        $response['email'] = $respon;
         
         successJsonResponseAll($response); 
         
