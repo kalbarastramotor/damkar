@@ -56,7 +56,7 @@ function initMapsSearch(){
             markers.push(
                 new google.maps.Marker({
                 map,
-                icon,
+                // icon,
                 title: place.name,
                 position: place.geometry.location,
                 })
@@ -1167,7 +1167,7 @@ $("#button-approve").click(function(e) {
 function showModalAdd() {
     $('#myModal_add').modal({ backdrop: 'static', keyboard: false });
     $('#myModal_add').modal('show');
-    $("#buat-search-box-maps").append('<input id="pac-input" class="controls form-control" type="text" placeholder="Search Box"/>');
+    $("#buat-search-box-maps").append('<input id="pac-input" class="controls form-control" type="text" placeholder="Cari Lokasi anda"/>');
 
     // initMap();
     initMapsSearch();
@@ -1818,7 +1818,7 @@ function edit_event(id) {
             $("#eventlist-location-update").html(e.data.location);
             $("#eventlist-location-update").val(e.data.location);
 
-            $("#buat-search-box-maps-edit").append('<input id="pac-input-edit" class="controls form-control" type="text" placeholder="Search Box"/>');
+            $("#buat-search-box-maps-edit").append('<input id="pac-input-edit" class="controls form-control" type="text"  placeholder="Cari Lokasi anda"/>');
 
             initMapEdit(parseFloat(e.data.location_lat),parseFloat(e.data.location_long));
 

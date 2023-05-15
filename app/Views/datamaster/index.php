@@ -100,6 +100,13 @@
   padding: 0;
 
 }
+.pac-target-input{
+  top: 10px !important;
+  width: 67% !important;
+  border-radius: 0px !important;
+
+}
+
 
 #pac-container {
   /* padding-bottom: 12px;
@@ -130,9 +137,9 @@
   background-color: #fff;
   font-family: Roboto;
   font-size: 15px;
-  font-weight: 300;
+  /* font-weight: 300;
   margin-left: 12px;
-  padding: 0 11px 0 13px;
+  padding: 0 11px 0 13px; */
   text-overflow: ellipsis;
   width: 400px;
 
@@ -142,13 +149,21 @@
   background-color: #fff;
   font-family: Roboto;
   font-size: 15px;
-  font-weight: 300;
+  /* font-weight: 300;
   margin-left: 12px;
-  padding: 0 11px 0 13px;
+  padding: 0 11px 0 13px; */
   text-overflow: ellipsis;
   width: 400px;
 
 }
+
+#pac-input-edit .pac-target-input{
+  top: 10px !important;
+  width: 67% !important;
+  border-radius: 0px !important;
+
+}
+
 
 #pac-input:focus {
   border-color: #4d90fe;
