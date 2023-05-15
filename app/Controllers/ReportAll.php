@@ -216,7 +216,7 @@ class ReportAll extends BaseController
         );
         $hasil = $this->eventModel->where('eventid',$_POST['eventid'])->set($data)->update();
         $insert = $this->eventHistoryModel->insert($_POST);
-        $sendemail =$this->send_email($_POST['eventid']);
+        // $sendemail =$this->send_email($_POST['eventid']);
 
 
 
