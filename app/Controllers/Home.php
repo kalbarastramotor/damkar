@@ -469,7 +469,7 @@ class Home extends BaseController
                                 <button type="button" class="btn btn-danger waves-effect waves-light" onclick="rejected('.$hasil['eventid'].')">Reject</button>
                             ';
                         }else{
-                            $labelStatus ='<span><span class="badge badge-pill badge-soft-warning font-size-12">Waiting Approval '.$this->data_session['rolecode'].'</span></span>';
+                            $labelStatus ='<span><span class="badge badge-pill badge-soft-warning font-size-12">Waiting Approval </span></span>';
                             $action =' 
                                 <button type="button" class="btn btn-warning waves-effect waves-light">Waiting Approval</button>
                             ';
@@ -489,7 +489,7 @@ class Home extends BaseController
                         }
                     }else{
                         $action =' 
-                                <button type="button" class="btn btn-warning waves-effect waves-light"> '.count($historyApproval).'----'.$this->data_session['rolecode'].' Waiting Approval</button>
+                                <button type="button" class="btn btn-warning waves-effect waves-light">Waiting Approval</button>
                             ';
                     }
                    
