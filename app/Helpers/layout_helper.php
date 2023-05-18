@@ -197,7 +197,6 @@ function errorJsonResponse($err,$message){
             )
     );
 }
-
 function Pwd(){
     $output = shell_exec('pwd');
     return $output;

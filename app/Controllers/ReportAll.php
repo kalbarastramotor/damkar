@@ -250,13 +250,6 @@ class ReportAll extends BaseController
             $hasil = $this->eventModel->where('eventid',$_POST['eventid'])->set($data)->update();
         }
       
-
-        if($_POST['status']==3){
-            $dataFlag = array(
-                'flag'=> 0
-            );
-            $updateFlagApproved = $this->eventHistoryModel->where(['eventid'=>$_POST['eventid'],'status'=>2])->set($dataFlag)->update();
-        }
         $insert = $this->eventHistoryModel->insert($_POST);
 		$eventData = $this->eventModel->DataEventByID($_POST['eventid']);
          

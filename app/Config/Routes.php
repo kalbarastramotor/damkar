@@ -108,8 +108,6 @@ $routes->post('/getdatamenu', 'Menu::getMenuNameByID');
 $routes->get('/compress', 'ExcelReport::CompressImg');
 $routes->get('lpj_activity/(:any)/(:any)/(:any)/(:any)/(:any)', 'ExcelReport::lpj_activity/$1/$2/$3/$4/$5');
 
-
-// run_background_process($statusEvent,$category,$tahun,$bulan);
 // /$1/$2/$3/$4
 /**
  * $1 : office id

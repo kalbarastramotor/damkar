@@ -104,7 +104,7 @@ class EventModel extends Model
       
         $this->getDatatablesQuery();
 
-        if($_SESSION['rolecode']=='staff' ||  $_SESSION['rolecode']=='kepalacabang'){
+        if($_SESSION['rolecode']=='staff'){
             $this->dt->where('( userid ='.$_SESSION['id'].' or tb_events.officeid='.$_SESSION['officeid'].' )');
         }elseif($_SESSION['rolecode']=='spvarea'){
             if(count($_SESSION['area']) > 0){
@@ -135,7 +135,7 @@ class EventModel extends Model
     {
         $this->getDatatablesQuery();
 
-        if($_SESSION['rolecode']=='staff' ||  $_SESSION['rolecode']=='kepalacabang'){
+        if($_SESSION['rolecode']=='staff'){
             $this->dt->where('( userid ='.$_SESSION['id'].' or tb_events.officeid='.$_SESSION['officeid'].' )');
         }elseif($_SESSION['rolecode']=='spvarea'){
             if(count($_SESSION['area']) > 0){
@@ -164,7 +164,7 @@ class EventModel extends Model
         $tbl_storage->join('tb_office', 'tb_office.officeid = tb_events.officeid');
         $tbl_storage->join('tb_events_category', 'tb_events_category.id = tb_events.categoryid');
         
-        if($_SESSION['rolecode']=='staff' ||  $_SESSION['rolecode']=='kepalacabang'){
+        if($_SESSION['rolecode']=='staff'){
             $tbl_storage->where('( userid ='.$_SESSION['id'].' or tb_events.officeid='.$_SESSION['officeid'].' )');
         }elseif($_SESSION['rolecode']=='spvarea'){
             if(count($_SESSION['area']) > 0){
@@ -213,7 +213,7 @@ class EventModel extends Model
         return $query->get()->getResult();
     }
 
-    public function excelReport($officeid,$statusEvent,$category,$tahun,$bulan,$rolecode,$userid,$area){
+    public function excelReport($officeid,$statusEvent,$category,$tahun,$bulan){
         $query = $this->db->table("tb_events");
         $query->select('tb_events.eventid, 
                 tb_events.name, 

@@ -55,8 +55,10 @@ class ExcelReport extends BaseController
     public function exportExcelFile($officeid,$statusEvent,$category,$tahun,$bulan,$rolecode,$userid,$area)
     {
 
+        ini_set('max_execution_time', 0);
+        ini_set('memory_limit', '100000M');
+        $data = $this->eventModel->excelReport($officeid,$statusEvent,$category,$tahun,$bulan);
 
-        $data = $this->eventModel->excelReport($officeid,$statusEvent,$category,$tahun,$bulan,$rolecode,$userid,$area);
         $spreadsheet = new Spreadsheet();
 
         /**
@@ -297,8 +299,7 @@ class ExcelReport extends BaseController
                         foreach ($images as $key => $value) {
                            
                            
-                            // $IMG =  base_url().'/uploads/berkas/'.$value->images;
-                            $IMG ="https://damkar.id/public/assets/images/logo.png";
+                            $IMG =  base_url().'/uploads/new/'.$value->images;
                             $imageType = "png";
 
                             if (strpos($IMG, ".png") === false) {
