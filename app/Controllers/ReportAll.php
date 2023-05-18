@@ -157,9 +157,8 @@ class ReportAll extends BaseController
 
 		return $dataApproval;
 	}
-	function sendEmailCron(){
-        // print_r($_POST);
-        // die();
+	function SendEmailCron(){
+      
         $sendemail =  $this->send_email($_POST['eventid']);
         $response = array();
         $response['email'] = $sendemail;
@@ -168,8 +167,6 @@ class ReportAll extends BaseController
     }
     public function send_email($eventid) {
 		$eventData = $this->eventModel->DataEventByID($eventid);
-        // print_r($eventData);
-        // die();
 		$data['nama'] = $eventData['fullname'];
 		$data['nama'] = $eventData['fullname'];
 		$data['event_name'] = $eventData['name'];
@@ -180,8 +177,6 @@ class ReportAll extends BaseController
             $dataApproval = $this->checkRequestApprove($eventData['officeid'],$eventData['eventid']);
             $data['email'] = $dataApproval['email'];
 
-            // print_r($dataApproval);
-            // die();
 			$layout = view('email/request',$data);
 		}elseif($eventData['status']==2){
             $data['subject'] = "DAMKAR | Approved ".$eventData['name'];
@@ -194,46 +189,16 @@ class ReportAll extends BaseController
     		$data['email'] =$eventData['email'];
 			$layout = view('email/rejected',$data);
 		}
-		$kirim = $this->mail->sendEmail($layout,$data);
+        if($eventData['status']!=0){
+		    $kirim = $this->mail->sendEmail($layout,$data);
+        }
 		return $kirim;
     }
 
   
     public function status()
     {
-        curlEmail();
-        die();
-        // $sess = $this->data_session;
-        // $_POST['userid'] =  $sess['id'];
-        // $_POST['role_code'] =  $sess['rolecode'];
-
-
-        // if($_POST['status']==2){
-        //     $historyApproval = $this->eventHistoryModel->getApproval($_POST['eventid']);
-        //     if(count($historyApproval)>=1){
-        //         $data = array(
-        //             'status'=> $_POST['status']
-        //         );
-        //         $hasil = $this->eventModel->where('eventid',$_POST['eventid'])->set($data)->update();
-        //     }
-        // }else{
-        //     $data = array(
-        //         'status'=> $_POST['status']
-        //     );
-        //     $hasil = $this->eventModel->where('eventid',$_POST['eventid'])->set($data)->update();
-        // }
-
-
-       
-        // $insert = $this->eventHistoryModel->insert($_POST);
-
-        // if($insert!=0){
-        //     successJsonResponse($insert); 
-        // }else{
-        //     failedJsonResponse($insert);
-        // }
-
-        // rollback 
+        
         
         $sess = $this->data_session;
         $_POST['userid'] =  $sess['id'];
@@ -276,8 +241,17 @@ class ReportAll extends BaseController
 
         // $sendemail =$this->send_email($_POST['eventid']);
 
+        // send email background 
+        $pwd = Pwd();
+       
+        $exec = preg_replace('/\s/', '', $pwd."/background-service/send-email.php");
+        $logEmail = preg_replace('/\s/', '', $pwd."/background-service/log-email.json");
+        $params  =  $_POST['eventid'];
+       
+        exec( "php -q ".$exec." ".$params." > ".$logEmail." 2>&1 & echo $!");
+        
+
         $response = array();
-        // $response['email'] = $sendemail;
         $response['insert_log'] = $insert;
         
         successJsonResponseAll($response); 
