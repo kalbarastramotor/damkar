@@ -230,10 +230,6 @@
                       </td>
                     </tr>
 
-                   <input type="text" class="userid_session" value="<?=$_SESSION['id'];?>"/>
-                   <input type="text" class="rolecode_session"  value="<?=$_SESSION['rolecode'];?>"/>
-                   <input type="text" class="area_session"  value="<?=join(",", $_SESSION['area']);?>"/>
-
                     <tr>
                       <th class="text-nowrap" scope="row">Download</th>
                       <td class="filter-month-select2">
