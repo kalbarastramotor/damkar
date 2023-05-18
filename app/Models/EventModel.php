@@ -248,7 +248,7 @@ class EventModel extends Model
         if($officeid!=0){
             $query->where('tb_office.officeid',$officeid);
         }else{
-            if($_SESSION['rolecode']=='staff'){
+            if($_SESSION['rolecode']=='staff' ||  $_SESSION['rolecode']=='kepalacabang'){
                 $query->where('( userid ='.$_SESSION['id'].' or tb_events.officeid='.$_SESSION['officeid'].' )');
             }elseif($_SESSION['rolecode']=='spvarea'){
                 if(count($_SESSION['area']) > 0){
@@ -289,7 +289,6 @@ class EventModel extends Model
             $query->where('tb_events.month',(int)date('m'));
         }
         $query->orderBy('tb_events.eventid','DESC');
-
         $query = $query->get();
 
         $data = $query->getResult();

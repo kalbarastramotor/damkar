@@ -34,7 +34,25 @@ class ExcelReport extends BaseController
             "rolecode"=> $this->session->get('rolecode'),
         );
     }
-    public function lpj_activity($officeid,$statusEvent,$category,$tahun,$bulan)
+    
+    function run_background_process($officeid,$statusEvent,$category,$tahun,$bulan,$rolecode,$userid,$area)
+    {
+        $pwd = Pwd();
+        $exec = preg_replace('/\s/', '', $pwd."/background-service/generate-report.php");
+        $params  = $officeid." ".$statusEvent." ".$category." ".$tahun." ".$bulan." '".$rolecode."' '".$userid."' '".$area."'";
+
+        $t=time();
+        $filename =  preg_replace('/\s/', '', $pwd."/background-service/".$t."-".date("Y-m-d",$t).".xlsx");
+        echo "php -q ".$exec." ".$params." > ".$filename." 2>&1 & echo $!";
+        // exec("php ".$exec." ".$params." > ".$filename." 2>&1 & echo $!", $output);
+        // exec("php -q /Applications/MAMP/htdocs/damkar/background-service/generate-report.php 0 0 0 0 0 '78' 'kabag' 'KAB. SINTANG,KAB. KETAPANG' >> /Applications/MAMP/htdocs/damkar/background-service/1682902674s-2023-04-30.xlsx 2>&1 & echo $!",$output);
+        exec("php -q /Applications/MAMP/htdocs/damkar/background-service/generate-report.php >> /Applications/MAMP/htdocs/damkar/background-service/1682902674-2023-04-30.xlsx 2>&1",$output);
+        print_r($output);
+    }
+    public function lpj_activity($officeid,$statusEvent,$category,$tahun,$bulan,$rolecode,$userid,$area){
+        $this->exportExcelFile($officeid,$statusEvent,$category,$tahun,$bulan,$rolecode,$userid,$area);
+    }
+    public function exportExcelFile($officeid,$statusEvent,$category,$tahun,$bulan,$rolecode,$userid,$area)
     {
 
         ini_set('max_execution_time', 0);
@@ -281,7 +299,7 @@ class ExcelReport extends BaseController
                         foreach ($images as $key => $value) {
                            
                            
-                            $IMG =  base_url().'/uploads/berkas/'.$value->images;
+                            $IMG =  base_url().'/uploads/new/'.$value->images;
                             $imageType = "png";
 
                             if (strpos($IMG, ".png") === false) {
@@ -320,4 +338,21 @@ class ExcelReport extends BaseController
         $writer->save('php://output');
     }
    
+    function CompressImg(){
+
+        $data = $this->eventActivityModel->getActivityAllImages();
+        foreach ($data as $key => $value) {
+            $old = preg_replace('/\s/', '',  Pwd()."/uploads/berkas/".$value->images);
+            $new = preg_replace('/\s/', '',  Pwd()."/uploads/new/".$value->images);
+            $image = \Config\Services::image()
+            ->withFile($old)
+            ->resize(400, 200, true, 'height')
+            ->save($new);
+            print_r($image);
+            echo "<br/>";
+            // print_r($old);
+            // echo "<br/>";
+
+        }
+    }
 }

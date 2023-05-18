@@ -171,7 +171,7 @@ class Home extends BaseController
                             }else{
                                 $labelStatus ='<span><span class="badge badge-pill badge-soft-warning font-size-12">Waiting Approval</span></span>';
                             }
-                        // }
+                        }
                     }  
                 } else if ( $list->status==  2 ||  $list->status== "2") {
                     $labelStatus ='<span><span class="badge badge-pill badge-soft-primary font-size-12">Approved</span></span>';
@@ -465,7 +465,7 @@ class Home extends BaseController
                                 <button type="button" class="btn btn-danger waves-effect waves-light" onclick="rejected('.$hasil['eventid'].')">Reject</button>
                             ';
                         }else{
-                            $labelStatus ='<span><span class="badge badge-pill badge-soft-warning font-size-12">Waiting Approval '.$this->data_session['rolecode'].'</span></span>';
+                            $labelStatus ='<span><span class="badge badge-pill badge-soft-warning font-size-12">Waiting Approval </span></span>';
                             $action =' 
                                 <button type="button" class="btn btn-warning waves-effect waves-light">Waiting Approval</button>
                             ';
@@ -485,7 +485,7 @@ class Home extends BaseController
                         }
                     }else{
                         $action =' 
-                                <button type="button" class="btn btn-warning waves-effect waves-light"> '.count($historyApproval).'----'.$this->data_session['rolecode'].' Waiting Approval</button>
+                                <button type="button" class="btn btn-warning waves-effect waves-light">Waiting Approval</button>
                             ';
                     }
                    

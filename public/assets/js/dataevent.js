@@ -550,8 +550,9 @@ $('#button-download-report').click(function(e) {
     year =  ($('.filter-year').val() == undefined ) ? '0': $('.filter-year').val();
     bulan =  ($('.filter-bulan').val() == undefined ) ? '0': $('.filter-bulan').val();
 
-    urldownload = base_url + "/lpj_activity/"+officeid+'/'+statusEvent+'/'+category+'/'+year+'/'+bulan;
+    urldownload = base_url + "/lpj_activity/"+officeid+'/'+statusEvent+'/'+category+'/'+year+'/'+bulan+'/'+userid+'/'+rolecode+'/'+area;
     window.location.href = urldownload
+    // alert(urldownload);
 });
 
 $('.filter-event').on("change", function(e) {

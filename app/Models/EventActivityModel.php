@@ -68,4 +68,11 @@ class EventActivityModel extends Model
         return $results;
 
     }
+
+    public function getActivityAllImages(){
+        $query = $this->db->table($this->table);
+        $data = $query->get()->getResult();
+        return $data;
+    }
+    
 }

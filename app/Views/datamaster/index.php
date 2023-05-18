@@ -108,6 +108,15 @@
 }
 
 
+#pac-container {
+  /* padding-bottom: 12px;
+  margin-right: 12px; */
+    /* z-index: 0 !important; */
+  /* .pac-container { z-index: 100000 !important; } */
+
+}
+
+
 .pac-container {
     z-index: 1100 !important;
     zoom: 150% !important;
@@ -229,6 +238,10 @@
                         <select class="filter-bulan form-control" style="width:100%"></select>
                       </td>
                     </tr>
+
+                   <input type="text" class="userid_session" value="<?=$_SESSION['id'];?>" hidden="hidden"/>
+                   <input type="text" class="rolecode_session"  value="<?=$_SESSION['rolecode'];?>" hidden="hidden"//>
+                   <input type="text" class="area_session"  value="<?=join(",", $_SESSION['area']);?>" hidden="hidden"//>
 
                     <tr>
                       <th class="text-nowrap" scope="row">Download</th>
