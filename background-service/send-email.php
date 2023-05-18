@@ -1,10 +1,6 @@
 <?php
 
 $curl = curl_init();
-print_r($_ENV);
-print_r($ENV);
-die();
-var_dump($argv);
 
 curl_setopt_array($curl, array(
   CURLOPT_URL => 'https://dev.damkar.id/email/send-email',

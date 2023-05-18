@@ -199,38 +199,7 @@ class ReportAll extends BaseController
     public function status()
     {
      
-        // $sess = $this->data_session;
-        // $_POST['userid'] =  $sess['id'];
-        // $_POST['role_code'] =  $sess['rolecode'];
-
-
-        // if($_POST['status']==2){
-        //     $historyApproval = $this->eventHistoryModel->getApproval($_POST['eventid']);
-        //     if(count($historyApproval)>=1){
-        //         $data = array(
-        //             'status'=> $_POST['status']
-        //         );
-        //         $hasil = $this->eventModel->where('eventid',$_POST['eventid'])->set($data)->update();
-        //     }
-        // }else{
-        //     $data = array(
-        //         'status'=> $_POST['status']
-        //     );
-        //     $hasil = $this->eventModel->where('eventid',$_POST['eventid'])->set($data)->update();
-        // }
-
-
-       
-        // $insert = $this->eventHistoryModel->insert($_POST);
-
-        // if($insert!=0){
-        //     successJsonResponse($insert); 
-        // }else{
-        //     failedJsonResponse($insert);
-        // }
-
-        // rollback 
-        
+      
         $sess = $this->data_session;
         $_POST['userid'] =  $sess['id'];
         $_POST['role_code'] =  $sess['rolecode'];
@@ -263,21 +232,22 @@ class ReportAll extends BaseController
             $insertAreaAutoApprove = $this->eventHistoryModel->insert($dataLog);
         }
 
-        // $sendemail =$this->send_email($_POST['eventid']);
-
+        $sendemail =$this->send_email($_POST['eventid']);
+        // sementara sampai background jalan
         // send email background 
-        $pwd = Pwd();
-       
-        $exec = preg_replace('/\s/', '', $pwd."/background-service/send-email.php");
-        $logEmail = preg_replace('/\s/', '', $pwd."/background-service/log-email.json");
-        $params  =  $_POST['eventid'];
-       
-       $respon = exec( "php -q ".$exec." ".$params." > ".$logEmail." 2>&1 & echo $!");
+        //     $pwd = Pwd();
+        
+        //     $exec = preg_replace('/\s/', '', $pwd."/background-service/send-email.php");
+        //     $logEmail = preg_replace('/\s/', '', $pwd."/background-service/log-email.json");
+        //     $params  =  $_POST['eventid'];
+        
+        //    $respon = exec( "php -q ".$exec." ".$params." > ".$logEmail." 2>&1 & echo $!");
         
 
         $response = array();
         $response['insert_log'] = $insert;
-        $response['email'] = $respon;
+        $response['email'] = $sendemail;
+        // $response['email'] = $respon;
         
         successJsonResponseAll($response); 
         
