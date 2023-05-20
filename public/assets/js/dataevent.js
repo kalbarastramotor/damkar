@@ -892,7 +892,9 @@ $("#button-reject").click(function(e) {
         success: function(e) {
             if (e.status.message == "OK") {
                 alertify.success('Rejected');
+                sendEmail(dataSend.eventid);
             } else {
+
                 alertify.error('Error Internal');
             }
             detail_event( $("#button-reject").attr("eventid"));
@@ -1064,7 +1066,40 @@ function request_approve(id) {
 
 }
 
+function sendEmail(eventid){
+    var dataSend = {
+        eventid: eventid,
+    }
+    $.ajax({
+        url: base_url + "/email/send-email",
+        dataType: 'json',
+        headers: {
+            "Authorization": "Bearer " + token,
+        },
+        data:dataSend,
+        type: 'post',
+        success: function(e) {
+            console.log(e)
+            if (e.status.message == "OK") {
+                $('#spinner-div').hide();
+                alertify.success('Success Send Email');
 
+            } else {
+                alertify.error('Failed Send Email');
+            }
+
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+            const myJSON = JSON.parse(XMLHttpRequest.responseText)
+
+            if (myJSON.error == "invalid_token") {
+                alertify.error('Session anda selesai');
+                localStorage.removeItem("token");
+                location.href = base_url;
+            }
+        }
+    });
+}
 $("#button-request").click(function(e) {
     var dataSend = {
         notes: $("#request-note").val(),
@@ -1084,7 +1119,7 @@ $("#button-request").click(function(e) {
             if (e.status.message == "OK") {
                 $('#spinner-div').hide();
                 alertify.success('Requested');
-
+                sendEmail(dataSend.eventid);
             } else {
                 alertify.error('Error Internal');
             }
@@ -1137,6 +1172,7 @@ $("#button-approve").click(function(e) {
             if (e.status.message == "OK") {
                 $('#spinner-div').hide();
                 alertify.success('Approved');
+                sendEmail(dataSend.eventid);
             } else {
                 alertify.error('Error Internal');
             }
