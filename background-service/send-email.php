@@ -14,6 +14,7 @@ curl_setopt_array($curl, array(
   CURLOPT_POSTFIELDS => array('eventid' => $argv[0])
 ));
 
+
 $response = curl_exec($curl);
 
 curl_close($curl);

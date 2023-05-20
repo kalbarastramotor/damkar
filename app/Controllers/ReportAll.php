@@ -146,14 +146,6 @@ class ReportAll extends BaseController
                 $dataApproval = $dataAtasan['kabag'];
             }
         }
-        // print_r($dataAtasan);
-
-		// print_r($historyApproval);
-
-       
-        // die();
-
-
 
 		return $dataApproval;
 	}
@@ -171,6 +163,7 @@ class ReportAll extends BaseController
 		$data['nama'] = $eventData['fullname'];
 		$data['event_name'] = $eventData['name'];
 		$data['office_name'] = $eventData['office_name'];
+
 		if($eventData['status']==1){
             $data['subject'] = "DAMKAR | Request Event ".$eventData['name'];
 			$data['title'] = "Request Approve";
@@ -232,26 +225,11 @@ class ReportAll extends BaseController
             $insertAreaAutoApprove = $this->eventHistoryModel->insert($dataLog);
         }
 
-        $sendemail =$this->send_email($_POST['eventid']);
-        // sementara sampai background jalan
-        // send email background 
-        //     $pwd = Pwd();
-        
-        //     $exec = preg_replace('/\s/', '', $pwd."/background-service/send-email.php");
-        //     $logEmail = preg_replace('/\s/', '', $pwd."/background-service/log-email.json");
-        //     $params  =  $_POST['eventid'];
-        
-        //    $respon = exec( "php -q ".$exec." ".$params." > ".$logEmail." 2>&1 & echo $!");
-        
-
         $response = array();
         $response['insert_log'] = $insert;
-        $response['email'] = $sendemail;
-        // $response['email'] = $respon;
-        
+
         successJsonResponseAll($response); 
         
-
     }
     public function data()
     {
