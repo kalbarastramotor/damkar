@@ -168,18 +168,38 @@ class ReportAll extends BaseController
             $data['subject'] = "DAMKAR | Request Event ".$eventData['name'];
 			$data['title'] = "Request Approve";
             $dataApproval = $this->checkRequestApprove($eventData['officeid'],$eventData['eventid']);
+            $data['category_name'] = $eventData['category_name'];
+            $data['office_name'] = $eventData['office_name'];
+            $data['location'] =$eventData['location']."( ".$eventData['location_lat'].",".$eventData['location_long']." )";
+            $data['pj'] = $eventData['email'];
+            $data['event_name'] = $eventData['name'];
+            $data['tanggal'] = $eventData['date_start']." - ".$eventData['date_end'];
             $data['email'] = $dataApproval['email'];
 
-			$layout = view('email/request',$data);
+            $layout = view('email/request',$data);
 		}elseif($eventData['status']==2){
             $data['subject'] = "DAMKAR | Approved ".$eventData['name'];
 			$data['title'] = "Approved ";
     		$data['email'] =$eventData['email'];
+            $data['category_name'] = $eventData['category_name'];
+            $data['office_name'] = $eventData['office_name'];
+            $data['location'] =$eventData['location']."( ".$eventData['location_lat'].",".$eventData['location_long']." )";
+            $data['pj'] = $eventData['email'];
+            $data['event_name'] = $eventData['name'];
+            $data['tanggal'] = $eventData['date_start']." - ".$eventData['date_end'];
+            
 			$layout = view('email/approved',$data);
 		}elseif($eventData['status']==3){
             $data['subject'] = "DAMKAR | Rejected ".$eventData['name'];
 			$data['title'] = "Rejected ";
     		$data['email'] =$eventData['email'];
+            $data['category_name'] = $eventData['category_name'];
+            $data['office_name'] = $eventData['office_name'];
+            $data['location'] =$eventData['location']."( ".$eventData['location_lat'].",".$eventData['location_long']." )";
+            $data['pj'] = $eventData['email'];
+            $data['event_name'] = $eventData['name'];
+            $data['tanggal'] = $eventData['date_start']." - ".$eventData['date_end'];
+            
 			$layout = view('email/rejected',$data);
 		}
         if($eventData['status']!=0){
