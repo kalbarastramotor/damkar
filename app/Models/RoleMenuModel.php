@@ -17,7 +17,8 @@ class RoleMenuModel extends Model
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = ['role_menu_id', 'menuid', 'roleid'];
-
+    protected $request;
+    protected $db;
     public function __construct(RequestInterface $request)
     {
         parent::__construct();

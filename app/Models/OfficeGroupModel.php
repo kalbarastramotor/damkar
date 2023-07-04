@@ -16,7 +16,9 @@ class OfficeGroupModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [ 'code'];
+    protected $allowedFields    = ['code'];
+    protected $request;
+    protected $db;
 
     public function __construct(RequestInterface $request)
     {
@@ -35,5 +37,4 @@ class OfficeGroupModel extends Model
         $data = $query->get()->getResult();
         return $data;
     }
-
 }

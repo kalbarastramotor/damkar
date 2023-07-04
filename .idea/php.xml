@@ -100,6 +100,7 @@
       <path value="$PROJECT_DIR$/vendor/nexusphp/tachycardia" />
       <path value="$PROJECT_DIR$/vendor/nexusphp/cs-config" />
       <path value="$PROJECT_DIR$/vendor/composer" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/deprecations" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.4">

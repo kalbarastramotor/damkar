@@ -16,7 +16,10 @@ class EventActivityModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [ 'date','eventid', 'images', 'status','notes','userid'];
+    protected $allowedFields    = ['date', 'eventid', 'images', 'status', 'notes', 'userid'];
+
+    protected $request;
+    protected $db;
 
     public function __construct(RequestInterface $request)
     {
@@ -25,29 +28,32 @@ class EventActivityModel extends Model
         $this->request = $request;
     }
 
-    public function getActivityEvent(){
+    public function getActivityEvent()
+    {
         $where = ['eventid' => $this->request->getPost('eventid')];
         $query = $this->db->table($this->table);
         $query->where($where);
         $data = $query->get()->getResult();
         return $data;
     }
-    public function getActivityEventImage($eventid){
-        $where = ['eventid' =>$eventid];
+    public function getActivityEventImage($eventid)
+    {
+        $where = ['eventid' => $eventid];
         $query = $this->db->table($this->table);
         $query->where($where);
         $data = $query->get()->getResult();
         return $data;
     }
-    public function getImageFile($eventid,$date)
+    public function getImageFile($eventid, $date)
     {
         $query = $this->db->table($this->table);
-        $where = ['eventid' =>  $eventid,'date'=>$date];
+        $where = ['eventid' =>  $eventid, 'date' => $date];
         $query->where($where);
         $data = $query->get()->getRowArray();
         return $data;
     }
-    public function getActivityEventByID($eventid){
+    public function getActivityEventByID($eventid)
+    {
         $arrayChar = array();
         $char = range('S', 'Z');
         foreach ($char as $abjad) {
@@ -58,21 +64,20 @@ class EventActivityModel extends Model
         $query = $this->db->table($this->table);
         $query->where($where);
         $data = $query->get()->getResult();
-      
+
         $results = array();
         foreach ($data as $key => $value) {
             $value->abjad = $arrayChar[$key];
             $results[] = $value;
         }
-        
-        return $results;
 
+        return $results;
     }
 
-    public function getActivityAllImages(){
+    public function getActivityAllImages()
+    {
         $query = $this->db->table($this->table);
         $data = $query->get()->getResult();
         return $data;
     }
-    
 }

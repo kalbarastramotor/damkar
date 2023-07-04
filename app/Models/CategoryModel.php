@@ -10,7 +10,7 @@ class CategoryModel extends Model
     protected $DBGroup          = 'default';
     protected $table            = 'tb_events_category';
     protected $primaryKey       = 'id';
-    protected $allowedFields    = [ 'name', 'code'];
+    protected $allowedFields    = ['name', 'code'];
 
 
     protected $column_order = ['name', 'code'];
@@ -26,7 +26,6 @@ class CategoryModel extends Model
         $this->db = db_connect();
         $this->request = $request;
         $this->dt = $this->db->table($this->table);
-      
     }
 
     private function getDatatablesQuery()

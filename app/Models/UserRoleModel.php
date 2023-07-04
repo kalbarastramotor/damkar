@@ -17,7 +17,8 @@ class UserRoleModel extends Model
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = ['user_role_id', 'userid', 'roleid','area'];
-
+    protected $request;
+    protected $db;
     public function __construct(RequestInterface $request)
     {
         parent::__construct();
