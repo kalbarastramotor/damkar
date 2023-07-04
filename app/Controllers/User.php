@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 // use CodeIgniter\RESTful\ResourceController;
 use \App\Libraries\Oauth;
+use mysql_xdevapi\Session;
 use \OAuth2\Request;
 use CodeIgniter\API\ResponseTrait;
 use App\Models\UserModel;
@@ -17,6 +18,17 @@ use Config\Services;
 class User extends BaseController
 {
 	use ResponseTrait;
+
+    protected UserModel $userModel;
+    protected UserOfficeModel $userOfficeModel;
+    protected UserRoleModel $userRoleModel;
+    protected RoleModel $roleModel;
+
+    protected Oauth $oauth;
+    protected Request $requestOauth;
+
+    protected $session;
+    protected $request;
 
     public function __construct()
     {
@@ -109,10 +121,8 @@ class User extends BaseController
 
     public function login(){
 	
-
 		$respond = $this->oauth->server->handleTokenRequest($this->requestOauth->createFromGlobals());
-       
-       
+
         $code = $respond->getStatusCode();
 		$body = json_decode($respond->getResponseBody());
         

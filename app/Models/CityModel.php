@@ -15,7 +15,8 @@ class CityModel extends Model
     protected $insertID         = 0;
     protected $protectFields    = true;
     protected $allowedFields    = [];
-
+    protected $request;
+    protected $db;
     public function __construct(RequestInterface $request)
     {
         parent::__construct();
@@ -25,13 +26,12 @@ class CityModel extends Model
     public function optionData()
     {
         $query = $this->db->table($this->table);
-        if(isset($_GET['search'])){
-            $where = ['name' => $_GET['search'] ];
+        if (isset($_GET['search'])) {
+            $where = ['name' => $_GET['search']];
             $query->like($where);
         }
         $query->limit(5);
         $data = $query->get()->getResult();
         return $data;
     }
-
 }

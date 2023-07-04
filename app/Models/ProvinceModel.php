@@ -15,7 +15,8 @@ class ProvinceModel extends Model
     protected $insertID         = 0;
     protected $protectFields    = true;
     protected $allowedFields    = [];
-
+    protected $request;
+    protected $db;
     public function __construct(RequestInterface $request)
     {
         parent::__construct();

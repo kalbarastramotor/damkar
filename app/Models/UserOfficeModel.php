@@ -18,6 +18,9 @@ class UserOfficeModel extends Model
     protected $protectFields    = true;
     protected $allowedFields    = ['user_orrice_id', 'userid', 'officeid', 'status', 'date_start', 'date_end'];
 
+    protected $request;
+    protected $db;
+
     public function __construct(RequestInterface $request)
     {
         parent::__construct();

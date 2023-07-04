@@ -55,6 +55,7 @@ class RoleModel extends Model
     protected $request;
     protected $db;
     protected $dt;
+    protected $detail;
 
     public function __construct(RequestInterface $request)
     {

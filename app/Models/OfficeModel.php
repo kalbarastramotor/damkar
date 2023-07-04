@@ -4,7 +4,6 @@ namespace App\Models;
 
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\Model;
-
 class OfficeModel extends Model
 {
     protected $DBGroup          = 'default';

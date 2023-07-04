@@ -8,6 +8,12 @@ use Config\Services;
 
 class Category extends BaseController
 {
+    protected $officeModel;
+    public $request;
+   
+    protected $session;
+    protected $data_session;
+
     public function __construct()
     {
         $this->request = Services::request();

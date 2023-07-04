@@ -16,7 +16,9 @@ class EventHistoryModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [ 'userid','notes','status','create_time','eventid','role_code'];
+    protected $allowedFields    = ['userid', 'notes', 'status', 'create_time', 'eventid', 'role_code'];
+    protected $request;
+    protected $dt;
 
     public function __construct(RequestInterface $request)
     {
@@ -25,7 +27,8 @@ class EventHistoryModel extends Model
         $this->request = $request;
     }
 
-    public function getHistoryEvent($id){
+    public function getHistoryEvent($id)
+    {
         $where = ['eventid' => $id];
         $query = $this->db->table($this->table);
         $query->join('tb_users', 'tb_users.userid = tb_events_history.userid');
@@ -36,8 +39,9 @@ class EventHistoryModel extends Model
         return $data;
     }
 
-    public function getApproval($id){
-        $where = ['eventid' => $id,'tb_events_history.status'=>2];
+    public function getApproval($id)
+    {
+        $where = ['eventid' => $id, 'tb_events_history.status' => 2];
         $query = $this->db->table($this->table);
         $query->join('tb_users', 'tb_users.userid = tb_events_history.userid');
         $query->select('tb_events_history.role_code');
@@ -45,7 +49,7 @@ class EventHistoryModel extends Model
         $data = $query->get()->getResult();
         $arrayResult = array();
         foreach ($data as $key => $value) {
-            array_push($arrayResult,$value->role_code);
+            array_push($arrayResult, $value->role_code);
         }
         return $arrayResult;
     }
