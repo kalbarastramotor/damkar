@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\EventlistModel;
 use App\Models\OfficeModel;
 use App\Models\ReportAllModel;
 use App\Models\EventModel;
@@ -16,6 +17,20 @@ use Config\Services;
 
 class ExcelReport extends BaseController
 {
+
+    protected OfficeModel $officeModel;
+    protected EventHistoryModel $eventHistoryModel;
+    protected UserModel $userModel;
+    protected ReportAllModel $reportAllModel;
+    protected EventModel $eventModel;
+    protected EventActivityModel $eventActivityModel;
+
+    public $request;
+
+    protected $session;
+
+    protected $data_session;
+
     public function __construct()
     {
         $this->request = Services::request();

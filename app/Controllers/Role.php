@@ -4,15 +4,29 @@ namespace App\Controllers;
 
 
 use App\Controllers\BaseController;
+use App\Libraries\Oauth;
+use App\Libraries\SendEmail;
+use App\Models\EventActivityModel;
 use App\Models\RoleModel;
 use App\Models\RoleMenuModel;
+use App\Models\UserModel;
+use App\Models\UserOfficeModel;
 use App\Models\UserRoleModel;
 
 
 use Config\Services;
+use OAuth2\Request;
 
 class Role extends BaseController
 {
+    protected RoleMenuModel $roleMenuModel;
+    protected UserRoleModel $userRoleModel;
+    protected RoleModel $roleModel;
+
+
+    protected $session;
+    protected $request;
+
     public function __construct()
     {
         $this->request = Services::request();

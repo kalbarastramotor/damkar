@@ -10,10 +10,24 @@ use App\Models\EventModel;
 use App\Models\EventActivityModel;
 use App\Models\EventHistoryModel;
 use \App\Libraries\SendEmail;
+use App\Models\ReportBtlModel;
 use Config\Services;
 
 class ReportAll extends BaseController
 {
+    protected ReportAllModel $reportAllModel;
+    protected OfficeModel $officeModel;
+    protected EventcategoryModel $categoryModel;
+    protected EventModel $eventModel;
+    protected EventHistoryModel $eventHistoryModel;
+    protected EventActivityModel $eventActivityModel;
+
+    public $request;
+
+    protected $session;
+    protected $data_session;
+    protected SendEmail $mail;
+
     public function __construct()
     {
         $this->request = Services::request();

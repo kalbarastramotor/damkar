@@ -4,10 +4,20 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\OfficeGroupModel;
+use App\Models\OfficeModel;
 use Config\Services;
+
+
 
 class OfficeGroup extends BaseController
 {
+    protected OfficeGroupModel $officeGroupModel;
+
+    public $request;
+
+    protected $session;
+    protected $data_session;
+
     public function __construct()
     {
         $this->request = Services::request();

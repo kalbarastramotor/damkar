@@ -9,6 +9,13 @@ use Config\Services;
 
 class Eventcategory extends BaseController
 {
+    protected EventcategoryModel $EventcategoryModel;
+
+    public $request;
+
+    protected $session;
+    protected $data_session;
+
     public function __construct()
     {
         $this->request = Services::request();

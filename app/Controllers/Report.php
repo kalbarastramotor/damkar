@@ -12,6 +12,15 @@ use Config\Services;
 class Report extends BaseController
 {
 
+    protected ProvinceModel $provinceModel;
+    protected OfficeModel $officeModel;
+    protected ReportBtlModel $btlModel;
+
+    public $request;
+
+    protected $session;
+    protected $data_session;
+
     public function __construct()
     {
         $this->request = Services::request();
