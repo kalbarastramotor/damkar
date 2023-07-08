@@ -25,6 +25,7 @@ class Role extends BaseController
 
 
     protected $session;
+    protected $data_session;
     protected $request;
 
     public function __construct()

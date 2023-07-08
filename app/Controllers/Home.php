@@ -478,99 +478,108 @@ class Home extends BaseController
         if ($hasil['status'] == 1 ||  $hasil['status'] == "1") {
             // pengecekan approval berjenjang
             $historyApproval = $this->eventHistoryModel->getApproval($hasil['eventid']);
-
+//            print_r($this->data_session);
+//            print_r($historyApproval);
+//            die();
             // cek akses button
-            if ($this->data_session['rolecode'] == 'staff') {
-                $labelStatus = '<span><span class="badge badge-pill badge-soft-warning font-size-12">Waiting Approval</span></span>';
-                $action = ' 
+
+            if ($_ENV['approval.allow']==1){
+                 if(in_array($this->data_session['rolecode'],$historyApproval)){
+                     $labelStatus ='<span><span class="badge badge-pill badge-soft-primary font-size-12">Approved</span></span>';
+                     $action ='
+                         <button type="button" class="btn btn-primary waves-effect waves-light">Approved</button>
+                     ';
+                 }else{
+                     if(count($historyApproval)==0){
+                         if($this->data_session['rolecode']=='kabag'){
+                             $labelStatus ='<span><span class="badge badge-pill badge-soft-warning font-size-12">Waiting Approval</span></span>';
+                             $action ='
+                                 <button type="button" class="btn btn-success waves-effect waves-light" onclick="approve('.$hasil['eventid'].')">Approve</button>
+                                 <button type="button" class="btn btn-danger waves-effect waves-light" onclick="rejected('.$hasil['eventid'].')">Reject</button>
+                             ';
+                         }else{
+                             $labelStatus ='<span><span class="badge badge-pill badge-soft-warning font-size-12">Waiting Approval</span></span>';
+                             $action ='
+                                 <button type="button" class="btn btn-warning waves-effect waves-light">Waiting Approval</button>
+                             ';
+                         }
+                     }elseif(count($historyApproval)==1 && in_array('spvarea',$historyApproval) ){
+                         if($this->data_session['rolecode']=='kabag'){
+                             $labelStatus ='<span><span class="badge badge-pill badge-soft-warning font-size-12">Waiting Approval</span></span>';
+                             $action ='
+                                 <button type="button" class="btn btn-success waves-effect waves-light" onclick="approve('.$hasil['eventid'].')">Approve</button>
+                                 <button type="button" class="btn btn-danger waves-effect waves-light" onclick="rejected('.$hasil['eventid'].')">Reject</button>
+                             ';
+                         }else{
+                             $labelStatus ='<span><span class="badge badge-pill badge-soft-warning font-size-12">Waiting Approval</span></span>';
+                             $action ='
+                                 <button type="button" class="btn btn-warning waves-effect waves-light">  Waiting Approval</button>
+                             ';
+                         }
+                     }
+
+                 }
+            }else{
+                if ($this->data_session['rolecode'] == 'staff') {
+                    $labelStatus = '<span><span class="badge badge-pill badge-soft-warning font-size-12">Waiting Approval</span></span>';
+                    $action = ' 
                     <button type="button" class="btn btn-warning waves-effect waves-light">Waiting Approval</button>
                 ';
-            } else {
+                } else {
 
-                if (in_array($this->data_session['rolecode'], $historyApproval)) {
-                    if ($this->data_session['id'] == $hasil['userid'] && $this->data_session['rolecode'] == 'spvarea') {
-                        $labelStatus = '<span><span class="badge badge-pill badge-soft-warning font-size-12">Waiting Approval</span></span>';
-                        $action = ' 
+                    if (in_array($this->data_session['rolecode'], $historyApproval)) {
+                        if ($this->data_session['id'] == $hasil['userid'] && $this->data_session['rolecode'] == 'spvarea') {
+                            $labelStatus = '<span><span class="badge badge-pill badge-soft-warning font-size-12">Waiting Approval</span></span>';
+                            $action = ' 
                             <button type="button" class="btn btn-warning waves-effect waves-light">Waiting Approval</button>
                         ';
-                    } else {
-                        $labelStatus = '<span><span class="badge badge-pill badge-soft-primary font-size-12">Approved</span></span>';
-                        $action = ' 
+                        } else {
+                            $labelStatus = '<span><span class="badge badge-pill badge-soft-primary font-size-12">Approved</span></span>';
+                            $action = ' 
                             <button type="button" class="btn btn-primary waves-effect waves-light">Approved</button>
                         ';
-                    }
-                } else {
-                    if (count($historyApproval) == 0) {
-                        if ($this->data_session['rolecode'] == 'spvarea') {
-                            $labelStatus = '<span><span class="badge badge-pill badge-soft-warning font-size-12">Waiting Approval</span></span>';
-                            $action = ' 
-                                <button type="button" class="btn btn-success waves-effect waves-light" onclick="approve(' . $hasil['eventid'] . ')">Approve</button>
-                                <button type="button" class="btn btn-danger waves-effect waves-light" onclick="rejected(' . $hasil['eventid'] . ')">Reject</button>
-                            ';
-                        } else {
-                            $labelStatus = '<span><span class="badge badge-pill badge-soft-warning font-size-12">Waiting Approval </span></span>';
-                            $action = ' 
-                                <button type="button" class="btn btn-warning waves-effect waves-light">Waiting Approval</button>
-                            ';
-                        }
-                    } elseif (count($historyApproval) == 1 && in_array('spvarea', $historyApproval)) {
-                        if ($this->data_session['rolecode'] == 'kabag') {
-                            $labelStatus = '<span><span class="badge badge-pill badge-soft-warning font-size-12">Waiting Approval</span></span>';
-                            $action = ' 
-                                <button type="button" class="btn btn-success waves-effect waves-light" onclick="approve(' . $hasil['eventid'] . ')">Approve</button>
-                                <button type="button" class="btn btn-danger waves-effect waves-light" onclick="rejected(' . $hasil['eventid'] . ')">Reject</button>
-                            ';
-                        } else {
-                            $labelStatus = '<span><span class="badge badge-pill badge-soft-warning font-size-12">Waiting Approval</span></span>';
-                            $action = ' 
-                                <button type="button" class="btn btn-warning waves-effect waves-light"> Waiting Approval</button>
-                            ';
                         }
                     } else {
-                        $action = ' 
+                        if (count($historyApproval) == 0) {
+                            if ($this->data_session['rolecode'] == 'spvarea') {
+                                $labelStatus = '<span><span class="badge badge-pill badge-soft-warning font-size-12">Waiting Approval</span></span>';
+                                $action = ' 
+                                <button type="button" class="btn btn-success waves-effect waves-light" onclick="approve(' . $hasil['eventid'] . ')">Approve</button>
+                                <button type="button" class="btn btn-danger waves-effect waves-light" onclick="rejected(' . $hasil['eventid'] . ')">Reject</button>
+                            ';
+                            } else {
+                                $labelStatus = '<span><span class="badge badge-pill badge-soft-warning font-size-12">Waiting Approval </span></span>';
+                                $action = ' 
                                 <button type="button" class="btn btn-warning waves-effect waves-light">Waiting Approval</button>
                             ';
+                            }
+                        } elseif (count($historyApproval) == 1 && in_array('spvarea', $historyApproval)) {
+                            if ($this->data_session['rolecode'] == 'kabag') {
+                                $labelStatus = '<span><span class="badge badge-pill badge-soft-warning font-size-12">Waiting Approval</span></span>';
+                                $action = ' 
+                                <button type="button" class="btn btn-success waves-effect waves-light" onclick="approve(' . $hasil['eventid'] . ')">Approve</button>
+                                <button type="button" class="btn btn-danger waves-effect waves-light" onclick="rejected(' . $hasil['eventid'] . ')">Reject</button>
+                            ';
+                            } else {
+                                $labelStatus = '<span><span class="badge badge-pill badge-soft-warning font-size-12">Waiting Approval</span></span>';
+                                $action = ' 
+                                <button type="button" class="btn btn-warning waves-effect waves-light"> Waiting Approval</button>
+                            ';
+                            }
+                        } else {
+                            $action = ' 
+                                <button type="button" class="btn btn-warning waves-effect waves-light">Waiting Approval</button>
+                            ';
+                        }
                     }
                 }
-                // if(in_array($this->data_session['rolecode'],$historyApproval)){
-                //     $labelStatus ='<span><span class="badge badge-pill badge-soft-primary font-size-12">Approved</span></span>';
-                //     $action ='
-                //         <button type="button" class="btn btn-primary waves-effect waves-light">Approved</button>
-                //     ';
-                // }else{
-                //     if(count($historyApproval)==0){
-                //         if($this->data_session['rolecode']=='spvarea'){
-                //             $labelStatus ='<span><span class="badge badge-pill badge-soft-warning font-size-12">Waiting Approval</span></span>';
-                //             $action ='
-                //                 <button type="button" class="btn btn-success waves-effect waves-light" onclick="approve('.$hasil['eventid'].')">Approve</button>
-                //                 <button type="button" class="btn btn-danger waves-effect waves-light" onclick="rejected('.$hasil['eventid'].')">Reject</button>
-                //             ';
-                //         }else{
-                //             $labelStatus ='<span><span class="badge badge-pill badge-soft-warning font-size-12">Waiting Approval</span></span>';
-                //             $action ='
-                //                 <button type="button" class="btn btn-warning waves-effect waves-light">Waiting Approval</button>
-                //             ';
-                //         }
-                //     }elseif(count($historyApproval)==1 && in_array('spvarea',$historyApproval) ){
-                //         if($this->data_session['rolecode']=='kabag'){
-                //             $labelStatus ='<span><span class="badge badge-pill badge-soft-warning font-size-12">Waiting Approval</span></span>';
-                //             $action ='
-                //                 <button type="button" class="btn btn-success waves-effect waves-light" onclick="approve('.$hasil['eventid'].')">Approve</button>
-                //                 <button type="button" class="btn btn-danger waves-effect waves-light" onclick="rejected('.$hasil['eventid'].')">Reject</button>
-                //             ';
-                //         }else{
-                //             $labelStatus ='<span><span class="badge badge-pill badge-soft-warning font-size-12">Waiting Approval</span></span>';
-                //             $action ='
-                //                 <button type="button" class="btn btn-warning waves-effect waves-light">  Waiting Approval</button>
-                //             ';
-                //         }
-                //     }
-
-                // }
-
-
-
             }
+
+
+
+
+
+//            }
             // cek akses button
 
         } else if ($hasil['status'] ==  2 ||  $hasil['status'] == "2") {
