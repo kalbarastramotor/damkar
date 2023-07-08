@@ -10,10 +10,24 @@ use App\Models\EventModel;
 use App\Models\EventActivityModel;
 use App\Models\EventHistoryModel;
 use \App\Libraries\SendEmail;
+use App\Models\ReportBtlModel;
 use Config\Services;
 
 class ReportAll extends BaseController
 {
+    protected ReportAllModel $reportAllModel;
+    protected OfficeModel $officeModel;
+    protected EventcategoryModel $categoryModel;
+    protected EventModel $eventModel;
+    protected EventHistoryModel $eventHistoryModel;
+    protected EventActivityModel $eventActivityModel;
+
+    public $request;
+
+    protected $session;
+    protected $data_session;
+    protected SendEmail $mail;
+
     public function __construct()
     {
         $this->request = Services::request();
@@ -127,27 +141,43 @@ class ReportAll extends BaseController
 
     /// email 
     function checkRequestApprove($officeid,$eventid){
-		$dataAtasan = $this->eventModel->getAtasan($officeid);
-		
-        $historyApproval = $this->eventHistoryModel->getApproval($eventid);
-        
-        $dataAtasan['urutan'] = 1;
-        if(count($historyApproval)==1){
-            $dataAtasan['urutan'] = 2;
-        }
-        $dataApproval = array();
-        if($dataAtasan['urutan'] ==1){
-            if (array_key_exists('spvarea', $dataAtasan)) {
-                $dataApproval = $dataAtasan['spvarea'];
+        if ($_ENV['approval.allow']==1){
+            $dataAtasan = $this->eventModel->getAtasanKabag();
+            $historyApproval = $this->eventHistoryModel->getApproval($eventid);
+            $dataAtasan['urutan'] = 1;
+            if(count($historyApproval)==1){
+                $dataAtasan['urutan'] = 2;
             }
-        }
-        if($dataAtasan['urutan'] ==2){
-            if (array_key_exists('kabag', $dataAtasan)) {
-                $dataApproval = $dataAtasan['kabag'];
+            if($dataAtasan['urutan'] ==1){
+                if (array_key_exists('kabag', $dataAtasan)) {
+                    $dataApproval = $dataAtasan['kabag'];
+                }
             }
+            return $dataApproval;
+        }else{
+            $dataAtasan = $this->eventModel->getAtasan($officeid);
+            $historyApproval = $this->eventHistoryModel->getApproval($eventid);
+            $dataAtasan['urutan'] = 1;
+            if(count($historyApproval)==1){
+                $dataAtasan['urutan'] = 2;
+            }
+            $dataApproval = array();
+            if($dataAtasan['urutan'] ==1){
+                if (array_key_exists('spvarea', $dataAtasan)) {
+                    $dataApproval = $dataAtasan['spvarea'];
+                }
+            }
+            if($dataAtasan['urutan'] ==2){
+                if (array_key_exists('kabag', $dataAtasan)) {
+                    $dataApproval = $dataAtasan['kabag'];
+                }
+            }
+            return $dataApproval;
+
         }
 
-		return $dataApproval;
+
+
 	}
 	function SendEmailCron(){
       
@@ -211,45 +241,75 @@ class ReportAll extends BaseController
   
     public function status()
     {
-        print_r(ENV);
-        die();
-      
-        $sess = $this->data_session;
-        $_POST['userid'] =  $sess['id'];
-        $_POST['role_code'] =  $sess['rolecode'];
+        if ($_ENV['approval.allow']==1){
+            $sess = $this->data_session;
+            $_POST['userid'] =  $sess['id'];
+            $_POST['role_code'] =  $sess['rolecode'];
 
-        if($_POST['status']==2){
-            $historyApproval = $this->eventHistoryModel->getApproval($_POST['eventid']);
-            if(count($historyApproval)>=1){
+            $data = array(
+                'status'=> $_POST['status']
+            );
+            $hasil = $this->eventModel->where('eventid',$_POST['eventid'])->set($data)->update();
+            $insert = $this->eventHistoryModel->insert($_POST);
+
+
+
+            if($_POST['status']==1 &&  $_POST['role_code'] =="kabag"){
+                $_POST['notes']  ="Appoved By System";
+                $_POST['userid'] =  0;
+                $_POST['role_code'] = "System";
+                $data = array(
+                    'status'=> 2
+                );
+
+                $hasil = $this->eventModel->where('eventid',$_POST['eventid'])->set($data)->update();
+                $insert = $this->eventHistoryModel->insert($_POST);
+
+            }
+            if($insert!=0){
+                successJsonResponse($insert);
+            }else{
+                failedJsonResponse($insert);
+            }
+        }else{
+            $sess = $this->data_session;
+            $_POST['userid'] =  $sess['id'];
+            $_POST['role_code'] =  $sess['rolecode'];
+
+            if($_POST['status']==2){
+                $historyApproval = $this->eventHistoryModel->getApproval($_POST['eventid']);
+                if(count($historyApproval)>=1){
+                    $data = array(
+                        'status'=> $_POST['status']
+                    );
+                    $hasil = $this->eventModel->where('eventid',$_POST['eventid'])->set($data)->update();
+                }
+            }else{
                 $data = array(
                     'status'=> $_POST['status']
                 );
                 $hasil = $this->eventModel->where('eventid',$_POST['eventid'])->set($data)->update();
             }
-        }else{
-            $data = array(
-                'status'=> $_POST['status']
-            );
-            $hasil = $this->eventModel->where('eventid',$_POST['eventid'])->set($data)->update();
-        }
-      
-        $insert = $this->eventHistoryModel->insert($_POST);
-		$eventData = $this->eventModel->DataEventByID($_POST['eventid']);
-         
-        if($_SESSION['rolecode']=='spvarea' && $_SESSION['id']==$eventData['userid']){
-            $dataLog=array();
-            $dataLog['notes'] = 'Approved by '.$_SESSION['name'].' - '.$_SESSION['office_name'];
-            $dataLog['eventid'] = $_POST['eventid'];
-            $dataLog['status'] = 2;
-            $dataLog['userid'] =  $sess['id'];
-            $dataLog['role_code'] =  $sess['rolecode'];
-            $insertAreaAutoApprove = $this->eventHistoryModel->insert($dataLog);
+
+            $insert = $this->eventHistoryModel->insert($_POST);
+            $eventData = $this->eventModel->DataEventByID($_POST['eventid']);
+
+            if($_SESSION['rolecode']=='spvarea' && $_SESSION['id']==$eventData['userid']){
+                $dataLog=array();
+                $dataLog['notes'] = 'Approved by '.$_SESSION['name'].' - '.$_SESSION['office_name'];
+                $dataLog['eventid'] = $_POST['eventid'];
+                $dataLog['status'] = 2;
+                $dataLog['userid'] =  $sess['id'];
+                $dataLog['role_code'] =  $sess['rolecode'];
+                $insertAreaAutoApprove = $this->eventHistoryModel->insert($dataLog);
+            }
+
+            $response = array();
+            $response['insert_log'] = $insert;
+
+            successJsonResponseAll($response);
         }
 
-        $response = array();
-        $response['insert_log'] = $insert;
-
-        successJsonResponseAll($response); 
         
     }
     public function data()

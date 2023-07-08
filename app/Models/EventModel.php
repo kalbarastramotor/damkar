@@ -312,4 +312,20 @@ class EventModel extends Model
         }
         return $arrayData;
     }
+    public function getAtasanKabag()
+    {
+        $query = $this->db->table("tb_office as to2");
+        $query->select('to2.officeid,to2.office_name,tu.userid,tu.fullname,tu.email,tu.phone,tr.roleid,tr.name,tur.area,tr.routes');
+        $query->join('tb_users_office tuo', 'tuo.officeid = to2.officeid');
+        $query->join('tb_users tu', 'tu.userid=tuo.userid');
+        $query->join('tb_users_role tur', 'tur.userid=tu.userid');
+        $query->join('tb_role tr', 'tr.roleid=tur.roleid');
+        $query->where('tr.roleid','2');
+        $query->where('tu.banned','0');
+        $arrayData = array();
+        foreach (json_decode(json_encode($query->get()->getResult()), true) as $key => $value) {
+            $arrayData[$value['routes']] = $value;
+        }
+        return $arrayData;
+    }
 }

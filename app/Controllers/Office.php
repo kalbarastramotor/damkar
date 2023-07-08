@@ -3,11 +3,19 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Models\MenuModel;
 use App\Models\OfficeModel;
 use Config\Services;
 
 class Office extends BaseController
 {
+    protected OfficeModel $officeModel;
+
+    public $request;
+
+    protected $session;
+    protected $data_session;
+
     public function __construct()
     {
         $this->request = Services::request();

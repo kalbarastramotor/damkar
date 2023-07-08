@@ -10,9 +10,19 @@ use App\Models\UserRoleModel;
 
 
 use Config\Services;
+use OAuth2\Request;
 
 class Crontab extends BaseController
 {
+    protected RoleMenuModel $roleMenuModel;
+    protected RoleModel $roleModel;
+    protected UserRoleModel $userRoleModel;
+
+    public $request;
+
+    protected $session;
+    protected $data_session;
+
     public function __construct()
     {
         $this->request = Services::request();

@@ -15,17 +15,24 @@ class City extends BaseController
 {
 	use ResponseTrait;
 
+    protected CityModel $cityModel;
+
+    protected Oauth $oauth;
+    protected Request $requestOauth;
+
+    public $request;
+
+    protected $session;
+    protected $data_session;
+
     public function __construct()
     {
         $this->request = Services::request();
         $this->cityModel = new CityModel($this->request);
-
         $this->oauth = new Oauth();
 		$this->requestOauth = new Request();
+        $this->session = session();
 
-        $this->session = session(); 
-
-     
     }
    
     public function optionData()

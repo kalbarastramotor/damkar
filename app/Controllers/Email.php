@@ -3,12 +3,20 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use \App\Libraries\SendEmail;
+use App\Models\EventcategoryModel;
 use App\Models\EventModel;
 use App\Models\EventHistoryModel;
 use Config\Services;
 
 class Email extends BaseController {
-    
+
+    protected EventModel $eventModel;
+    protected EventHistoryModel $eventHistoryModel;
+
+    public $request;
+
+    protected SendEmail $mail;
+
     public function __construct() {
         $this->request = Services::request();
 		$this->mail = new SendEmail();  

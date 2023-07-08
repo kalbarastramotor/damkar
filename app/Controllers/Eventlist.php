@@ -4,12 +4,22 @@ namespace App\Controllers;
 
 
 use App\Controllers\BaseController;
+use App\Models\EventcategoryModel;
 use App\Models\EventlistModel;
 use App\Models\EventHistoryModel;
 use Config\Services;
 
 class Eventlist extends BaseController
 {
+
+    protected EventlistModel $EventlistModel;
+    protected EventHistoryModel $eventHistoryModel;
+
+    public $request;
+
+    protected $session;
+    protected $data_session;
+
     public function __construct()
     {
         $this->request = Services::request();

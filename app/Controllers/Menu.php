@@ -4,10 +4,18 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\MenuModel;
+use App\Models\UserRoleModel;
 use Config\Services;
 
 class Menu extends BaseController
 {
+    protected MenuModel $menuModel;
+
+    public $request;
+
+    protected $session;
+    protected $data_session;
+
     public function __construct()
     {
         $this->request = Services::request();
