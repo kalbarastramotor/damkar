@@ -34,7 +34,7 @@ class EventModel extends Model
         $this->db = db_connect();
         $this->request = $request;
         $this->dt = $this->db->table($this->table);
-        $this->dt->select('tb_events.eventid, tb_events.name, tb_events.cover, tb_events.date_start, tb_events.date_end, tb_events.status, tb_events.location_lat, tb_events.location_long, tb_events.description, tb_events.documentid, tb_events.officeid, tb_events.categoryid, tb_events.month, tb_events.year, tb_events.target, tb_events.butget, tb_events.target_visitor, tb_events.actual_visitor, tb_events.target_sell, tb_events.actual_sell,tb_office.officeid,tb_office.office_code,tb_office.office_name,tb_events_category.name as category_name,tb_events.userid,tb_office.office_group');
+        $this->dt->select('tb_events.eventid, tb_events.name, tb_events.cover, tb_events.date_start, tb_events.date_end, tb_events.status, tb_events.location_lat, tb_events.location_long, tb_events.description, tb_events.documentid, tb_events.officeid, tb_events.categoryid, tb_events.month, tb_events.year, tb_events.target, tb_events.butget, tb_events.target_visitor, tb_events.actual_visitor, tb_events.target_sell, tb_events.actual_sell,tb_office.officeid,tb_office.office_code,tb_office.office_name,tb_events_category.name as category_name,tb_events.userid,tb_office.office_group,tb_events.type_evidence,tb_events.evidence');
         $this->dt->join('tb_office', 'tb_office.officeid = tb_events.officeid');
         $this->dt->join('tb_events_category', 'tb_events_category.id = tb_events.categoryid');
     }
@@ -189,7 +189,7 @@ class EventModel extends Model
     public function getDataEventByID()
     {
         $query = $this->db->table($this->table);
-        $query->select('tb_events.userid,tb_events.eventid,tb_events.location, tb_events.name, tb_events.cover, tb_events.date_start, tb_events.date_end, tb_events.status, tb_events.location_lat, tb_events.location_long, tb_events.description, tb_events.documentid, tb_events.officeid, tb_events.categoryid, tb_events.month, tb_events.year, tb_events.target, tb_events.butget, tb_events.target_visitor, tb_events.actual_visitor, tb_events.target_sell, tb_events.actual_sell,tb_office.officeid,tb_office.office_code,tb_office.office_name,tb_events_category.name as category_name, tb_events.target_prospect, tb_events.target_actual_prospect,tb_events.target_riding,tb_events.actual_riding');
+        $query->select('tb_events.userid,tb_events.eventid,tb_events.location, tb_events.name, tb_events.cover, tb_events.date_start, tb_events.date_end, tb_events.status, tb_events.location_lat, tb_events.location_long, tb_events.description, tb_events.documentid, tb_events.officeid, tb_events.categoryid, tb_events.month, tb_events.year, tb_events.target, tb_events.butget, tb_events.target_visitor, tb_events.actual_visitor, tb_events.target_sell, tb_events.actual_sell,tb_office.officeid,tb_office.office_code,tb_office.office_name,tb_events_category.name as category_name, tb_events.target_prospect, tb_events.target_actual_prospect,tb_events.target_riding,tb_events.actual_riding,tb_events.type_evidence,tb_events.evidence');
         $query->join('tb_office', 'tb_office.officeid = tb_events.officeid');
         $query->join('tb_events_category', 'tb_events_category.id = tb_events.categoryid');
         $query->where('tb_events.eventid', $this->request->getPost('id'));

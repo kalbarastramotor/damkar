@@ -9,6 +9,7 @@ use App\Models\UserModel;
 use App\Models\EventHistoryModel;
 use App\Models\EventActivityModel;
 use Config\Services;
+use function PHPUnit\Framework\isEmpty;
 
 class Home extends BaseController
 {
@@ -163,7 +164,10 @@ class Home extends BaseController
 
                 $labelStatus = '<span><span class="badge badge-pill badge-soft-success font-size-12">Unknown</span></span>';
 
-                $buttonDefault = '<a class="dropdown-item" type="button" onclick="detail_event(' . $list->eventid . ')" >Detail</a>';
+                $buttonDefault = '
+                    <a class="dropdown-item" type="button" onclick="detail_event(' . $list->eventid . ')" >Detail</a>
+                    <a class="dropdown-item" type="button" onclick="detail_evidence(' . $list->eventid . ')" >Evidence</a>
+                ';
                 $buttonActionList = '';
                 if ($list->status == 1 ||  $list->status == "1") {
 
@@ -197,12 +201,12 @@ class Home extends BaseController
                     $buttonActionList =  $this->buttonEditEvent($list->eventid, $list->userid);
                 } else if ($list->status == 4 ||  $list->status == "4") {
                     $labelStatus = '<span><span class="badge badge-pill badge-soft-info font-size-12">Running</span></span>';
-                    if ($this->data_session['id'] == $list->userid) {
+                    if ($this->data_session['id'] == $list->userid && $list->evidence!="") {
                         $buttonActionList = '<a class="dropdown-item" type="button" onclick="getFormUpload(' . $list->eventid . ',' . $days_between . ',\'' . date_format(date_create($list->date_start), "Y-m") . '\',\'' . date_format(date_create($list->date_start), "d") . '\')" >Upload Images</a>';
                     }
                 } else if ($list->status == 5 ||  $list->status == "5") {
                     $labelStatus = '<span><span class="badge badge-pill badge-soft-success font-size-12">Done</span></span>';
-                    if ($this->data_session['id'] == $list->userid) {
+                    if ($this->data_session['id'] == $list->userid && $list->evidence!="" ) {
                         $buttonActionList = '<a class="dropdown-item" type="button" onclick="getFormUpload(' . $list->eventid . ',' . $days_between . ',\'' . date_format(date_create($list->date_start), "Y-m") . '\',\'' . date_format(date_create($list->date_start), "d") . '\')" >Upload Images</a>';
                     }
                 } else if ($list->status == 0 ||  $list->status == "0") {
@@ -250,6 +254,8 @@ class Home extends BaseController
     public function buttonEditEvent($eventid, $createdid)
     {
         $btn = '';
+
+
         if ($_SESSION['id'] == $createdid) {
             $btn = '
             <a class="dropdown-item" type="button" onclick="edit_event(' . $eventid . ')" >Edit</a>
@@ -260,7 +266,6 @@ class Home extends BaseController
     }
     public function datamaster()
     {
-
         $data = array(
             "header" => $this->data_session,
             "title" => "Data Menu",
@@ -475,6 +480,7 @@ class Home extends BaseController
 
         $labelStatus = '<span><span class="badge badge-pill badge-soft-warning font-size-12">Waiting Approval</span></span>';
         $action = '';
+
         if ($hasil['status'] == 1 ||  $hasil['status'] == "1") {
             // pengecekan approval berjenjang
             $historyApproval = $this->eventHistoryModel->getApproval($hasil['eventid']);

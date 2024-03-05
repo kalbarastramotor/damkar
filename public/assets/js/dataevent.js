@@ -2086,5 +2086,89 @@ $("#button-update-eventlist").click(function(e) {
 });
 
 
+
+function detail_evidence(id) {
+    $('#myModal_evidence').modal({ backdrop: 'static', keyboard: false });
+    $('#myModal_evidence').modal('show');
+    // alert(id);
+    console.log(id)
+    // $.ajax({
+    //     url: base_url + "/api/event/eventbyid",
+    //     dataType: 'json',
+    //     headers: {
+    //         "Authorization": "Bearer " + token,
+    //     },
+    //     data: {
+    //         id: id
+    //     },
+    //     type: 'post',
+    //     success: function(e) {
+    //
+    //         $("#id-dealer-code").text(e.data.office_code);
+    //         $("#id-dealer-name").text(e.data.office_name);
+    //         $("#id-event-name").text(e.data.name);
+    //         $("#id-target-visitor").text(e.data.target_visitor);
+    //         $("#id-target-sell").text(e.data.target_sell);
+    //
+    //         $("#id-target-riding").text(e.data.target_riding);
+    //         $("#id-actual-riding").text(e.data.actual_riding);
+    //
+    //
+    //         $("#id-actual-sell").text(e.data.actual_sell);
+    //         $("#id-actual-visitor").text(e.data.actual_visitor);
+    //
+    //
+    //         $("#id-target-prospect-text").text(e.data.target_prospect);
+    //         $("#id-target-actual-text").text(e.data.target_actual_prospect);
+    //
+    //         if(parseInt(e.data.target_actual_prospect) == 0){
+    //             $("#id-target-actual-persen").text("0%");
+    //         }else{
+    //             var pre = Math.round((parseInt(e.data.target_actual_prospect) * 100) / parseInt(e.data.target_prospect));
+    //             if(pre >= 100){
+    //                 $("#id-target-actual-persen").text("100%");
+    //             }else{
+    //                 $("#id-target-actual-persen").text(pre+"%");
+    //             }
+    //         }
+    //
+    //
+    //         $("#id-event-days").text(e.data.days + " Hari");
+    //         $("#id-event-kategori").text(e.data.category_name);
+    //
+    //         let number = e.data.butget;
+    //         let nf = new Intl.NumberFormat('en-ID');
+    //         nf.format(number);
+    //
+    //
+    //         $("#id-event-biaya").html("Rp." + nf.format(number))
+    //
+    //         $("#id-event-durasi").text(e.data.durasi);
+    //         $("#id-event-status").html(e.data.status_event);
+    //         $("#id-created-by").text(e.data.users.fullname);
+    //         $("#id-event-action").html(e.data.action);
+    //         $("#id-event-action-history").html(e.data.action_history);
+    //         $("#id-event-cover").html('<a href="' + base_url+'/uploads/cover/'+e.data.cover+ '" target="_blank"><img class="img-thumbnail" alt="200x200"  width="200" src="' + base_url+'/uploads/cover/'+e.data.cover+ '" data-holder-rendered="true" /></a>');
+    //
+    //         htmlDetail = "";
+    //         e.detail.forEach(element => {
+    //             htmlDetail += element.posisi;
+    //         });
+    //
+    //         $("#data-image").html(htmlDetail);
+    //
+    //     },
+    //     error: function(XMLHttpRequest, textStatus, errorThrown) {
+    //         const myJSON = JSON.parse(XMLHttpRequest.responseText)
+    //
+    //         if (myJSON.error == "invalid_token") {
+    //             alertify.error('Session anda selesai');
+    //             localStorage.removeItem("token");
+    //             location.href = base_url;
+    //         }
+    //     }
+    // });
+
+}
 // end edit show
 

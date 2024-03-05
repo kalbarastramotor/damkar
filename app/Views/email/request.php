@@ -128,7 +128,7 @@
                               <tr>
                                 <td class="pad" style="width:100%;">
                                   <div align="center" class="alignment" style="line-height:10px">
-                                    <img alt="reset-password" class="big" src="https://damkar.id/public/assets/images/damkar.png?cache=1" style="display: block; height: auto; border: 0; width: 350px; max-width: 100%;" title="reset-password" width="350" />
+                                    <img alt="icon-damkar" class="big" src="https://damkar.id/public/assets/images/damkar.png?cache=1" style="display: block; height: auto; border: 0; width: 350px; max-width: 100%;" title="reset-password" width="350" />
                                   </div>
                                 </td>
                               </tr>

@@ -239,10 +239,13 @@
                       </td>
                     </tr>
 
-                   <input type="text" class="userid_session" value="<?=$_SESSION['id'];?>" hidden="hidden"/>
-                   <input type="text" class="rolecode_session"  value="<?=$_SESSION['rolecode'];?>" hidden="hidden"//>
-                   <input type="text" class="area_session"  value="<?=join(",", $_SESSION['area']);?>" hidden="hidden"//>
 
+                   <input type="text" class="userid_session" value="<?=isset($_SESSION['id']);?>" hidden="hidden"/>
+                   <input type="text" class="rolecode_session"  value="<?=isset($_SESSION['rolecode']);?>" hidden="hidden"//>
+                  <?php
+                  if (isset($_SESSION['area']) ){ ?>
+                   <input type="text" class="area_session"  value="<?=join(",", $_SESSION['area']);?>" hidden="hidden"//>
+                    <?php } ?>
                     <tr>
                       <th class="text-nowrap" scope="row">Download</th>
                       <td class="filter-month-select2">
@@ -851,3 +854,68 @@
   </div>
 </div>
   <!-- end edit event -->
+
+
+<div id="myModal_evidence" class="modal fade bs-example-modal-xl" aria-labelledby="myModalLabel" aria-hidden="true" data-bs-scroll="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div id="spinner-div" class="pt-5">
+                <div class="spinner-border text-primary" role="status">
+                </div>
+            </div>
+
+            <div class="modal-header text-center">
+                <h5 class="modal-title" id="myModalLabel">Evidence Event</h5>
+                <button type="button" class="btn-close close-detail-data" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="invoice-title">
+                            <div class="table-responsive">
+                                <table class="table table-striped mb-0">
+                                    <tbody>
+                                    <tr>
+                                        <td id="id-event-name">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+                                                <label class="form-check-label" for="exampleRadios1">
+                                                    Images
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+                                                <label class="form-check-label" for="exampleRadios2">
+                                                    Url Instagram
+                                                </label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td id="id-event-durasi">
+                                            <input type="text" class="form-control" id="value-evidence" required>
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                                <label class="custom-file-label" for="validationCustom02">Cover Event</label>
+                                                <input type="file" class="form-control custom-file-input" id="eventlist-cover-add" onchange="loadFileCover(event)" accept="image/png, image/jpeg">
+                                                <div id="display_cover">
+                                                </div>
+                                        </td>
+                                    </tr>
+
+
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
